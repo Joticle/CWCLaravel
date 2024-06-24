@@ -17483,6 +17483,12 @@ nav ul li a {
   font-weight: 600;
   line-height: 54px;
   margin-top: 25px;
+  max-width: 68%;
+}
+@media only screen and (max-width: 991px) {
+  .single-course-left-align-wrapper .title {
+    max-width: 100%;
+  }
 }
 @media only screen and (max-width: 767px) {
   .single-course-left-align-wrapper .title {

@@ -312,7 +312,7 @@
                         @foreach($courses as $course)
                             <div class="col-lg-4 col-md-6 col-sm-12 col-12">
                                 <div class="rts-single-course">
-                                    <a href="#" class="thumbnail">
+                                    <a href="{{$course->getLink()}}" class="thumbnail">
                                         <img src="{{$course->getLogo()}}" alt="course">
                                     </a>
                                     <div class="save-icon">
@@ -333,12 +333,12 @@
                                             <span>0 Students</span>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href="{{$course->getLink()}}">
                                         <h5 class="title">{{$course->name}}</h5>
                                     </a>
                                     {{--<p class="teacher">Dr. Angela Yu</p>--}}
                                     <div class="rating-and-price">
-                                        <a href="#" class="rts-btn btn-border">Detail</a>
+                                        <a href="{{$course->getLink()}}" class="rts-btn btn-border">Detail</a>
                                         <a href="#" class="rts-btn btn-primary">Enroll</a>
                                     </div>
                                 </div>

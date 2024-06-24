@@ -36,6 +36,9 @@ class Courses extends Model
             return asset('images/no-image.jpg');
         }
     }
+    public function getLink(){
+        return route('course.detail',$this->slug);
+    }
     function modules(){
         return $this->hasMany(CourseModules::class,'course_id','id');
     }

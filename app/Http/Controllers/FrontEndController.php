@@ -38,19 +38,4 @@ class FrontEndController extends Controller
         Auth::logout();
         return redirect()->to(route('index'));
     }
-    function courses(){
-        $data = [];
-        $data['title'] = 'All Courses';
-        //$data['description'] = 'All Courses';
-        $breadcrumb = [];
-        $breadcrumb['Home'] = route('index');
-        $breadcrumb['All Courses'] = '';
-        $data['breadcrumb'] = $breadcrumb;
-        $today = Carbon::today();
-        $data['courses'] = Courses::where('status','=','1')->where(function ($query) use ($today) {
-            $query->whereNull('end_date')->orWhere('end_date', '>=', $today);
-        })->withCount('modules')->paginate(env('RECORD_PER_PAGE',10));
-
-        return view('courses',$data);
-    }
 }

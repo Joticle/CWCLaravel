@@ -7,6 +7,7 @@ use App\Http\Controllers\Backoffice\CourseController;
 use App\Http\Controllers\Backoffice\CourseMaterialController;
 use App\Http\Controllers\Backoffice\CourseModuleController;
 use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\FrontEndCourseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,8 @@ Route::group(['middleware' => 'web'], function(){
         Route::get('logout', [FrontEndController::class, 'logout'])->name('logout');
 
         Route::group(['middleware' => 'check.user.status'], function(){
-            Route::get('/courses', [FrontEndController::class, 'courses'])->name('courses');
+            Route::get('/courses', [FrontEndCourseController::class, 'courses'])->name('courses');
+            Route::get('/course/{slug}', [FrontEndCourseController::class, 'courseDetail'])->name('course.detail');
 
             /*Profile*/
             Route::get('profile', [HomeController::class, 'profile'])->name('profile');
