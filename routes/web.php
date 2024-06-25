@@ -53,9 +53,14 @@ Route::group(['middleware' => 'web'], function(){
 
         Route::group(['middleware' => 'auth'], function(){
             Route::get('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+
             Route::group(['middleware' => 'check.admin.status'], function(){
 
                 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+                Route::get('/profile', [AdminAuthController::class, 'profile'])->name('profile');
+                Route::post('/profile', [AdminAuthController::class, 'profilePost'])->name('profile.post');
+                Route::post('/profile/updatePassword', [AdminAuthController::class, 'updatePassword'])->name('profile.updatePassword');
 
                 /*Courses*/
                 Route::group(['prefix' => 'course','as' => 'course.'], function(){
