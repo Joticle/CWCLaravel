@@ -51,7 +51,7 @@ Route::group(['middleware' => 'web'], function(){
                 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
                 Route::get('/profile', [AdminAuthController::class, 'profile'])->name('profile');
-                Route::post('/profile', [AdminAuthController::class, 'updateProfile'])->name('profile.post');
+                Route::post('/profile', [AdminAuthController::class, 'profilePost'])->name('profile.post');
 
                 /*Courses*/
                 Route::group(['prefix' => 'course','as' => 'course.'], function(){

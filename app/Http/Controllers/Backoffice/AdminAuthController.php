@@ -57,7 +57,7 @@ class AdminAuthController extends Controller
         return view('backoffice.profile.edit', $data);
     }
 
-    public function updateProfile(Request $request)
+    public function profilePost(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
