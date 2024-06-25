@@ -9,14 +9,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-
         $data = [];
         $data['title'] = 'Dashboard';
+        $breadcrumb = [];
+        $breadcrumb['Home'] = route('index');
+        $breadcrumb['All Courses'] = '';
+        $data['breadcrumb'] = $breadcrumb;
+
+        $user = Auth::user();
         $data['user'] = $user;
-
-        $data['enrolledCount'] = $user->courseEnrolled->count();
-
+        $data['courseEnrolled'] = $user->courseEnrolled;
         return view('dashboard.index', $data);
     }
 }

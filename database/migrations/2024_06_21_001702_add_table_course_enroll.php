@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->date('date')->nullable();
             $table->float('amount')->default(0);
-            $table->enum('status', ['Unpaid', 'Paid'])->default('Unpaid');
+            $table->enum('status', ['Unpaid', 'Paid','Cancel'])->default('Unpaid');
             $table->BigInteger('payment_id')->nullable();
             $table->timestamps();
         });

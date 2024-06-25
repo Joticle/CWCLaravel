@@ -48,7 +48,7 @@ Route::group(['middleware' => 'web'], function(){
 
             // dashboard
             Route::group(['prefix' => 'dashboard','as' => 'dashboard.'], function(){
-                Route::get('index', [DashboardController::class, 'index'])->name('index');
+                Route::get('/', [DashboardController::class, 'index'])->name('index');
             });
         });
     });

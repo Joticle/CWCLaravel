@@ -326,7 +326,7 @@
                                     <div class="lesson-studente">
                                         <div class="lesson">
                                             <i class="fa-light fa-calendar-lines-pen"></i>
-                                            <span>{{$course->modules_count}} Lessons</span>
+                                            <span>{{$course->modules_count}} {{ Str::plural('Lesson', $course->modules_count) }}</span>
                                         </div>
                                         <div class="lesson">
                                             <i class="fa-light fa-user-group"></i>
@@ -342,7 +342,7 @@
                                         @if($course->enrolled())
                                             <a href="{{$course->getLink()}}" class="rts-btn btn-success text-white"><i class="fa fa-check"></i> Enrolled</a>
                                         @else
-                                            <a href="{{route('course.enroll',$course->slug)}}" class="rts-btn btn-primary">Enroll</a>
+                                            <a href="{{route('course.enroll',$course->slug)}}" class="rts-btn btn-primary">Enroll Now</a>
                                         @endif
                                     </div>
                                 </div>

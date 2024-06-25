@@ -57,4 +57,7 @@ class User extends Authenticatable
     public function courseEnrolled(){
         return $this->hasMany('\App\Models\CourseEnroll','user_id')->where('status','=','Paid');
     }
+    public function courseOrders(){
+        return $this->hasMany('\App\Models\CourseEnroll','user_id');
+    }
 }

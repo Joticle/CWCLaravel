@@ -1,9 +1,9 @@
 <div class="dashboard-banner-area-wrapper">
     <div class="container">
+
         <div class="row">
             <div class="col-lg-12">
-                <div class="dashboard-banner-area-start bg_image  student-dashboard">
-
+                <div class="dashboard-banner-area-start bg_image" style="background-image:{{asset('site-assets/images/dashboard/01.jpg')}}">
                     <div class="author-profile-image-and-name">
                         <div class="profile-pic">
                             <img style="height: 200px;" src="{{ auth()->user()->getThumbnail() }}" alt="dashboard">

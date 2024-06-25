@@ -7,10 +7,10 @@
                 <!-- single dashboard-card -->
                 <div class="single-dashboard-card">
                     <div class="icon">
-                        <i class="fa-light fa-book-open-cover"></i>
+                        <i class="fa-sharp fa-light fa-book-open-cover"></i>
                     </div>
-                    <h5 class="title"><span class="counter">{{ $enrolledCount }}</span></h5>
-                    <p>Enrolled {{ Str::plural('Course', $enrolledCount) }}</p>
+                    <h5 class="title"><span class="counter">{{ $courseEnrolled->count() }}</span></h5>
+                    <p>Enrolled {{ Str::plural('Course', $courseEnrolled->count()) }}</p>
                 </div>
                 <!-- single dashboard-card end -->
             </div>
@@ -18,10 +18,10 @@
                 <!-- single dashboard-card -->
                 <div class="single-dashboard-card">
                     <div class="icon">
-                        <i class="fa-regular fa-graduation-cap"></i>
+                        <i class="fa-sharp fa-light fa-bookmark"></i>
                     </div>
-                    <h5 class="title"><span class="counter">10</span></h5>
-                    <p>Active Courses</p>
+                    <h5 class="title"><span class="counter">0</span></h5>
+                    <p>Wishlist</p>
                 </div>
                 <!-- single dashboard-card end -->
             </div>
@@ -29,15 +29,13 @@
                 <!-- single dashboard-card -->
                 <div class="single-dashboard-card">
                     <div class="icon">
-                        <i class="fa-light fa-trophy"></i>
+                        <i class="fa-sharp fa-light fa-bag-shopping"></i>
                     </div>
-                    <h5 class="title"><span class="counter">36</span></h5>
-                    <p>Completed Courses</p>
+                    <h5 class="title"><span class="counter">{{ $user->courseOrders->count() }}</span></h5>
+                    <p>Total Orders</p>
                 </div>
                 <!-- single dashboard-card end -->
             </div>
-
         </div>
-
     </div>
 @endsection
