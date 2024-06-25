@@ -46,7 +46,7 @@ class User extends Authenticatable
         $value = $this->thumbnail;
         if($value != ""){
             $uploadingPath = public_path('/uploads/user/'.$this->id);
-            return Storage::disk('public')->url($value);
+            return asset('/uploads/user/'.$this->id.'/'.$value);
         } else {
             return asset('images/profile.png');
         }

@@ -161,4 +161,31 @@
 @endsection
 
 @section('page-level-script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            var activeTab = "{{ session('activeTab', 'update-profile') }}";
+
+            var tabs = document.querySelectorAll('.nav-tabs .nav-link');
+            tabs.forEach(function(tab) {
+                if (tab.getAttribute('href') === '#' + activeTab) {
+                    tab.classList.add('active', 'show');
+                    tab.setAttribute('aria-selected', 'true');
+                } else {
+                    tab.classList.remove('active', 'show');
+                    tab.setAttribute('aria-selected', 'false');
+                }
+            });
+
+            var tabContents = document.querySelectorAll('.tab-content .tab-pane');
+            tabContents.forEach(function(content) {
+                if (content.getAttribute('id') === activeTab) {
+                    content.classList.add('active', 'show');
+                } else {
+                    content.classList.remove('active', 'show');
+                }
+            });
+        });
+    </script>
+
 @endsection
