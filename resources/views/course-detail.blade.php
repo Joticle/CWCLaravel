@@ -93,7 +93,7 @@
 
                                 <!-- course content accordion area -->
                                 <div class="accordion mt--30" id="accordionExample">
-                                    @foreach($course->modules as $course_module)
+                                    @foreach($course->modules as $key=>$course_module)
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModule-{{$course_module->id}}" aria-expanded="true" aria-controls="collapseModule-{{$course_module->id}}">
@@ -101,7 +101,7 @@
                                                     <span>3 Lectures</span>
                                                 </button>
                                             </h2>
-                                            <div id="collapseModule-{{$course_module->id}}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div id="collapseModule-{{$course_module->id}}" class="accordion-collapse collapse {{!$key?'show':''}}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <!-- play single area start -->
                                                     <div class="p-3">
