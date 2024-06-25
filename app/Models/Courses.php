@@ -25,7 +25,8 @@ class Courses extends Model
         'description',
         'start_date',
         'end_date',
-        'status'
+        'status',
+        'price'
     ];
     public function getLogo(){
         $value = $this->logo;
