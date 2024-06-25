@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class AdminController extends Controller
@@ -74,36 +75,78 @@ class AdminController extends Controller
         }
         return redirect()->back()->withInput()->withErrors(['Please Enter Valid Old Password']);
     }
-    function updateProfile(){
-        $post = \request()->all();
-        //debug($post,1);
-        Session::flash('activeTab','updateProfileTab');
-        $options = array(
-            'uid' => 'required',
-            'name' => 'required',
-            'thumbnail' => 'image|mimes:jpeg,png,jpg|max:4096',
-        );
-        $validation = Validator::make( $post, $options );
-        if($validation->fails()){
-            return redirect()->back()->withInput()->withErrors($validation->messages());
-        }
-        $data = [];
-        $data['name'] = $post['name'];
-        $data['birth_date'] = !empty($post['birth_date'])?date('Y-m-d',strtotime($post['birth_date'])):NULL;
-        $data['phone_number'] = $post['phone_number'];
-        $data['address'] = $post['address'];
-        $data['gender'] = isset($post['gender'])?$post['gender']:NULL;
+    // function updateProfile(){
+    //     $post = \request()->all();
+    //     //debug($post,1);
+    //     Session::flash('activeTab','updateProfileTab');
+    //     $options = array(
+    //         'uid' => 'required',
+    //         'name' => 'required',
+    //         'thumbnail' => 'image|mimes:jpeg,png,jpg|max:4096',
+    //     );
+    //     $validation = Validator::make( $post, $options );
+    //     if($validation->fails()){
+    //         return redirect()->back()->withInput()->withErrors($validation->messages());
+    //     }
+    //     $data = [];
+    //     $data['name'] = $post['name'];
+    //     $data['birth_date'] = !empty($post['birth_date'])?date('Y-m-d',strtotime($post['birth_date'])):NULL;
+    //     $data['phone_number'] = $post['phone_number'];
+    //     $data['address'] = $post['address'];
+    //     $data['gender'] = isset($post['gender'])?$post['gender']:NULL;
 
-        if(\request()->file('thumbnail')){
-            $dir_name = public_path('user');
-            $file_extention = \request()->file('thumbnail')->getClientOriginalExtension();
-            $fileName = rand().'profile.'.$file_extention;
-            \request()->file('thumbnail')->move($dir_name, $fileName);
-            $data['thumbnail'] = $fileName;
+    //     if(\request()->file('thumbnail')){
+    //         $dir_name = public_path('user');
+    //         $file_extention = \request()->file('thumbnail')->getClientOriginalExtension();
+    //         $fileName = rand().'profile.'.$file_extention;
+    //         \request()->file('thumbnail')->move($dir_name, $fileName);
+    //         $data['thumbnail'] = $fileName;
+    //     }
+    //     $uid = $post['uid'];
+    //     //$user = User::whereId($uid)->first();
+    //     User::whereId($uid)->update($data);
+    //     return redirect()->back()->with('success','Profile Update Successfully');
+    // }
+
+    public function editProfile()
+    {
+        $user = auth()->user();
+
+        return view('backoffice.profile.edit', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
         }
-        $uid = $post['uid'];
-        //$user = User::whereId($uid)->first();
-        User::whereId($uid)->update($data);
-        return redirect()->back()->with('success','Profile Update Successfully');
+
+        try
+        {
+
+            $user = auth()->user();
+            $path = Storage::disk('local')->putFile('profile/thumnail',$request->thumbnail);
+
+            // delete previous thumbnail
+            if (Storage::disk('local')->exists($user->thumbnail)) {
+                Storage::disk('local')->delete($user->thumbnail);
+            }
+
+            $user->thumbnail = $path;
+            $user->thumbnail = $request->name;
+            $user->save();
+
+            return redirect()->back()->with('success','Profile Updated Successfully.');
+
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database errors, server issues, etc.)
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
+
     }
 }

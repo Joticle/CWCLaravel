@@ -48,6 +48,8 @@ Route::group(['middleware' => 'web'], function(){
             Route::group(['middleware' => 'check.admin.status'], function(){
 
                 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+                Route::get('/profile', [AdminController::class, 'editProfile'])->name('edit-profile');
+                Route::post('/profile', [AdminController::class, 'updateProfile'])->name('edit-profile');
 
                 /*Courses*/
                 Route::group(['prefix' => 'course','as' => 'course.'], function(){
