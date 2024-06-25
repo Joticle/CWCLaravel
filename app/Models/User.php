@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -45,7 +46,7 @@ class User extends Authenticatable
         $value = $this->thumbnail;
         if($value != ""){
             $uploadingPath = public_path('/uploads/user/'.$this->id);
-            return asset('/uploads/user/'.$this->id.'/'.$value);
+            return Storage::disk('public')->url($value);
         } else {
             return asset('images/profile.png');
         }

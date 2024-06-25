@@ -52,6 +52,7 @@ Route::group(['middleware' => 'web'], function(){
 
                 Route::get('/profile', [AdminAuthController::class, 'profile'])->name('profile');
                 Route::post('/profile', [AdminAuthController::class, 'profilePost'])->name('profile.post');
+                Route::post('/profile/updatePassword', [AdminAuthController::class, 'updatePassword'])->name('profile.updatePassword');
 
                 /*Courses*/
                 Route::group(['prefix' => 'course','as' => 'course.'], function(){

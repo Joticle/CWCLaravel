@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use App\Rules\OldPassword;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class AdminAuthController extends Controller
@@ -61,34 +64,58 @@ class AdminAuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
 
-        try
-        {
+        try {
+            $user = Auth::user();
 
-            $user = auth()->user();
-            $path = Storage::disk('local')->putFile('profile/thumnail',$request->thumbnail);
+            $user->name = $request->name;
 
-            // delete previous thumbnail
-            if (Storage::disk('local')->exists($user->thumbnail)) {
-                Storage::disk('local')->delete($user->thumbnail);
+            // Handle thumbnail update if provided
+            if ($request->hasFile('thumbnail')) {
+
+                $path = $request->file('thumbnail')->store('uploads/user/' . $user->id, 'public');
+
+                // Delete the previous thumbnail if it exists
+                if ($user->thumbnail && Storage::disk('public')->exists($user->thumbnail)) {
+                    Storage::disk('public')->delete($user->thumbnail);
+                }
+                $user->thumbnail = $path;
             }
 
-            $user->thumbnail = $path;
-            $user->thumbnail = $request->name;
             $user->save();
 
-            return redirect()->back()->with('success','Profile Updated Successfully.');
-
+            return redirect()->back()->with('success', 'Profile updated successfully.');
         } catch (\Exception $e) {
-            // Handle other exceptions (e.g., database errors, server issues, etc.)
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
 
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'old_password' => ['required','string', new OldPassword],
+            'new_password' => 'required|min:8|confirmed|different:old_password']
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        }
+
+        try {
+            $user = Auth::user();
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            return redirect()->back()->with('success', 'Password updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }
