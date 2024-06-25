@@ -44,114 +44,6 @@
                         <!-- single filter wized end -->
                         <!-- single filter wized -->
                         <div class="single-filter-left-wrapper">
-                            <h6 class="title">Type</h6>
-                            <div class="checkbox-filter filter-body">
-                                <div class="checkbox-wrapper">
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="type-1">
-                                            <label for="type-1">Course</label><br>
-                                        </div>
-                                        <span class="number">(20,000)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="type-2">
-                                            <label for="type-2">Bundle</label><br>
-                                        </div>
-                                        <span class="number">(20,000)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single filter wized end -->
-                        <!-- single filter wized -->
-                        <div class="single-filter-left-wrapper">
-                            <h6 class="title">Category</h6>
-                            <div class="checkbox-filter filter-body">
-                                <div class="checkbox-wrapper">
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="category-1">
-                                            <label for="category-1">Web Development</label><br>
-                                        </div>
-                                        <span class="number">(130)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="category-2">
-                                            <label for="category-2">Film & Video</label><br>
-                                        </div>
-                                        <span class="number">(85)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="category-3">
-                                            <label for="category-3">Illustration</label><br>
-                                        </div>
-                                        <span class="number">(210)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="category-4">
-                                            <label for="category-4">Music & Art</label><br>
-                                        </div>
-                                        <span class="number">(45)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="category-5">
-                                            <label for="category-5">Photography</label><br>
-                                        </div>
-                                        <span class="number">(35)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="category-6">
-                                            <label for="category-6">Business & Marketing</label><br>
-                                        </div>
-                                        <span class="number">(66)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="category-7">
-                                            <label for="category-7">Design & UI/UX</label><br>
-                                        </div>
-                                        <span class="number">(95)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="category-8">
-                                            <label for="category-8">Web Design</label><br>
-                                        </div>
-                                        <span class="number">(150)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single filter wized end -->
-                        <!-- single filter wized -->
-                        <div class="single-filter-left-wrapper">
                             <h6 class="title">Level</h6>
                             <div class="checkbox-filter filter-body">
                                 <div class="checkbox-wrapper">
@@ -187,51 +79,6 @@
                                         <div class="check-box">
                                             <input type="checkbox" id="lavel-4">
                                             <label for="lavel-4">Expert</label><br>
-                                        </div>
-                                        <span class="number">(45)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single filter wized end -->
-                        <!-- single filter wized -->
-                        <div class="single-filter-left-wrapper">
-                            <h6 class="title">Author</h6>
-                            <div class="checkbox-filter filter-body">
-                                <div class="checkbox-wrapper">
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="author-1">
-                                            <label for="author-1">Admin</label><br>
-                                        </div>
-                                        <span class="number">(130)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="author-2">
-                                            <label for="author-2">Sean Kaye</label><br>
-                                        </div>
-                                        <span class="number">(85)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="author-3">
-                                            <label for="author-3">David Travis</label><br>
-                                        </div>
-                                        <span class="number">(210)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="author-4">
-                                            <label for="author-4">Dr. Angela Yu</label><br>
                                         </div>
                                         <span class="number">(45)</span>
                                     </div>
@@ -311,41 +158,7 @@
                     <div class="row g-5 mt--10">
                         @foreach($courses as $course)
                             <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="rts-single-course">
-                                    <a href="{{$course->getLink()}}" class="thumbnail">
-                                        <img src="{{$course->getLogo()}}" alt="course">
-                                    </a>
-                                    <div class="save-icon">
-                                        <i class="fa-sharp fa-light fa-bookmark"></i>
-                                    </div>
-                                    <div class="tags-area-wrapper">
-                                        <div class="single-tag">
-                                            <span>{{printPrice($course->price)}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="lesson-studente">
-                                        <div class="lesson">
-                                            <i class="fa-light fa-calendar-lines-pen"></i>
-                                            <span>{{$course->modules_count}} {{ Str::plural('Lesson', $course->modules_count) }}</span>
-                                        </div>
-                                        <div class="lesson">
-                                            <i class="fa-light fa-user-group"></i>
-                                            <span>0 Students</span>
-                                        </div>
-                                    </div>
-                                    <a href="{{$course->getLink()}}">
-                                        <h5 class="title">{{$course->name}}</h5>
-                                    </a>
-                                    {{--<p class="teacher">Dr. Angela Yu</p>--}}
-                                    <div class="rating-and-price">
-                                        <a href="{{$course->getLink()}}" class="rts-btn btn-border">Detail</a>
-                                        @if($course->enrolled())
-                                            <a href="{{$course->getLink()}}" class="rts-btn btn-success text-white"><i class="fa fa-check"></i> Enrolled</a>
-                                        @else
-                                            <a href="{{route('course.enroll',$course->slug)}}" class="rts-btn btn-primary">Enroll Now</a>
-                                        @endif
-                                    </div>
-                                </div>
+                                @include('includes.course-card',['course'=>$course])
                             </div>
                         @endforeach
                     </div>
