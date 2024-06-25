@@ -8,6 +8,7 @@ use App\Http\Controllers\Backoffice\CourseMaterialController;
 use App\Http\Controllers\Backoffice\CourseModuleController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\FrontEndCourseController;
+use App\Http\Controllers\FrontEndPaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,12 @@ Route::group(['middleware' => 'web'], function(){
         Route::group(['middleware' => 'check.user.status'], function(){
             Route::get('/courses', [FrontEndCourseController::class, 'courses'])->name('courses');
             Route::get('/course/{slug}', [FrontEndCourseController::class, 'courseDetail'])->name('course.detail');
-            Route::get('/course/enroll/{slug}', [FrontEndCourseController::class, 'courseDetail'])->name('course.enroll');
+            Route::get('/course/enroll/{slug}', [FrontEndCourseController::class, 'courseEnroll'])->name('course.enroll');
+
+            /*Stripe*/
+            Route::get('/course/payment/success', [FrontEndPaymentController::class, 'paymentSuccess'])->name('payment.success');
+            Route::get('/course/payment/error', [FrontEndPaymentController::class, 'paymentError'])->name('payment.error');
+
             /*Profile*/
             Route::get('profile', [FrontEndController::class, 'profile'])->name('profile');
             Route::post('profile', [FrontEndController::class, 'updateProfile'])->name('profile.update.post');

@@ -39,7 +39,15 @@ class Courses extends Model
     public function getLink(){
         return route('course.detail',$this->slug);
     }
+    public function enrolled(){
+        $enrolled_courses = \auth()->user()->courseEnrolled->pluck('course_id')->toArray();
+        if(in_array($this->id, $enrolled_courses)){
+            return true;
+        }
+        return false;
+    }
     function modules(){
         return $this->hasMany(CourseModules::class,'course_id','id');
     }
+
 }

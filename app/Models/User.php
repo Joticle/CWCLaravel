@@ -53,4 +53,7 @@ class User extends Authenticatable
     public function AauthAcessToken(){
         return $this->hasMany('\App\Models\OauthAccessToken');
     }
+    public function courseEnrolled(){
+        return $this->hasMany('\App\Models\CourseEnroll','user_id')->where('status','=','Paid');
+    }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cases;
+use App\Models\CourseEnroll;
 use App\Models\Courses;
-use App\Models\Faqs;
 use App\Models\User;
+use App\Utility\StripeController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +41,7 @@ class FrontEndCourseController extends Controller
         $data['courses'] = Courses::where('status','=','1')->where(function ($query) use ($today) {
             $query->whereNull('end_date')->orWhere('end_date', '>=', $today);
         })->withCount('modules')->paginate(env('RECORD_PER_PAGE',10));
-
+        //$enrolled_courses = \auth()->user()->courseEnrolled->pluck('course_id')->toArray();
         return view('courses',$data);
     }
     /**
@@ -65,5 +65,43 @@ class FrontEndCourseController extends Controller
 
         $data['course'] = $course;
         return view('course-detail',$data);
+    }
+    function courseEnroll($slug){
+        $course = Courses::where('status','=','1')->where('slug','=',$slug)->firstOrFail();
+
+        $data = [];
+        $data['course_id'] = $course->id;
+        $data['user_id'] = \auth()->user()->id;
+        $data['date'] = date('Y-m-d');
+        $data['amount'] = $course->price;
+        $courseEnroll = CourseEnroll::create($data);
+
+        if(!empty($course->price) && $course->price > 0){
+
+            $line_items = [];
+            $unit_price = round($course->price,2);
+            $line_items[] = [
+                'price_data' => [
+                    'currency' => 'USD',
+                    'unit_amount' =>$unit_price * 100,
+                    'product_data' => [
+                        'name' => $course->name,
+                        'images' => [$course->getLogo()],
+                        'description' => 'Course enrollment payment for ' . $course->name,
+                    ],
+                ],
+                'quantity' => 1,
+            ];
+            $stripe = new StripeController;
+            $meta = ['enroll_id'=>$courseEnroll->id];
+            $stripe_response = $stripe->MakePaymentUrl($line_items, $meta);
+            if($stripe_response['success'] == 'false'){
+                return redirect()->back()->withErrors(['Sorry! There is something wrong the payments.']);
+            }
+            return redirect()->to($stripe_response['url']);
+        }
+        $courseEnroll->status = 'Paid';
+        $courseEnroll->save();
+        return redirect()->back()->with('success','Course Enroll Successfully.');
     }
 }

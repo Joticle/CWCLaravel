@@ -163,7 +163,11 @@
                                 <i class="fa-light fa-clock"></i>
                                 <span>2 Day left at this price!</span>
                             </div>--}}
-                            <a href="{{route('course.enroll',$course->slug)}}" class="rts-btn btn-primary">Enroll Now</a>
+                            @if($course->enrolled())
+                                <a href="#" class="rts-btn btn-success text-white"><i class="fa fa-check"></i> Enrolled</a>
+                            @else
+                                <a href="{{route('course.enroll',$course->slug)}}" class="rts-btn btn-primary">Enroll Now</a>
+                            @endif
 
                             <div class="what-includes">
                                 <span class="m">Money-Back Guarantee</span>
