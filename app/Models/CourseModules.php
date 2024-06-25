@@ -29,6 +29,6 @@ class CourseModules extends Model
         'status'
     ];
     function contents(){
-        return $this->hasMany(CourseModuleContent::class,'course_module_id','id');
+        return $this->hasMany(CourseModuleContent::class,'course_module_id','id')->orderBy('sort_order','asc');
     }
 }

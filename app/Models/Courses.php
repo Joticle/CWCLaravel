@@ -47,7 +47,7 @@ class Courses extends Model
         return false;
     }
     function modules(){
-        return $this->hasMany(CourseModules::class,'course_id','id');
+        return $this->hasMany(CourseModules::class,'course_id','id')->orderBy('sort_order','asc');
     }
 
 }

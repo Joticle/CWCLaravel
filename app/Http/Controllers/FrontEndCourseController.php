@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContentTypes;
 use App\Models\CourseEnroll;
 use App\Models\Courses;
 use App\Models\User;
@@ -64,11 +65,14 @@ class FrontEndCourseController extends Controller
         $today = Carbon::today();
 
         $data['course'] = $course;
+        $data['contentTypes'] = ContentTypes::pluck('type','id')->toArray();
         return view('course-detail',$data);
     }
     function courseEnroll($slug){
         $course = Courses::where('status','=','1')->where('slug','=',$slug)->firstOrFail();
-
+        if($course->enrolled()){
+            return redirect()->back()->withErrors(['You already enrolled this course.']);
+        }
         $data = [];
         $data['course_id'] = $course->id;
         $data['user_id'] = \auth()->user()->id;

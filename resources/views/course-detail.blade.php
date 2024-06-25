@@ -29,7 +29,7 @@
                             </div>--}}
                             <div class="students">
                                 <i class="fa-thin fa-users"></i>
-                                <span>{{$course->modules_count}} Lessons</span>
+                                <span>{{$course->modules_count}} Lesson(s)</span>
                             </div>
                             <div class="calender-area-stars">
                                 <i class="fa-light fa-calendar-lines-pen"></i>
@@ -98,31 +98,36 @@
                                             <h2 class="accordion-header" id="headingOne">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModule-{{$course_module->id}}" aria-expanded="true" aria-controls="collapseModule-{{$course_module->id}}">
                                                     <span>{{$course_module->name}}</span>
-                                                    <span>3 Lectures</span>
+                                                    <span>{{$course_module->contents->count()}} Lecture(s)</span>
                                                 </button>
                                             </h2>
                                             <div id="collapseModule-{{$course_module->id}}" class="accordion-collapse collapse {{!$key?'show':''}}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-
-                                                    {{debug($course_module->contents)}}
                                                     <!-- play single area start -->
                                                     <div class="p-3">
                                                         {!! $course_module->description !!}
                                                     </div>
-                                                    <a href="#" class="play-vedio-wrapper">
-                                                        <div class="left">
-                                                            <i class="fa-light fa-circle-play"></i>
-                                                            <span>Introduction to the course</span>
-                                                        </div>
-                                                        <div class="right">
-                                                            @if($course->enrolled())
-                                                                <span class="play">Preview</span>
-                                                            @else
-                                                                <i class="fa-regular fa-lock"></i>
-                                                            @endif
-                                                        </div>
-                                                    </a>
-                                                    <!-- play single area end -->
+                                                    @foreach($course_module->contents as $key_content=>$course_content)
+                                                        @php
+                                                            $content_list = App\Models\ContentTypes::CONTENTLIST;
+                                                            $content_icon = $content_list[$contentTypes[$course_content->content_type_id]]['icon']??'';
+                                                        @endphp
+
+                                                        <a href="{{$course->enrolled()?'':'#'}}" class="play-vedio-wrapper">
+                                                            <div class="left">
+                                                                <i class="fa-light {{$content_icon}}"></i>
+                                                                <span>{{$course_content->name}}</span>
+                                                            </div>
+                                                            <div class="right">
+                                                                @if($course->enrolled())
+                                                                    <span class="play">Preview</span>
+                                                                @else
+                                                                    <i class="fa-regular fa-lock"></i>
+                                                                @endif
+                                                            </div>
+                                                        </a>
+                                                @endforeach
+                                                <!-- play single area end -->
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +156,9 @@
                             </div>
                             <div class="price-area">
                                 <h3 class="title">{{printPrice($course->price)}}</h3>
-                                {{-- <span class="discount">-50%</span>--}}
+                                @if(empty($course->price))
+                                    <span class="discount">100%</span>
+                                @endif
                             </div>
                             {{--<div class="clock-area">
                                 <i class="fa-light fa-clock"></i>

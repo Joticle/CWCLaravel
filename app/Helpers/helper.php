@@ -83,11 +83,9 @@ function _date($date){
 }
 function getContentList(){
     $list = [];
-    $list['file'] = 'File';
-    $list['image'] = 'Image';
-    $list['link'] = 'Link';
-    $list['embedded-video'] = 'Embedded Video';
-    $list['paragraph'] = 'Paragraph';
+    foreach (App\Models\ContentTypes::CONTENTLIST as $key=>$content){
+        $list[$key] = $content['name'];
+    }
     return $list;
 }
 function printPrice($number){

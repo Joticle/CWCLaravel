@@ -24,4 +24,12 @@ class ContentTypes extends Model
         'type',
         'status'
     ];
+
+    public const CONTENTLIST = [
+        'file'=>['name'=>'File','icon'=>'fa-file'],
+        'image'=>['name'=>'Image','icon'=>'fa-image'],
+        'link'=>['name'=>'Link','icon'=>'fa-link'],
+        'embedded-video'=>['name'=>'Embedded Video','icon'=>'fa-circle-play'],
+        'paragraph'=>['name'=>'Paragraph','icon'=>'fa-paragraph']
+    ];
 }

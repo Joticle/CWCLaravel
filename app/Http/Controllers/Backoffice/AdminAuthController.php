@@ -80,7 +80,6 @@ class AdminAuthController extends Controller
             if ($request->hasFile('thumbnail')) {
 
                 $path = $request->file('thumbnail')->store('uploads/user/' . $user->id, 'public');
-
                 // Delete the previous thumbnail if it exists
                 if ($user->thumbnail && Storage::disk('public')->exists($user->thumbnail)) {
                     Storage::disk('public')->delete($user->thumbnail);
