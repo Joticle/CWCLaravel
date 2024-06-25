@@ -45,11 +45,13 @@ Route::group(['middleware' => 'web'], function(){
 
         Route::group(['middleware' => 'auth'], function(){
             Route::get('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+
             Route::group(['middleware' => 'check.admin.status'], function(){
 
                 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-                Route::get('/profile', [AdminController::class, 'editProfile'])->name('edit-profile');
-                Route::post('/profile', [AdminController::class, 'updateProfile'])->name('edit-profile');
+
+                Route::get('/profile', [AdminAuthController::class, 'profile'])->name('profile');
+                Route::post('/profile', [AdminAuthController::class, 'updateProfile'])->name('profile.post');
 
                 /*Courses*/
                 Route::group(['prefix' => 'course','as' => 'course.'], function(){

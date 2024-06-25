@@ -1,65 +1,132 @@
 @extends('backoffice.layouts.app')
 
-@section('title', 'Profile')
+@section('title', $singular_name)
 
 @section('page-level-style')
 
 @endsection
 
 @section('content')
+
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4> Update {{$singular_name}}</h4>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+                @foreach($breadcrumb as $title=>$link)
+                    <li class="breadcrumb-item {{empty($link)?'active':''}}"><a href="{{!empty($link)?$link:'javascript:void(0)'}}">{{$title}}</a></li>
+                @endforeach
+            </ol>
+        </div>
+    </div>
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Edit Profile</h4>
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+            <div class="card h-auto">
                 <div class="card-body">
-                    <form autocomplete="off" method="POST" action="{{ route('admin.edit-profile') }}">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-6 mb-2">
-                                <div class="form-group">
-                                    <label class="text-label">Name<span class="text-danger">*</span></label>
-                                    <input name="name" id="name" placeholder="Enter Course Name"
-                                        class="form-control" value="{{ $user->name }}" required>
+                    <div class="profile-tab">
+                        <div class="custom-tab-1">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item" role="presentation"><a href="#update-profile" data-toggle="tab" class="nav-link show active" aria-selected="true" role="tab">Profile</a>
+                                </li>
+                                <li class="nav-item" role="presentation"><a href="#update-password" data-toggle="tab" class="nav-link" aria-selected="false" role="tab" tabindex="-1">Update Password</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="update-profile" class="tab-pane fade active show" role="tabpanel">
+                                    <div class="profile-about-me">
+                                        <div class="pt-4 border-bottom-1 pb-3">
+                                            <form autocomplete="off" method="POST" action="{{ route('admin.profile.post') }}">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-lg-9 col-xl-9">
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-2">
+                                                                <div class="form-group">
+                                                                    <label class="text-label">Name<span class="text-danger">*</span></label>
+                                                                    <input name="name" id="name" placeholder="Enter Course Name"
+                                                                           class="form-control" value="{{ $user->name }}" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mb-2">
+                                                                <div class="form-group">
+                                                                    <label class="text-label">Email<span class="text-danger"></span></label>
+                                                                    <input class="form-control" value="{{ $user->email }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-xl-3 border-left">
+                                                        <strong>Role</strong>: {{$user->role}}
+                                                        <div id="avatar_image">
+                                                            <img id="thumbnailImg" alt="image" style="max-width:100px; height:auto;" src="{{$user->getThumbnail()}}">
+                                                        </div>
+                                                        <div class="m-b-10"></div>
+                                                        <div class="form-group">
+                                                            <label>Profile Image</label>
+                                                            <input type="file" name="thumbnail" class="form-control previewInput" data-target="#thumbnailImg">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <div class="form-group">
-                                    <label class="text-label">Email<span class="text-danger"></span></label>
-                                    <input class="form-control" value="{{ $user->email }}" disabled>
+                                <div id="update-password" class="tab-pane fade" role="tabpanel">
+                                    <div class="profile-about-me">
+                                        <div class="pt-4 border-bottom-1 pb-3">
+                                            <form autocomplete="off" method="POST" action="{{ route('admin.profile.post') }}">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-2">
+                                                                <div class="form-group">
+                                                                    <label class="text-label">Name<span class="text-danger">*</span></label>
+                                                                    <input name="name" id="name" placeholder="Enter Course Name"
+                                                                           class="form-control" value="{{ $user->name }}" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mb-2">
+                                                                <div class="form-group">
+                                                                    <label class="text-label">Email<span class="text-danger"></span></label>
+                                                                    <input class="form-control" value="{{ $user->email }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Current Thumbnail</label><br>
-                                    @if ($user->thumbnail)
-                                        <img src="{{ Storage::url($user->thumbnail) }}" alt="Current Thumbnail" style="max-width: 200px; max-height: 200px;">
-                                    @else
-                                        <p>No thumbnail available</p>
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label for='thumbnail' class="form-label">Thumbnail<span
-                                            class="text-danger">*</span></label>
-                                    <input id='thumbnail' name="thumbnail" type="file" class='form-control' required
-                                        accept ='image/*'>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- end col -->
     </div>
-    <!-- row -->
+
+
+
+
+
 @endsection
 
 @section('page-level-script')
