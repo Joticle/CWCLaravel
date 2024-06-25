@@ -6,6 +6,7 @@ use App\Http\Controllers\Backoffice\ContentTypeController;
 use App\Http\Controllers\Backoffice\CourseController;
 use App\Http\Controllers\Backoffice\CourseMaterialController;
 use App\Http\Controllers\Backoffice\CourseModuleController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\FrontEndCourseController;
 use App\Http\Controllers\FrontEndPaymentController;
@@ -44,6 +45,11 @@ Route::group(['middleware' => 'web'], function(){
             Route::get('profile', [FrontEndController::class, 'profile'])->name('profile');
             Route::post('profile', [FrontEndController::class, 'updateProfile'])->name('profile.update.post');
             Route::post('password-update', [FrontEndController::class, 'updateProfilePassword'])->name('password.update.post');
+
+            // dashboard
+            Route::group(['prefix' => 'dashboard','as' => 'dashboard.'], function(){
+                Route::get('index', [DashboardController::class, 'index'])->name('index');
+            });
         });
     });
 

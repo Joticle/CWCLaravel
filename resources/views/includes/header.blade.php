@@ -38,7 +38,7 @@
                                                 </a>
                                                 <ul class="submenu">
                                                     <li><a href="#"><i class="fa fa-user text-primary"></i> Profile</a></li>
-                                                    <li><a href="#"><i class="fa fa-dashboard text-primary"></i> Dashboard</a></li>
+                                                    <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard text-primary"></i> Dashboard</a></li>
                                                     <li><a href="{{route('logout')}}"><i class="fa fa-sign-out text-primary"></i> Logout</a></li>
                                                 </ul>
                                             </li>
