@@ -28,4 +28,7 @@ class CourseModules extends Model
         'end_date',
         'status'
     ];
+    function contents(){
+        return $this->hasMany(CourseModuleContent::class,'course_module_id','id');
+    }
 }

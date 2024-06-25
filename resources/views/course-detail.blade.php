@@ -103,6 +103,8 @@
                                             </h2>
                                             <div id="collapseModule-{{$course_module->id}}" class="accordion-collapse collapse {{!$key?'show':''}}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
+
+                                                    {{debug($course_module->contents)}}
                                                     <!-- play single area start -->
                                                     <div class="p-3">
                                                         {!! $course_module->description !!}
@@ -113,19 +115,11 @@
                                                             <span>Introduction to the course</span>
                                                         </div>
                                                         <div class="right">
-                                                            <span class="play">Preview</span>
-                                                            <span>9 min</span>
-                                                        </div>
-                                                    </a>
-                                                    <!-- play single area end -->
-                                                    <!-- play single area start -->
-                                                    <a href="#" class="play-vedio-wrapper">
-                                                        <div class="left">
-                                                            <i class="fa-light fa-circle-play"></i>
-                                                            <span>Introduction to the course</span>
-                                                        </div>
-                                                        <div class="right">
-                                                            <i class="fa-regular fa-lock"></i>
+                                                            @if($course->enrolled())
+                                                                <span class="play">Preview</span>
+                                                            @else
+                                                                <i class="fa-regular fa-lock"></i>
+                                                            @endif
                                                         </div>
                                                     </a>
                                                     <!-- play single area end -->
