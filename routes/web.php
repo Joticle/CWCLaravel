@@ -33,11 +33,11 @@ Route::group(['middleware' => 'web'], function(){
         Route::group(['middleware' => 'check.user.status'], function(){
             Route::get('/courses', [FrontEndCourseController::class, 'courses'])->name('courses');
             Route::get('/course/{slug}', [FrontEndCourseController::class, 'courseDetail'])->name('course.detail');
-
+            Route::get('/course/enroll/{slug}', [FrontEndCourseController::class, 'courseDetail'])->name('course.enroll');
             /*Profile*/
-            Route::get('profile', [HomeController::class, 'profile'])->name('profile');
-            Route::post('profile', [HomeController::class, 'updateProfile'])->name('updateProfile');
-            Route::post('password-update', [HomeController::class, 'updateProfilePassword'])->name('updateProfilePassword');
+            Route::get('profile', [FrontEndController::class, 'profile'])->name('profile');
+            Route::post('profile', [FrontEndController::class, 'updateProfile'])->name('profile.update.post');
+            Route::post('password-update', [FrontEndController::class, 'updateProfilePassword'])->name('password.update.post');
         });
     });
 

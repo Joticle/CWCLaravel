@@ -163,7 +163,7 @@
                                 <i class="fa-light fa-clock"></i>
                                 <span>2 Day left at this price!</span>
                             </div>--}}
-                            <a href="#" class="rts-btn btn-primary">Enroll Now</a>
+                            <a href="{{route('course.enroll',$course->slug)}}" class="rts-btn btn-primary">Enroll Now</a>
 
                             <div class="what-includes">
                                 <span class="m">Money-Back Guarantee</span>
