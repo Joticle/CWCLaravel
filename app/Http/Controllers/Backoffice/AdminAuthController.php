@@ -87,20 +87,15 @@ class AdminAuthController extends Controller
                 $fileExtension = $file->getClientOriginalExtension();
                 $image_name = 'thumbnail'.time().'.'.$fileExtension;
                 $imageUpload = $file->move($uploadingPath, $image_name);
-
                 if ($user->thumbnail) {
                     $previousThumbnailPath = $uploadingPath . '/' . $user->thumbnail;
                     if (file_exists($previousThumbnailPath)) {
                         unlink($previousThumbnailPath);
                     }
                 }
-
                 $user->thumbnail = $image_name;
-
             }
-
             $user->save();
-
             return redirect()->back()->with('success', 'Profile updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
