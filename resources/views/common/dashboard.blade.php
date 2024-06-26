@@ -9,8 +9,7 @@
                     <div class="left-sindebar-dashboard">
                         <div class="dashboard-left-single-wrapper">
 
-                            <a href="#"
-                               class="single-item @if (request()->route()->getName() == 'dashboard.index') active @endif">
+                            <a href="{{route('dashboard.index')}}" class="single-item @if (\Route::currentRouteName() == 'dashboard.index') active @endif">
                                 <i class="fa-light fa-house"></i>
                                 <p>Dashboard</p>
                             </a>
@@ -20,7 +19,7 @@
                                 <p>My Profile</p>
                             </a>
 
-                            <a href="#" class="single-item ">
+                            <a href="{{route('dashboard.my.courses')}}" class="single-item @if (\Route::currentRouteName() == 'dashboard.my.courses') active @endif">
                                 <i class="fa-light fa-graduation-cap"></i>
                                 <p>Enrolled Courses</p>
                             </a>
@@ -38,7 +37,7 @@
 
                         </div>
                         <div class="dashboard-left-single-wrapper bbnone mt--40">
-                            <h4 class="title mb--5">User</h4>
+                            <h4 class="title mb--5">Operations</h4>
 
                             <a href="#" class="single-item">
                                 <i class="fa-sharp fa-regular fa-gear"></i>

@@ -24,4 +24,7 @@ class CourseEnroll extends Model
         'status',
         'payment_id'
     ];
+    function course(){
+        return $this->hasOne(Courses::class,'id','course_id');
+    }
 }

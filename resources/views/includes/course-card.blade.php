@@ -26,10 +26,12 @@
     {{--<p class="teacher">Dr. Angela Yu</p>--}}
     <div class="rating-and-price">
         <a href="{{$course->getLink()}}" class="rts-btn btn-border">Detail</a>
-        @if($course->enrolled())
-            <a href="{{$course->getLink()}}" class="rts-btn btn-success text-white"><i class="fa fa-check"></i> Enrolled</a>
-        @else
-            <a href="{{route('course.enroll',$course->slug)}}" class="rts-btn btn-primary">Enroll Now</a>
+        @if(!$dashboard)
+            @if($course->enrolled())
+                <a href="{{$course->getLink()}}" class="rts-btn btn-success text-white"><i class="fa fa-check"></i> Enrolled</a>
+            @else
+                <a href="{{route('course.enroll',$course->slug)}}" class="rts-btn btn-primary">Enroll Now</a>
+            @endif
         @endif
     </div>
 </div>

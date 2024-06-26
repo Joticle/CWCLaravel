@@ -49,6 +49,7 @@ Route::group(['middleware' => 'web'], function(){
             // dashboard
             Route::group(['prefix' => 'dashboard','as' => 'dashboard.'], function(){
                 Route::get('/', [DashboardController::class, 'index'])->name('index');
+                Route::get('my-courses', [DashboardController::class, 'myCourses'])->name('my.courses');
             });
         });
     });
