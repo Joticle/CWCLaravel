@@ -81,7 +81,7 @@ class TagController extends Controller
         $data['singular_name'] = 'Tag';
         $data['pulular_name'] = 'Tags';
         $breadcrumb = [];
-        $breadcrumb['Courses'] = route('admin.course.list');
+        $breadcrumb['Tags'] = route('admin.tags.index');
         $breadcrumb[$tag->name] = '';
         $data['breadcrumb'] = $breadcrumb;
         $data['row'] = $tag;
