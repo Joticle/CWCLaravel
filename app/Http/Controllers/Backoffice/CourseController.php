@@ -50,6 +50,7 @@ class CourseController extends Controller
         $breadcrumb['Courses'] = route('admin.course.list');
         $breadcrumb['Add Course'] = '';
         $data['breadcrumb'] = $breadcrumb;
+        $data['levels'] = Courses::LEVELS;
 
         return view('backoffice.courses.add',$data);
     }
@@ -62,6 +63,7 @@ class CourseController extends Controller
             'description' => 'required',
             'start_date' => 'required',
             'price' => 'required|numeric',
+            'level' => 'required|in:' . implode(',', Courses::LEVELS),
         ]);
 
         if ($validator->fails()) {
@@ -74,6 +76,7 @@ class CourseController extends Controller
         $data['start_date'] = $request->get('start_date');
         $data['end_date'] = $request->has('end_date')?$request->get('end_date'):null;
         $data['price'] = $request->get('price');
+        $data['level'] = $request->get('level');
         $record = Courses::create($data);
 
         if($request->hasFile('logo')){
@@ -114,6 +117,7 @@ class CourseController extends Controller
         $breadcrumb[$course->name] = '';
         $data['breadcrumb'] = $breadcrumb;
         $data['row'] = $course;
+        $data['levels'] = Courses::LEVELS;
 
         return view('backoffice.courses.edit',$data);
     }
@@ -125,6 +129,7 @@ class CourseController extends Controller
             'description' => 'required',
             'start_date' => 'required',
             'price' => 'required|numeric',
+            'level' => 'required|in:' . implode(',', Courses::LEVELS),
         ]);
 
         if ($validator->fails()) {
@@ -137,6 +142,7 @@ class CourseController extends Controller
         $record->end_date = $request->has('end_date')?$request->get('end_date'):null;
         $record->status = $request->get('status');
         $record->price = $request->get('price');
+        $record->level = $request->get('level');
         if($request->hasFile('logo')){
             $uploadingPath = public_path('/uploads/courses/'.$record->id);
             if(!is_dir($uploadingPath)){

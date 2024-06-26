@@ -62,6 +62,12 @@
                                 {{ Form::number('price', '', ['class' => 'form-control', 'required' => 'true', 'placeholder' => '0.00', 'min' => '0', 'step' => '0.01']) }}
                             </div>
                         </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label class="text-label">Level<span class="text-danger">*</span></label>
+                                {{ Form::select('level', $levels, '',['class' => 'form-control', 'placeholder' => 'Select Course Level','required'=>'true']) }}
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">

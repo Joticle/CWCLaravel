@@ -28,6 +28,20 @@ class Courses extends Model
         'status',
         'price'
     ];
+
+    const LEVELS = ['Beginner' => 'Beginner', 'Intermediate' => 'Intermediate', 'Expert' => 'Expert'];
+    const DEFAULT_LEVEL = 'Beginner';
+
+    public function getBadgeClassAttribute()
+    {
+        if($this->level === 'Beginner')
+            return 'info';
+        else if($this->level === 'Intermediate')
+            return 'success';
+        else
+            return 'danger';
+    }
+
     public function getLogo(){
         $value = $this->logo;
         if($value != ""){
