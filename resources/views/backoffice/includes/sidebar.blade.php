@@ -44,6 +44,17 @@
                     <li><a href="{{ route('admin.content-type.add') }}">Add New Content Type</a></li>
                 </ul>
             </li>
+            <li>
+                <a class="ai-icon" href="#" aria-expanded="false">
+                    <i class="flaticon-381-book"></i>
+                    <span class="nav-text">Students Feedback</span>
+                    <span class="nav-text fa fa-chevron-down float-right"></span> <!-- Collapsible icon -->
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="{{ route('admin.student-feedback.list') }}">All Students Feedback</a></li>
+                    <li><a href="{{ route('admin.student-feedback.add') }}">Add Student Feedback</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

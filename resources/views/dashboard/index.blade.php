@@ -37,5 +37,27 @@
                 <!-- single dashboard-card end -->
             </div>
         </div>
+        <div class="row mt--40">
+            <div class="col-lg-12">
+                <!-- in progress course area -->
+                <div class="in-progress-course-wrapper  title-between-dashboard mb--10">
+                    <h5 class="title">My Courses</h5>
+                    <a href="{{route('dashboard.my.courses')}}" class="more">View All</a>
+                </div>
+                <!-- in progress course area end -->
+
+                <!-- my course enroll wrapper -->
+                <div class="my-course-enroll">
+                    <div class="row g-5 mt--10">
+                        @foreach($courseEnrolled->take(3) as $course)
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                @include('includes.course-card',['course'=>$course->course,'dashboard'=>true])
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <!-- my course enroll wrapper end -->
+            </div>
+        </div>
     </div>
 @endsection

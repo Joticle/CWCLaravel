@@ -6,6 +6,7 @@ use App\Http\Controllers\Backoffice\ContentTypeController;
 use App\Http\Controllers\Backoffice\CourseController;
 use App\Http\Controllers\Backoffice\CourseMaterialController;
 use App\Http\Controllers\Backoffice\CourseModuleController;
+use App\Http\Controllers\Backoffice\StudentsFeedbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\FrontEndCourseController;
@@ -49,6 +50,7 @@ Route::group(['middleware' => 'web'], function(){
             // dashboard
             Route::group(['prefix' => 'dashboard','as' => 'dashboard.'], function(){
                 Route::get('/', [DashboardController::class, 'index'])->name('index');
+                Route::get('my-courses', [DashboardController::class, 'myCourses'])->name('my.courses');
             });
         });
     });
@@ -106,6 +108,17 @@ Route::group(['middleware' => 'web'], function(){
                     Route::get('/edit/{id}', [ContentTypeController::class, 'edit'])->name('edit');
                     Route::post('/edit/{id}', [ContentTypeController::class, 'update'])->name('edit');
                     Route::get('/delete/{id}', [ContentTypeController::class, 'delete'])->name('delete');
+                });
+
+                /*Courses*/
+                Route::group(['prefix' => 'student-feedback','as' => 'student-feedback.'], function(){
+                    Route::get('/list', [StudentsFeedbackController::class, 'index'])->name('list');
+                    Route::get('/create', [StudentsFeedbackController::class, 'add'])->name('add');
+                    Route::post('/create', [StudentsFeedbackController::class, 'create'])->name('add');
+                    Route::get('/edit/{id}', [StudentsFeedbackController::class, 'edit'])->name('edit');
+                    Route::post('/edit/{id}', [StudentsFeedbackController::class, 'update'])->name('edit');
+                    Route::get('/delete/{id}', [StudentsFeedbackController::class, 'delete'])->name('delete');
+                    Route::get('/search', [StudentsFeedbackController::class, 'search'])->name('search');
                 });
 
             });

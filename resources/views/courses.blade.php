@@ -158,7 +158,7 @@
                     <div class="row g-5 mt--10">
                         @foreach($courses as $course)
                             <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                @include('includes.course-card',['course'=>$course])
+                                @include('includes.course-card',['course'=>$course,'dashboard'=>false])
                             </div>
                         @endforeach
                     </div>
