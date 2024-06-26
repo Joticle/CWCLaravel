@@ -28,6 +28,10 @@ class Courses extends Model
         'status',
         'price'
     ];
+    public function scopeActive($query)
+    {
+        return $query->where('status', '1');
+    }
     public function getLogo(){
         $value = $this->logo;
         if($value != ""){

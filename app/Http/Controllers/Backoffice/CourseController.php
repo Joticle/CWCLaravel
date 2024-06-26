@@ -159,7 +159,7 @@ class CourseController extends Controller
         return redirect()->to(route('admin.course.list'))->with('success','Course Deleted Successfully.');
     }
     function search(Request $request){
-        $courses = Courses::where('name','like','%'.$request->q.'%')->where('status','=','1');
+        $courses = Courses::where('name','like','%'.$request->q.'%')->active();
         if($request->has('with') && $request->get('with') == 'modules'){
             $courses = $courses->with('modules');
         }
