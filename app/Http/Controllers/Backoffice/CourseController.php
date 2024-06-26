@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use Validator;
 
@@ -64,6 +65,7 @@ class CourseController extends Controller
             'start_date' => 'required',
             'price' => 'required|numeric',
             'level' => 'required|in:' . implode(',', Courses::LEVELS),
+            'tags.*' => 'exists:tags,id'
         ]);
 
         if ($validator->fails()) {
@@ -122,6 +124,7 @@ class CourseController extends Controller
         $data['breadcrumb'] = $breadcrumb;
         $data['row'] = $course;
         $data['levels'] = Courses::LEVELS;
+        $data['tags'] = Tag::get(['id','name as text']);
 
         return view('backoffice.courses.edit',$data);
     }
@@ -134,6 +137,7 @@ class CourseController extends Controller
             'start_date' => 'required',
             'price' => 'required|numeric',
             'level' => 'required|in:' . implode(',', Courses::LEVELS),
+            'tags.*' => 'exists:tags,id'
         ]);
 
         if ($validator->fails()) {
