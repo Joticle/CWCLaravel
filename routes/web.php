@@ -6,6 +6,7 @@ use App\Http\Controllers\Backoffice\ContentTypeController;
 use App\Http\Controllers\Backoffice\CourseController;
 use App\Http\Controllers\Backoffice\CourseMaterialController;
 use App\Http\Controllers\Backoffice\CourseModuleController;
+use App\Http\Controllers\Backoffice\TagController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\FrontEndCourseController;
@@ -107,6 +108,8 @@ Route::group(['middleware' => 'web'], function(){
                     Route::post('/edit/{id}', [ContentTypeController::class, 'update'])->name('edit');
                     Route::get('/delete/{id}', [ContentTypeController::class, 'delete'])->name('delete');
                 });
+
+                Route::resource('tags', TagController::class);
 
             });
         });
