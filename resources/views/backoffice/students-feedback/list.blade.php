@@ -49,7 +49,7 @@
                                         <td>{{$row->name}}</td>
                                         <td>{{$row->designation}}</td>
                                         <td><img style="width: 80px;height: 50px;" src="{{$row->getImage()}}"></td>
-                                        <td>{!! $row->ratingHtml !!}</td>
+                                        <td>{!! $row->rating !!} <i class="fa fa-star"></i></td>
                                         <td>
                                             @if($row->status == '1')
                                                 <span class="badge badge-primary">Active</span>
