@@ -68,6 +68,12 @@
                                 {{ Form::select('level', $levels, '',['class' => 'form-control', 'placeholder' => 'Select Course Level','required'=>'true']) }}
                             </div>
                         </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label class="text-label">Select Course Tags<span class="text-danger">*</span></label>
+                                {{Form::select('tags[]', [],'' ,['class' => 'form-control','required'=>'true','id'=>'select_search_tags', 'multiple' => 'multiple'])}}
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -83,4 +89,29 @@
 @endsection
 
 @section('page-level-script')
+<script>
+    $(document).ready(function () {
+            $("#select_search_tags").select2({
+                ajax: {
+                    url: '{{route('admin.tags.search')}}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term, // search term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data.items,
+                        };
+                    },
+                    cache: true
+                },
+                placeholder: 'Search Tag',
+                minimumInputLength: 1,
+            });
+
+        });
+</script>
 @endsection

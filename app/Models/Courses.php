@@ -65,4 +65,9 @@ class Courses extends Model
         return $this->hasMany(CourseModules::class,'course_id','id')->orderBy('sort_order','asc');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, CourseTag::class, 'course_id', 'tag_id');
+    }
+
 }

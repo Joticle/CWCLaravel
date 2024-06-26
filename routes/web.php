@@ -109,6 +109,7 @@ Route::group(['middleware' => 'web'], function(){
                     Route::get('/delete/{id}', [ContentTypeController::class, 'delete'])->name('delete');
                 });
 
+                Route::get('tags/search', [TagController::class,'search'])->name('tags.search');
                 Route::resource('tags', TagController::class);
 
             });

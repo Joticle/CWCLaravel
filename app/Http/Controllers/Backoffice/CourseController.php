@@ -79,6 +79,10 @@ class CourseController extends Controller
         $data['level'] = $request->get('level');
         $record = Courses::create($data);
 
+        if(!empty($request->tags)) {
+            $record->tags()->sync($request->tags);
+        }
+
         if($request->hasFile('logo')){
             $uploadingPath = public_path('/uploads/courses/'.$record->id);
             if(!is_dir($uploadingPath)){

@@ -113,4 +113,10 @@ class TagController extends Controller
         $tag->delete();
         return response()->json(['success' => true,'reload' => true, 'message' => 'Tag Deleted Successfully.']);
     }
+
+    public function search(Request $request)
+    {
+        $tags = Tag::where('name','like','%'.$request->q.'%')->limit(15)->get(['id', 'name as text']);
+        return ['items' => $tags];
+    }
 }
