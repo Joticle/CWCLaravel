@@ -274,6 +274,7 @@
 <<<<<<< HEAD
     <!-- fun facts area end -->
     @include('students-feedback.index')
+<<<<<<< HEAD
 >>>>>>> aff562b (students feedback CRUD and dynamic content rendering)
 =======
     <div class="about-area-start rts-section-gapBottom">
@@ -455,4 +456,6 @@
         </div>
     </div>
 >>>>>>> 463b789528935f92f45191018383c6a6e89ed8e8
+=======
+>>>>>>> aff562b06a29a2a401e43ee65653846a34d8ae8c
 @endsection
