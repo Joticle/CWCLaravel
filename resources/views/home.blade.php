@@ -245,137 +245,33 @@
     <!-- about area start -->
     <div class="about-area-start rts-section-gapBottom">
         <div class="container">
-            <div class="paragraph w-75 d-inline-block">
-                <h3>EXECUTIVE LEADERS RISE</h3>
-                <p>Executive Leaders Rise is a hands-on interactive course for anyone looking to enhance their skills and adapt their mindset to succeed in today’s fast-paced technologically driven business world. Seasoned executives and leadership experts provide a comprehensive guide to the best practice in C-Suite leadership presence, including how to execute strategies and build strong teams leading with authenticity and empathy.</p>
-                <a href="#" class="mt--10 rts-btn btn-primary">Learn More</a>
-            </div>
-            <div class="w-20 float-end d-inline-block">
-                <img src="images/onebig.png" class="img-responsive">
-            </div>
-
-        </div>
-    </div>
-    <div class="about-area-start rts-section-gapBottom">
-        <div class="container">
-            <div class="float-end paragraph w-75 d-inline-block">
-                <h3>ENTREPRENEURS RISE</h3>
-                <p>Entrepreneurs Rise is the ultimate course for anyone looking to start or grow a successful business. Developed by entrepreneurs and business experts, you are provided with a comprehensive roadmap for building a business from the ground up, including how to identify and validate your idea, create a solid business plan, attract customers and investors, and navigate the challenges of scaling and growth. </p>
-                <a href="#" class="mt--10 rts-btn btn-primary">Learn More</a>
-            </div>
-            <div class="w-20 d-inline-block">
-                <img src="images/twobig.png">
-            </div>
-
-        </div>
-    </div>
-    <div class="about-area-start rts-section-gapBottom">
-        <div class="container">
-            <div class="paragraph w-75 d-inline-block">
-                <h3>EXECUTIVE LEADERS RISE</h3>
-                <p>Executive Leaders Rise is a hands-on interactive course for anyone looking to enhance their skills and adapt their mindset to succeed in today’s fast-paced technologically driven business world. Seasoned executives and leadership experts provide a comprehensive guide to the best practice in C-Suite leadership presence, including how to execute strategies and build strong teams leading with authenticity and empathy.</p>
-                <a href="#" class="mt--10 rts-btn btn-primary">Learn More</a>
-            </div>
-            <div class="w-20 float-end d-inline-block">
-                <img src="images/onebig.png" class="img-responsive">
-            </div>
-
-        </div>
-    </div>
-    <div class="about-area-start rts-section-gapBottom">
-        <div class="container">
-            <div class="float-end paragraph w-75 d-inline-block">
-                <h3>ENTREPRENEURS RISE</h3>
-                <p>Entrepreneurs Rise is the ultimate course for anyone looking to start or grow a successful business. Developed by entrepreneurs and business experts, you are provided with a comprehensive roadmap for building a business from the ground up, including how to identify and validate your idea, create a solid business plan, attract customers and investors, and navigate the challenges of scaling and growth. </p>
-                <a href="#" class="mt--10 rts-btn btn-primary">Learn More</a>
-            </div>
-            <div class="w-20 d-inline-block">
-                <img src="images/twobig.png">
-            </div>
-
-        </div>
-    </div>
-    <div class="about-area-start rts-section-gapBottom">
-        <div class="container">
-            <div class="paragraph w-75 d-inline-block">
-                <h3>EXECUTIVE LEADERS RISE</h3>
-                <p>Executive Leaders Rise is a hands-on interactive course for anyone looking to enhance their skills and adapt their mindset to succeed in today’s fast-paced technologically driven business world. Seasoned executives and leadership experts provide a comprehensive guide to the best practice in C-Suite leadership presence, including how to execute strategies and build strong teams leading with authenticity and empathy.</p>
-                <a href="#" class="mt--10 rts-btn btn-primary">Learn More</a>
-            </div>
-            <div class="w-20 float-end d-inline-block">
-                <img src="images/onebig.png" class="img-responsive">
-            </div>
-
-        </div>
-    </div>
-    <div class="about-area-start rts-section-gapBottom">
-        <div class="container">
-            <div class="float-end paragraph w-75 d-inline-block">
-                <h3>ENTREPRENEURS RISE</h3>
-                <p>Entrepreneurs Rise is the ultimate course for anyone looking to start or grow a successful business. Developed by entrepreneurs and business experts, you are provided with a comprehensive roadmap for building a business from the ground up, including how to identify and validate your idea, create a solid business plan, attract customers and investors, and navigate the challenges of scaling and growth. </p>
-                <a href="#" class="mt--10 rts-btn btn-primary">Learn More</a>
-            </div>
-            <div class="w-20 d-inline-block">
-                <img src="images/twobig.png">
-            </div>
-
-        </div>
-    </div>
-    <!-- about area end -->
-
-    <!-- fun facts area start -->
-    <div class="fun-facts-area-1 shape-move bg_image ptb--50">
-        <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="fun-facts-main-wrapper-1">
-                        <!-- single  -->
-                        <div class="single-fun-facts">
-                            <div class="icon">
-                                <img src="site-assets/images/fun-facts/01.svg" alt="icon">
-                            </div>
-                            <h5 class="title"><span class="counter">65,972</span></h5>
-                            <span class="enr">Students Enrolled</span>
-                        </div>
-                        <!-- single end -->
-                        <!-- single  -->
-                        <div class="single-fun-facts">
-                            <div class="icon">
-                                <img src="site-assets/images/fun-facts/02.svg" alt="icon">
-                            </div>
-                            <h5 class="title"><span class="counter">5,321</span></h5>
-                            <span class="enr">Completed Course</span>
-                        </div>
-                        <!-- single end -->
-                        <!-- single  -->
-                        <div class="single-fun-facts">
-                            <div class="icon">
-                                <img src="site-assets/images/fun-facts/03.svg" alt="icon">
-                            </div>
-                            <h5 class="title"><span class="counter">44,239</span></h5>
-                            <span class="enr">Students Learner</span>
-                        </div>
-                        <!-- single end -->
-                        <!-- single  -->
-                        <div class="single-fun-facts">
-                            <div class="icon">
-                                <img src="site-assets/images/fun-facts/04.svg" alt="icon">
-                            </div>
-                            <h5 class="title"><span class="counter">75,992</span></h5>
-                            <span class="enr">Students Enrolled</span>
-                        </div>
-                        <!-- single end -->
-                    </div>
+                <div class="col-lg-10 col-md-9">
+                    <h3>EXECUTIVE LEADERS RISE</h3>
+                    <p>Executive Leaders Rise is a hands-on interactive course for anyone looking to enhance their skills and adapt their mindset to succeed in today’s fast-paced technologically driven business world. Seasoned executives and leadership experts provide a comprehensive guide to the best practice in C-Suite leadership presence, including how to execute strategies and build strong teams leading with authenticity and empathy.</p>
+                    <a href="#" class="mt--10 rts-btn btn-primary">Learn More</a>
+                </div>
+                <div class="col-lg-2 col-md-3 d-none d-md-block">
+                    <img src="images/onebig.png" class="img-fluid" alt="Executive Leaders Rise">
                 </div>
             </div>
         </div>
-        <div class="shape-image">
-            <div class="shape one" data-speed="0.04" data-revert="true"><img src="site-assets/images/banner/15.png" alt=""></div>
-            <div class="shape three" data-speed="0.04"><img src="site-assets/images/banner/16.png" alt=""></div>
+    </div>
+    <div class="about-area-start rts-section-gapBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-3 order-lg-1 d-none d-md-block">
+                    <img src="images/twobig.png" class="img-fluid" alt="Entrepreneurs Rise">
+                </div>
+                <div class="col-lg-10 col-md-9 order-lg-2">
+                    <h3>ENTREPRENEURS RISE</h3>
+                    <p>Entrepreneurs Rise is the ultimate course for anyone looking to start or grow a successful business. Developed by entrepreneurs and business experts, you are provided with a comprehensive roadmap for building a business from the ground up, including how to identify and validate your idea, create a solid business plan, attract customers and investors, and navigate the challenges of scaling and growth.</p>
+                    <a href="#" class="mt--10 rts-btn btn-primary">Learn More</a>
+                </div>
+            </div>
         </div>
     </div>
     <!-- fun facts area end -->
-    <!-- feedback area start -->
     <div class="rts-feedback-area rts-section-gap bg-light-1 shape-move">
         <div class="container">
             <div class="row">
@@ -395,91 +291,29 @@
                     <div class="students-feedback-wrapper-1 bg_image">
                         <div class="swiper mySwiper-testimonials-1">
                             <div class="swiper-wrapper">
-
-                                <div class="swiper-slide">
-                                    <!-- single testimonials0area -->
-                                    <div class="single-students-feedback">
-                                        <div class="left-image">
-                                            <img src="site-assets/images/students-feedback/01.jpg" alt="feedback">
-                                        </div>
-                                        <div class="right-content">
-                                            <img src="site-assets/images/students-feedback/01.png" alt="feedback">
-                                            <p class="disc">
-                                                I can't recommend The Gourmet Haven enough. It's a place for special occasions, date nights, or whenever you're in the mood for a culinary adventure. The combination of exceptional.
-                                            </p>
-                                            <!-- author area -->
-                                            <div class="author-area">
-                                                <ul class="stars">
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-regular fa-star"></i></li>
-                                                </ul>
-                                                <h5 class="title">Emma Elizabeth</h5>
-                                                <span>Assistant Teacher</span>
+                                @foreach ($studentsFeedback as $feedback)
+                                    <div class="swiper-slide">
+                                        <!-- single testimonials0area -->
+                                        <div class="single-students-feedback">
+                                            <div class="left-image">
+                                                <img src="{{ $feedback->getImage() }}" alt="feedback">
                                             </div>
-                                            <!-- author area end -->
+                                            <div class="right-content">
+                                                <img src="site-assets/images/students-feedback/01.png" alt="feedback">
+                                                <p class="disc">
+                                                    {{ $feedback->text }}
+                                                </p>
+                                                <!-- author area -->
+                                                <div class="author-area">
+                                                    {!! $feedback->ratingHtml !!}
+                                                    <h5 class="title">{{ $feedback->name }}</h5>
+                                                    <span>{{ $feedback->designation }}</span>
+                                                </div>
+                                                <!-- author area end -->
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- single testimonials0area end -->
-                                </div>
-                                <div class="swiper-slide">
-                                    <!-- single testimonials0area -->
-                                    <div class="single-students-feedback">
-                                        <div class="left-image">
-                                            <img src="site-assets/images/students-feedback/02.jpg" alt="feedback">
-                                        </div>
-                                        <div class="right-content">
-                                            <img src="site-assets/images/students-feedback/01.png" alt="feedback">
-                                            <p class="disc">
-                                                I can't recommend The Gourmet Haven enough. It's a place for special occasions, date nights, or whenever you're in the mood for a culinary adventure. The combination of exceptional.
-                                            </p>
-                                            <!-- author area -->
-                                            <div class="author-area">
-                                                <ul class="stars">
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-regular fa-star"></i></li>
-                                                </ul>
-                                                <h5 class="title">Emma Elizabeth</h5>
-                                                <span>Assistant Teacher</span>
-                                            </div>
-                                            <!-- author area end -->
-                                        </div>
-                                    </div>
-                                    <!-- single testimonials0area end -->
-                                </div>
-                                <div class="swiper-slide">
-                                    <!-- single testimonials0area -->
-                                    <div class="single-students-feedback">
-                                        <div class="left-image">
-                                            <img src="site-assets/images/students-feedback/01.jpg" alt="feedback">
-                                        </div>
-                                        <div class="right-content">
-                                            <img src="site-assets/images/students-feedback/01.png" alt="feedback">
-                                            <p class="disc">
-                                                I can't recommend The Gourmet Haven enough. It's a place for special occasions, date nights, or whenever you're in the mood for a culinary adventure. The combination of exceptional.
-                                            </p>
-                                            <!-- author area -->
-                                            <div class="author-area">
-                                                <ul class="stars">
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-sharp fa-regular fa-star"></i></li>
-                                                </ul>
-                                                <h5 class="title">Emma Elizabeth</h5>
-                                                <span>Assistant Teacher</span>
-                                            </div>
-                                            <!-- author area end -->
-                                        </div>
-                                    </div>
-                                    <!-- single testimonials0area end -->
-                                </div>
+                                @endforeach
 
                             </div>
                             <div class="swiper-button-next"><i class="fa-solid fa-chevron-right"></i></div>
@@ -487,8 +321,10 @@
                             <div class="swiper-pagination"></div>
                         </div>
                         <div class="shape-image">
-                            <div class="shape one" data-speed="0.04" data-revert="true"><img src="site-assets/images/banner/18.png" alt=""></div>
-                            <div class="shape three" data-speed="0.04"><img src="site-assets/images/banner/17.png" alt=""></div>
+                            <div class="shape one" data-speed="0.04" data-revert="true"><img
+                                        src="site-assets/images/banner/18.png" alt=""></div>
+                            <div class="shape three" data-speed="0.04"><img src="site-assets/images/banner/17.png"
+                                                                            alt=""></div>
                         </div>
                     </div>
                 </div>

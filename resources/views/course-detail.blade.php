@@ -29,7 +29,7 @@
                             </div>--}}
                             <div class="students">
                                 <i class="fa-thin fa-users"></i>
-                                <span>{{$course->modules_count}} Lesson(s)</span>
+                                <span>{{$course->modules_count}} {{ Str::plural('Lesson', $course->modules_count) }}</span>
                             </div>
                             <div class="calender-area-stars">
                                 <i class="fa-light fa-calendar-lines-pen"></i>
@@ -98,7 +98,7 @@
                                             <h2 class="accordion-header" id="headingOne">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModule-{{$course_module->id}}" aria-expanded="true" aria-controls="collapseModule-{{$course_module->id}}">
                                                     <span>{{$course_module->name}}</span>
-                                                    <span>{{$course_module->contents->count()}} Lecture(s)</span>
+                                                    <span>{{$course_module->contents->count()}} {{ Str::plural('Lecture', $course_module->contents->count()) }}</span>
                                                 </button>
                                             </h2>
                                             <div id="collapseModule-{{$course_module->id}}" class="accordion-collapse collapse {{!$key?'show':''}}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">

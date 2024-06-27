@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('course_enroll', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('user_id');
-            $table->date('date')->nullable();
-            $table->float('amount')->default(0);
-            $table->enum('status', ['Unpaid', 'Paid','Cancel'])->default('Unpaid');
-            $table->BigInteger('payment_id')->nullable();
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_enroll');
+        Schema::dropIfExists('tags');
     }
 };

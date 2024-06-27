@@ -76,9 +76,12 @@ class StripeController
                 if($session->metadata->enroll_id){
                     $enroll_id = $session->metadata->enroll_id;
                     $courseEnroll = CourseEnroll::find($enroll_id);
+                    $courseEnroll->status = 'Cancel';
+                    $courseEnroll->save();
+
                     $course = Courses::find($courseEnroll->course_id);
                     $url = route('course.detail',$course->slug);
-                    $courseEnroll->delete();
+
                 }
             }
         }catch (\Exception $e){

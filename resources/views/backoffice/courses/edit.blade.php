@@ -69,12 +69,28 @@
                         </div>
                         <div class="col-md-6 mb-2">
                             <div class="form-group">
+                                <label class="text-label">Level<span class="text-danger">*</span></label>
+                                {{ Form::select('level', $levels, $row->level,['class' => 'form-control', 'placeholder' => 'Select Course Level','required'=>'true']) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
                                 <label class="text-label">Status</label>
                                 <br>
                                 {{ Form::radio('status', '1', $row->status=='1'?true:false, ['id' => 'status_active']) }}
                                 <label for="status_active">Active</label>
                                 {{ Form::radio('status', '0', $row->status=='0'?true:false, ['id' => 'status_inactive']) }}
                                 <label for="status_inactive">Inactive</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label class="text-label">Select Course Tags<span class="text-danger">*</span></label>
+                                <select id="tags" name="tags[]" multiple="multiple" class="form-control">
+                                    @foreach ($tags as $tag)
+                                        <option value="{{ $tag->name }}"{{ in_array($tag->name, explode(',',$row->tags)) ? 'selected' : '' }}>{{ $tag->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -92,4 +108,29 @@
 @endsection
 
 @section('page-level-script')
+<script>
+    $(document).ready(function () {
+
+        $('#tags').select2({
+            tags: true,
+            createTag: function(params) {
+                var term = $.trim(params.term);
+                if (term === '' || term.length < 5) {
+                    return null;
+                }
+                return {
+                    id: term,
+                    text: term
+                };
+            },
+            insertTag: function(data, tag) {
+                // Insert the tag only if it does not already exist in the dropdown
+                if ($.grep(data, function(e) { return e.text === tag.text; }).length === 0) {
+                    data.push(tag);
+                }
+            }
+        });
+
+    });
+</script>
 @endsection

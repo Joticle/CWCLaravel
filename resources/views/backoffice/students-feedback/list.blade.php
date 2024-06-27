@@ -3,7 +3,7 @@
 @section('title', array_key_last($breadcrumb))
 
 @section('page-level-style')
-
+<link rel="stylesheet" href="https://cwclaravel.test/site-assets/css/plugins/fontawesome-6.css?v=v0.0.11">
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@
                 <div class="card-header">
                     <h4 class="card-title">List {{$pulular_name}}</h4>
 
-                    <a href="{{route('admin.course.add')}}" type="button" class="btn btn-primary btn-sm mt-3 mt-sm-0"><i class="fa fa-plus"></i> Add {{$singular_name}}</a>
+                    <a href="{{route('admin.student-feedback.add')}}" type="button" class="btn btn-primary btn-sm mt-3 mt-sm-0"><i class="fa fa-plus"></i> Add {{$singular_name}}</a>
 
                 </div>
                 <div class="card-body">
@@ -33,12 +33,10 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Logo</th>
-                                <th>Price</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
+                                <th>Designation</th>
+                                <th>Image</th>
+                                <th>Rating</th>
                                 <th>Status</th>
-                                <th>Level</th>
                                 <th>Created Date</th>
                                 <th>Action</th>
                             </tr>
@@ -49,10 +47,9 @@
                                     <tr>
                                         <td><strong>{{ $index + $data->firstItem() }}</strong></td>
                                         <td>{{$row->name}}</td>
-                                        <td><img style="width: 80px;height: 50px;" src="{{$row->getLogo()}}"></td>
-                                        <td>{{printPrice($row->price)}}</td>
-                                        <td>{{_date($row->start_date)}}</td>
-                                        <td>{{!empty($row->end_date)?_date($row->end_date):'---'}}</td>
+                                        <td>{{$row->designation}}</td>
+                                        <td><img style="width: 80px;height: 50px;" src="{{$row->getImage()}}"></td>
+                                        <td>{!! $row->rating !!} <i class="fa fa-star"></i></td>
                                         <td>
                                             @if($row->status == '1')
                                                 <span class="badge badge-primary">Active</span>
@@ -60,13 +57,11 @@
                                                 <span class="badge badge-danger">In-Active</span>
                                             @endif
                                         </td>
-                                        <td><span class="badge badge-{{ $row->badgeClass }}">{{ $row->level }}</span></td>
                                         <td>{{_date($row->created_at)}}</td>
                                         <td>
                                             <div class="d-flex">
-                                                <a href="{{route('admin.course.edit',$row->id)}}" data-toggle="tooltip" title="Edit {{$singular_name}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-                                                &nbsp;<a data-toggle="tooltip" title="Delete {{$singular_name}}" href="{{route('admin.course.delete',$row->id)}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                                &nbsp;<a href="{{route('admin.course.module.list',$row->id)}}" data-toggle="tooltip" title="Manage {{$singular_name}} Modules" class="btn btn-success shadow btn-xs sharp me-1"><i class="fa fa-newspaper-o"></i></a>
+                                                <a href="{{route('admin.student-feedback.edit',$row->id)}}" data-toggle="tooltip" title="Edit {{$singular_name}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
+                                                &nbsp;<a data-toggle="tooltip" title="Delete {{$singular_name}}" href="{{route('admin.student-feedback.delete',$row->id)}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -92,12 +87,4 @@
 @endsection
 
 @section('page-level-script')
-    <script>
-        $(document).ready(function () {
-            @if(Session::has('activeModal'))
-                $('#{{Session::get('activeModal')}}').modal('show');
-            @endif
-        });
-
-    </script>
 @endsection

@@ -2,7 +2,6 @@
 
 @section('content')
     @include('common.profile-header')
-
     <div class="dashboard--area-main pt--100">
         <div class="container">
             <div class="row g-5">
@@ -15,5 +14,5 @@
             </div>
         </div>
     </div>
-    <div class="rts-section-gap">
-    @endsection
+    <div class="rts-section-gap"></div>
+@endsection

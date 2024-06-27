@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cases;
 use App\Models\Courses;
 use App\Models\Faqs;
+use App\Models\StudentsFeedback;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,6 +33,7 @@ class FrontEndController extends Controller
     public function index()
     {
         $data = [];
+        $data['studentsFeedback']  = StudentsFeedback::active()->get();
         return view('home',$data);
     }
     function logout(){

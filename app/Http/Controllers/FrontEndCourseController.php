@@ -39,7 +39,7 @@ class FrontEndCourseController extends Controller
         $breadcrumb['All Courses'] = '';
         $data['breadcrumb'] = $breadcrumb;
         $today = Carbon::today();
-        $data['courses'] = Courses::where('status','=','1')->where(function ($query) use ($today) {
+        $data['courses'] = Courses::active()->where(function ($query) use ($today) {
             $query->whereNull('end_date')->orWhere('end_date', '>=', $today);
         })->withCount('modules')->paginate(env('RECORD_PER_PAGE',10));
         //$enrolled_courses = \auth()->user()->courseEnrolled->pluck('course_id')->toArray();
@@ -52,7 +52,7 @@ class FrontEndCourseController extends Controller
      */
 
     function courseDetail($slug){
-        $course = Courses::where('status','=','1')->where('slug','=',$slug)->withCount('modules')->firstOrFail();
+        $course = Courses::active()->where('slug','=',$slug)->withCount('modules')->firstOrFail();
 
         $data = [];
         $data['title'] = $course->name;
@@ -69,7 +69,7 @@ class FrontEndCourseController extends Controller
         return view('course-detail',$data);
     }
     function courseEnroll($slug){
-        $course = Courses::where('status','=','1')->where('slug','=',$slug)->firstOrFail();
+        $course = Courses::active()->where('slug','=',$slug)->firstOrFail();
         if($course->enrolled()){
             return redirect()->back()->withErrors(['You already enrolled this course.']);
         }
