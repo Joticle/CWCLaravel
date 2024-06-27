@@ -12,7 +12,7 @@
             <p>My Profile</p>
         </a>
 
-        <a href="{{ route('dashboard.enrolled-course') }}" class="single-item @if (request()->route()->getName() == 'dashboard.enrolled-course') active @endif">
+        <a href="{{ route('dashboard.my.courses') }}" class="single-item @if (request()->route()->getName() == 'dashboard.my.courses') active @endif">
             <i class="fa-light fa-graduation-cap"></i>
             <p>Enrolled Courses</p>
         </a>

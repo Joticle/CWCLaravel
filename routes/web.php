@@ -55,8 +55,9 @@ Route::group(['middleware' => 'web'], function(){
                 Route::get('profile', [ProfileController::class, 'index'])->name('profile');
                 Route::post('profile', [ProfileController::class, 'updateProfile'])->name('update.profile');
                 Route::post('password-update', [ProfileController::class, 'updatePassword'])->name('update.password');
+                Route::post('update-thumbnail', [ProfileController::class, 'updateThumbnail'])->name('update.thumbnail');
 
-                Route::get('enrolled-course', [DashboardCourseController::class, 'index'])->name('enrolled-course');
+                Route::get('my-courses', [DashboardCourseController::class, 'myCourses'])->name('my.courses');
                 Route::get('whishlist', [WhishlistController::class, 'index'])->name('whishlist');
                 Route::get('order-history', [OrderController::class, 'orderHistory'])->name('order-history');
             });
