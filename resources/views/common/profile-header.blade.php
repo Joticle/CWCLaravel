@@ -13,7 +13,8 @@
                             <div class="course-vedio">
                                 <div class="single">
                                     <i class="fa-thin fa-book"></i>
-                                    <span>{{ Auth::user()->courseEnrolled->count() .' ' . Str::plural('Course', Auth::user()->courseEnrolled->count()) }} Enrolled</span>
+                                    <span>{{ Auth::user()->courseEnrolled->count() . ' ' . Str::plural('Course', Auth::user()->courseEnrolled->count()) }}
+                                        Enrolled</span>
                                 </div>
                             </div>
                         </div>

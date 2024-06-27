@@ -24,4 +24,10 @@ class CourseEnroll extends Model
         'status',
         'payment_id'
     ];
+
+    public function course()
+    {
+        return $this->belongsTo(Courses::class, 'course_id');
+    }
+
 }

@@ -14,7 +14,7 @@
                 </div>
                 <!-- single dashboard-card end -->
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            {{-- <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <!-- single dashboard-card -->
                 <div class="single-dashboard-card">
                     <div class="icon">
@@ -35,7 +35,7 @@
                     <p>Completed Courses</p>
                 </div>
                 <!-- single dashboard-card end -->
-            </div>
+            </div> --}}
 
         </div>
 

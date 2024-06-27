@@ -3,7 +3,7 @@
 @section('sub-content')
     <div class="exrolled-course-wrapper-dashed">
         <h5 class="title">Enrolleld Courses</h5>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        {{-- <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
                     role="tab" aria-controls="home" aria-selected="true">Enrolleld Courses</button>
@@ -1091,6 +1091,57 @@
                         <!-- single course style two end -->
                     </div>
                 </div>
+            </div>
+        </div> --}}
+        <div class="row g-5 mt--10">
+            @foreach ($courses as $course)
+                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                    <div class="rts-single-course">
+                        <a href="{{ $course->getLink() }}" class="thumbnail">
+                            <img src="{{ $course->getLogo() }}" alt="course">
+                        </a>
+                        <div class="save-icon">
+                            <i class="fa-sharp fa-light fa-bookmark"></i>
+                        </div>
+                        <div class="tags-area-wrapper">
+                            <div class="single-tag">
+                                <span>{{ printPrice($course->price) }}</span>
+                            </div>
+                        </div>
+                        <div class="lesson-studente">
+                            <div class="lesson">
+                                <i class="fa-light fa-calendar-lines-pen"></i>
+                                <span>{{ $course->modules_count }} Lessons</span>
+                            </div>
+                            <div class="lesson">
+                                <i class="fa-light fa-user-group"></i>
+                                <span>0 Students</span>
+                            </div>
+                        </div>
+                        <a href="{{ $course->getLink() }}">
+                            <h5 class="title">{{ $course->name }}</h5>
+                        </a>
+                        {{-- <p class="teacher">Dr. Angela Yu</p> --}}
+                        <div class="rating-and-price">
+                            <a href="{{ $course->getLink() }}" class="rts-btn btn-border">Detail</a>
+                            @if ($course->enrolled())
+                                <a href="{{ $course->getLink() }}" class="rts-btn btn-success text-white">Enrolled</a>
+                            @else
+                                <a href="{{ route('course.enroll', $course->slug) }}" class="rts-btn btn-primary">Enroll</a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <div class="row mt--30">
+            <div class="col-lg-12">
+                <!-- rts-pagination-area -->
+                <div class="rts-pagination-area-2">
+                    {{ $courses->links() }}
+                    @include('includes.paginator-counter', ['data' => $courses])
+                </div>
+                <!-- rts-pagination-area end -->
             </div>
         </div>
     </div>
