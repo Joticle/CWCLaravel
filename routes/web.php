@@ -7,9 +7,12 @@ use App\Http\Controllers\Backoffice\CourseController;
 use App\Http\Controllers\Backoffice\CourseMaterialController;
 use App\Http\Controllers\Backoffice\CourseModuleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardCourseController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\FrontEndCourseController;
 use App\Http\Controllers\FrontEndPaymentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WhishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +52,9 @@ Route::group(['middleware' => 'web'], function(){
             // dashboard
             Route::group(['prefix' => 'dashboard','as' => 'dashboard.'], function(){
                 Route::get('index', [DashboardController::class, 'index'])->name('index');
+                Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+                Route::get('enrolled-course', [DashboardCourseController::class, 'index'])->name('enrolled-course');
+                Route::get('whishlist', [WhishlistController::class, 'index'])->name('whishlist');
             });
         });
     });
