@@ -86,7 +86,11 @@
                         <div class="col-md-6 mb-2">
                             <div class="form-group">
                                 <label class="text-label">Select Course Tags<span class="text-danger">*</span></label>
-                                {!! Form::select('tags[]', $tags, [] , ['class' => 'form-control', 'id'=>'select_search_tags', 'multiple' => 'multiple']) !!}
+                                <select id="tags" name="tags[]" multiple="multiple" class="form-control">
+                                    @foreach ($tags as $tag)
+                                        <option value="{{ $tag->name }}"{{ in_array($tag->name, explode(',',$row->tags)) ? 'selected' : '' }}>{{ $tag->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -107,25 +111,24 @@
 <script>
     $(document).ready(function () {
 
-        $("#select_search_tags").select2({
-            ajax: {
-                url: '{{ route('admin.tags.search') }}',
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        q: params.term, // search term
-                    };
-                },
-                processResults: function (data, params) {
-                    return {
-                        results: data.items,
-                    };
-                },
-                cache: true
+        $('#tags').select2({
+            tags: true,
+            createTag: function(params) {
+                var term = $.trim(params.term);
+                if (term === '' || term.length < 5) {
+                    return null;
+                }
+                return {
+                    id: term,
+                    text: term
+                };
             },
-            placeholder: 'Search Tag',
-            minimumInputLength: 1,
+            insertTag: function(data, tag) {
+                // Insert the tag only if it does not already exist in the dropdown
+                if ($.grep(data, function(e) { return e.text === tag.text; }).length === 0) {
+                    data.push(tag);
+                }
+            }
         });
 
     });

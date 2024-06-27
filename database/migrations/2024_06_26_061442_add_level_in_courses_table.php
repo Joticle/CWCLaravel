@@ -16,6 +16,7 @@ return new class extends Migration
     {
         Schema::table('courses', function (Blueprint $table) {
             $table->enum('level', Courses::LEVELS)->default(Courses::DEFAULT_LEVEL)->after('status');
+            $table->tinyText('tags')->nullable()->after('level');
         });
     }
 
@@ -28,6 +29,7 @@ return new class extends Migration
     {
         Schema::table('courses', function (Blueprint $table) {
             $table->dropColumn('level');
+            $table->dropColumn('tags');
         });
     }
 };

@@ -26,7 +26,8 @@ class Courses extends Model
         'start_date',
         'end_date',
         'status',
-        'price'
+        'price',
+        'tags'
     ];
 
     const LEVELS = ['Beginner' => 'Beginner', 'Intermediate' => 'Intermediate', 'Expert' => 'Expert'];

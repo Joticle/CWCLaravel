@@ -119,4 +119,17 @@ class TagController extends Controller
         $tags = Tag::where('name','like','%'.$request->q.'%')->limit(15)->get(['id', 'name as text']);
         return ['items' => $tags];
     }
+
+    public function createNewTags(array $tagNames)
+    {
+        try {
+            foreach($tagNames as $name) {
+                Tag::firstOrCreate(['name' => trim($name)]);
+            }
+            return true;
+
+        } catch(\Exception $ex) {
+            return false;
+        }
+    }
 }

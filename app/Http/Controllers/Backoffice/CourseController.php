@@ -52,6 +52,7 @@ class CourseController extends Controller
         $breadcrumb['Add Course'] = '';
         $data['breadcrumb'] = $breadcrumb;
         $data['levels'] = Courses::LEVELS;
+        $data['tags'] = Tag::all();
 
         return view('backoffice.courses.add',$data);
     }
@@ -65,12 +66,18 @@ class CourseController extends Controller
             'start_date' => 'required',
             'price' => 'required|numeric',
             'level' => 'required|in:' . implode(',', Courses::LEVELS),
-            'tags.*' => 'exists:tags,id'
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
+        $tags = null;
+        // transform tags and insert new in tags table
+        if(!empty($request->tags)) {
+            (new TagController())->createNewTags($request->tags);
+            $tags = implode(',', $request->tags);
+        }
+
         $data = [];
         $data['name'] = $request->get('name');
         $data['slug'] = $this->slugify($request->get('name'));
@@ -79,11 +86,8 @@ class CourseController extends Controller
         $data['end_date'] = $request->has('end_date')?$request->get('end_date'):null;
         $data['price'] = $request->get('price');
         $data['level'] = $request->get('level');
+        $data['tags'] = $tags;
         $record = Courses::create($data);
-
-        if(!empty($request->tags)) {
-            $record->tags()->sync($request->tags);
-        }
 
         if($request->hasFile('logo')){
             $uploadingPath = public_path('/uploads/courses/'.$record->id);
@@ -124,7 +128,7 @@ class CourseController extends Controller
         $data['breadcrumb'] = $breadcrumb;
         $data['row'] = $course;
         $data['levels'] = Courses::LEVELS;
-        $data['tags'] = Tag::get(['id','name as text']);
+        $data['tags'] = Tag::all();
 
         return view('backoffice.courses.edit',$data);
     }
@@ -137,12 +141,19 @@ class CourseController extends Controller
             'start_date' => 'required',
             'price' => 'required|numeric',
             'level' => 'required|in:' . implode(',', Courses::LEVELS),
-            'tags.*' => 'exists:tags,id'
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
+
+        $tags = null;
+        // transform tags and insert new in tags table
+        if(!empty($request->tags)) {
+            (new TagController())->createNewTags($request->tags);
+            $tags = implode(',', $request->tags);
+        }
+
         $record->name = $request->get('name');
         //$record->slug = $this->slugify($request->get('name'), $id);
         $record->description = $request->get('description');
@@ -151,6 +162,8 @@ class CourseController extends Controller
         $record->status = $request->get('status');
         $record->price = $request->get('price');
         $record->level = $request->get('level');
+        $record->tags = $tags;
+
         if($request->hasFile('logo')){
             $uploadingPath = public_path('/uploads/courses/'.$record->id);
             if(!is_dir($uploadingPath)){
