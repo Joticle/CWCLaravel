@@ -3,10 +3,12 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="dashboard-banner-area-start bg_image" style="background-image:{{asset('site-assets/images/dashboard/01.jpg')}}">
+                <div class="dashboard-banner-area-start bg_image"
+                    style="background-image:{{ asset('site-assets/images/dashboard/01.jpg') }}">
                     <div class="author-profile-image-and-name">
                         <div class="profile-pic">
-                            <img style="height: 200px;" src="{{ auth()->user()->getThumbnail() }}" id="profileImage" alt="dashboard">
+                            <img style="height: 200px;" src="{{ auth()->user()->getThumbnail() }}" id="profileImage"
+                                alt="dashboard">
                             <input name="image" type="file" class="d-none" id="fileInput">
                         </div>
                         <div class="name-desig">
@@ -34,28 +36,38 @@
         var file = event.target.files[0];
         if (file) {
             var formData = new FormData();
-            formData.append('image', file);
+            formData.append('thumbnail', file);
 
-            fetch('/api/upload-profile-image', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content')
-                    },
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById('profileImage').src = data.imagePath;
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('dashboard.update.thumbnail') }}',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(result) {
+                    try {
+                        result = JSON.parse(result);
+                    } catch (e) {}
+                    if ($.trim(result.success) == 'true') {
+                        successMsg(result.message);
+                        if (result.reload == true) {
+                            location.reload();
+                        }
                     } else {
-                        alert('Error uploading image');
+                        var errorsShow = '';
+                        $.each(result.message, function(k, v) {
+                            errorsShow += v + '<br>';
+                        });
+                        errorMsg(errorsShow);
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error uploading image');
-                });
+                },
+                error: function(request, status, error) {
+                    errorMsg('Error: ' + error);
+                }
+            });
         }
     });
 </script>

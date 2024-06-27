@@ -15,7 +15,8 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
-    public function index() {
+    public function index()
+    {
 
         $user = Auth::user();
 
@@ -24,7 +25,6 @@ class ProfileController extends Controller
         $data['user'] = $user;
 
         return view('dashboard.profile', $data);
-
     }
 
     public function updateProfile(Request $request)
@@ -67,14 +67,16 @@ class ProfileController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
-
     }
 
     public function updatePassword(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'old_password' => ['required','string', new OldPassword],
-            'new_password' => 'required|min:8|confirmed|different:old_password']
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'old_password' => ['required', 'string', new OldPassword],
+                'new_password' => 'required|min:8|confirmed|different:old_password'
+            ]
         );
 
         if ($validator->fails()) {
@@ -89,6 +91,47 @@ class ProfileController extends Controller
             return redirect()->back()->with('success', 'Password updated successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()])->with('activeTab', 'update-password');
+        }
+    }
+
+    public function updateThumbnail(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'thumbnail' => 'nullable|image|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        try {
+            $user = Auth::user();
+
+            if ($request->hasFile('thumbnail')) {
+                $uploadingPath = public_path('/uploads/user/' . $user->id);
+                if (!is_dir($uploadingPath)) {
+                    mkdir($uploadingPath, 0777, true);
+                }
+                $file = $request->file('thumbnail');
+                $fileExtension = $file->getClientOriginalExtension();
+                $image_name = 'thumbnail' . time() . '.' . $fileExtension;
+                $imageUpload = $file->move($uploadingPath, $image_name);
+                if ($user->thumbnail) {
+                    $previousThumbnailPath = $uploadingPath . '/' . $user->thumbnail;
+                    if (file_exists($previousThumbnailPath)) {
+                        unlink($previousThumbnailPath);
+                    }
+                }
+                $user->thumbnail = $image_name;
+                $user->save();
+            }
+            return response()->json(['success' => true, 'reload' => true, 'message' => 'Profile Image updated Successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Something went wrong']);
         }
     }
 }
