@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use Validator;
 
@@ -50,6 +51,8 @@ class CourseController extends Controller
         $breadcrumb['Courses'] = route('admin.course.list');
         $breadcrumb['Add Course'] = '';
         $data['breadcrumb'] = $breadcrumb;
+        $data['levels'] = Courses::LEVELS;
+        $data['tags'] = Tag::all();
 
         return view('backoffice.courses.add',$data);
     }
@@ -62,11 +65,19 @@ class CourseController extends Controller
             'description' => 'required',
             'start_date' => 'required',
             'price' => 'required|numeric',
+            'level' => 'required|in:' . implode(',', Courses::LEVELS),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
+        $tags = null;
+        // transform tags and insert new in tags table
+        if(!empty($request->tags)) {
+            (new TagController())->createNewTags($request->tags);
+            $tags = implode(',', $request->tags);
+        }
+
         $data = [];
         $data['name'] = $request->get('name');
         $data['slug'] = $this->slugify($request->get('name'));
@@ -74,6 +85,8 @@ class CourseController extends Controller
         $data['start_date'] = $request->get('start_date');
         $data['end_date'] = $request->has('end_date')?$request->get('end_date'):null;
         $data['price'] = $request->get('price');
+        $data['level'] = $request->get('level');
+        $data['tags'] = $tags;
         $record = Courses::create($data);
 
         if($request->hasFile('logo')){
@@ -114,6 +127,8 @@ class CourseController extends Controller
         $breadcrumb[$course->name] = '';
         $data['breadcrumb'] = $breadcrumb;
         $data['row'] = $course;
+        $data['levels'] = Courses::LEVELS;
+        $data['tags'] = Tag::all();
 
         return view('backoffice.courses.edit',$data);
     }
@@ -125,11 +140,20 @@ class CourseController extends Controller
             'description' => 'required',
             'start_date' => 'required',
             'price' => 'required|numeric',
+            'level' => 'required|in:' . implode(',', Courses::LEVELS),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
+
+        $tags = null;
+        // transform tags and insert new in tags table
+        if(!empty($request->tags)) {
+            (new TagController())->createNewTags($request->tags);
+            $tags = implode(',', $request->tags);
+        }
+
         $record->name = $request->get('name');
         //$record->slug = $this->slugify($request->get('name'), $id);
         $record->description = $request->get('description');
@@ -137,6 +161,9 @@ class CourseController extends Controller
         $record->end_date = $request->has('end_date')?$request->get('end_date'):null;
         $record->status = $request->get('status');
         $record->price = $request->get('price');
+        $record->level = $request->get('level');
+        $record->tags = $tags;
+
         if($request->hasFile('logo')){
             $uploadingPath = public_path('/uploads/courses/'.$record->id);
             if(!is_dir($uploadingPath)){

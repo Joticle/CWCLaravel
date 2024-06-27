@@ -7,6 +7,7 @@ use App\Http\Controllers\Backoffice\CourseController;
 use App\Http\Controllers\Backoffice\CourseMaterialController;
 use App\Http\Controllers\Backoffice\CourseModuleController;
 use App\Http\Controllers\Backoffice\StudentsFeedbackController;
+use App\Http\Controllers\Backoffice\TagController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\FrontEndCourseController;
@@ -110,7 +111,7 @@ Route::group(['middleware' => 'web'], function(){
                     Route::get('/delete/{id}', [ContentTypeController::class, 'delete'])->name('delete');
                 });
 
-                /*Courses*/
+                /*Student Feedback*/
                 Route::group(['prefix' => 'student-feedback','as' => 'student-feedback.'], function(){
                     Route::get('/list', [StudentsFeedbackController::class, 'index'])->name('list');
                     Route::get('/create', [StudentsFeedbackController::class, 'add'])->name('add');
@@ -120,6 +121,9 @@ Route::group(['middleware' => 'web'], function(){
                     Route::get('/delete/{id}', [StudentsFeedbackController::class, 'delete'])->name('delete');
                     Route::get('/search', [StudentsFeedbackController::class, 'search'])->name('search');
                 });
+
+                Route::get('tags/search', [TagController::class,'search'])->name('tags.search');
+                Route::resource('tags', TagController::class);
 
             });
         });

@@ -64,6 +64,7 @@ $(document).ready(function () {
         $("body").on("click", ".deletedBtn", function (e) {
             e.preventDefault();
             let url = $(this).attr("href");
+            let method = $(this).attr('data-method');
             swal({
                 title: "Are you sure?",
                 text: "Once deleted, you will not be able to recover this!",
@@ -71,8 +72,35 @@ $(document).ready(function () {
                 buttons: true,
                 dangerMode: true,
             }).then((willDelete) => {
-                if (willDelete) {
+                if (willDelete && typeof method == 'undefined') {
                     window.location.href = url;
+                }
+                else {
+                    console.log(url, method);
+                    $.ajax({
+                        type: method,
+                        url: url,
+                        success: function(result){
+                            try {
+                                result = JSON.parse(result);
+                            }catch(e) {}
+                            if($.trim(result.success) == 'true'){
+                                successMsg(result.message);
+                                if(result.reload == true) {
+                                    location.reload();
+                                }
+                            }else{
+                                var errorsShow = '';
+                                $.each(result.message, function(k, v) {
+                                    errorsShow += v+'<br>';
+                                });
+                                errorMsg(errorsShow);
+                            }
+                        },
+                        error: function (request, status, error) {
+                            errorMsg(error);
+                        }
+                    });
                 }
             });
         });

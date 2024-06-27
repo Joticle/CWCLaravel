@@ -55,6 +55,17 @@
                     <li><a href="{{ route('admin.student-feedback.add') }}">Add Student Feedback</a></li>
                 </ul>
             </li>
+            <li class="@if (in_array(request()->route()->getName(), ['admin.tags.index','admin.tag.create'])) mm-active @endif">
+                <a class="ai-icon" href="{{ route('admin.tags.index') }}" aria-expanded="true">
+                    <i class="flaticon-381-file-2"></i>
+                    <span class="nav-text">Tags</span>
+                    <span class="nav-text fa fa-chevron-down float-right"></span> <!-- Collapsible icon -->
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="{{ route('admin.tags.index') }}">All Tags</a></li>
+                    <li><a href="{{ route('admin.tags.create') }}">Add New Tag</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

@@ -38,6 +38,7 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
+                                <th>Level</th>
                                 <th>Created Date</th>
                                 <th>Action</th>
                             </tr>
@@ -59,6 +60,7 @@
                                                 <span class="badge badge-danger">In-Active</span>
                                             @endif
                                         </td>
+                                        <td><span class="badge badge-{{ $row->badgeClass }}">{{ $row->level }}</span></td>
                                         <td>{{_date($row->created_at)}}</td>
                                         <td>
                                             <div class="d-flex">

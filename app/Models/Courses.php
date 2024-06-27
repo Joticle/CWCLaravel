@@ -19,6 +19,9 @@ class Courses extends Model
     protected $dates = ['deleted_at'];
     protected $table = 'courses'; // Specify the table name if different from model name convention
 
+    const LEVELS = ['Beginner' => 'Beginner', 'Intermediate' => 'Intermediate', 'Expert' => 'Expert'];
+    const DEFAULT_LEVEL = 'Beginner';
+
     protected $fillable = [
         'name',
         'slug',
@@ -26,12 +29,25 @@ class Courses extends Model
         'start_date',
         'end_date',
         'status',
-        'price'
+        'price',
+        'tags'
     ];
+
     public function scopeActive($query)
     {
         return $query->where('status', '1');
     }
+
+    public function getBadgeClassAttribute()
+    {
+        if($this->level === 'Beginner')
+            return 'info';
+        else if($this->level === 'Intermediate')
+            return 'success';
+        else
+            return 'danger';
+    }
+
     public function getLogo(){
         $value = $this->logo;
         if($value != ""){
