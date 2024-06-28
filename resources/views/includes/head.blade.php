@@ -1,6 +1,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>@yield('title','College For World Connections - FerskenEd')</title>
+<title>@yield('title','College For World Connections - CWC')</title>
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('site-assets/images/fav.png?v='.env('APP_VERSION'))}}">
 <!-- fontawesome 6.4.2 -->
 <link rel="stylesheet" href="{{asset('site-assets/css/plugins/fontawesome-6.css?v='.env('APP_VERSION'))}}">
@@ -18,6 +18,6 @@
 <link rel="stylesheet" href="{{asset('site-assets/css/style.css?v='.env('APP_VERSION'))}}">
 <link rel="stylesheet" href="{!! asset('admin-assets/vendor/toastr/css/toastr.min.css') !!}">
 
-<meta name="description" content="Educational consulting firm focusing on RFPs, accreditation and diagnostic review prep, government and public affairs, crisis management, and document creation." />
+<meta name="description" content="" />
 <meta name="keywords" content="Education, Consulting, Eduction Consullting" />
 <meta name="csrf-token" content="{{csrf_token()}}" />
