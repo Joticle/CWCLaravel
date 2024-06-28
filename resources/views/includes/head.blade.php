@@ -18,6 +18,6 @@
 <link rel="stylesheet" href="{{asset('site-assets/css/style.css?v='.env('APP_VERSION'))}}">
 <link rel="stylesheet" href="{!! asset('admin-assets/vendor/toastr/css/toastr.min.css') !!}">
 
-<meta name="description" content="" />
+<meta name="description" content="College For World Connections" />
 <meta name="keywords" content="Education, Consulting, Eduction Consullting" />
 <meta name="csrf-token" content="{{csrf_token()}}" />
