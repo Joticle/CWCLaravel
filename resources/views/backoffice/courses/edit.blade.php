@@ -109,26 +109,58 @@
 
 @section('page-level-script')
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-        $('#tags').select2({
-            tags: true,
-            createTag: function(params) {
-                var term = $.trim(params.term);
-                if (term === '' || term.length < 5) {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term
-                };
-            },
-            insertTag: function(data, tag) {
-                // Insert the tag only if it does not already exist in the dropdown
-                if ($.grep(data, function(e) { return e.text === tag.text; }).length === 0) {
-                    data.push(tag);
-                }
-            }
+        $(document).ready(function() {
+            var allowNewTags = true;
+
+            $('#tags').select2({
+                tags: true,
+                ajax: {
+                    url: '{{ route('admin.tags.search') }}',
+                    dataType: 'json',
+                    delay: 750,
+                    data: function(params) {
+                        return {
+                            q: params.term
+                        };
+                    },
+                    processResults: function(data) {
+                        if (data.items && data.items.length) {
+                            allowNewTags = false;
+                        } else {
+                            allowNewTags = true;
+                        }
+                        return {
+                            results: $.map(data.items, function(item) {
+                                return {
+                                    id: item.text,
+                                    text: item.text
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                createTag: function(params) {
+                    var term = $.trim(params.term);
+                    if (!allowNewTags || term === '' || term.length < 1) {
+                        return null;
+                    }
+                    return {
+                        id: term,
+                        text: term
+                    };
+                },
+                insertTag: function(data, tag) {
+                    if ($.grep(data, function(e) {
+                            return e.text === tag.text;
+                        }).length === 0) {
+                        data.push(tag);
+                    }
+                },
+                minimumInputLength: 1
+            });
         });
 
     });
