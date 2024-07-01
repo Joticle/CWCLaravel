@@ -66,6 +66,17 @@
                     <li><a href="{{ route('admin.tags.create') }}">Add New Tag</a></li>
                 </ul>
             </li>
+            <li class="@if (str_contains(request()->route()->getName(), 'admin.connection')) mm-active @endif">
+                <a class="ai-icon" href="{{ route('admin.connection.list') }}" aria-expanded="true">
+                    <i class="flaticon-381-file-2"></i>
+                    <span class="nav-text">Connections</span>
+                    <span class="nav-text fa fa-chevron-down float-right"></span>
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="{{ route('admin.connection.list') }}">All Connections</a></li>
+                    <li><a href="{{ route('admin.connection.add') }}">Add New Connection</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

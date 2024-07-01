@@ -8,6 +8,7 @@ use App\Http\Controllers\Backoffice\CourseMaterialController;
 use App\Http\Controllers\Backoffice\CourseModuleController;
 use App\Http\Controllers\Backoffice\StudentsFeedbackController;
 use App\Http\Controllers\Backoffice\TagController;
+use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\FrontEndCourseController;
@@ -124,6 +125,17 @@ Route::group(['middleware' => 'web'], function(){
 
                 Route::get('tags/search', [TagController::class,'search'])->name('tags.search');
                 Route::resource('tags', TagController::class);
+
+                /*Connection*/
+                Route::group(['prefix' => 'connection','as' => 'connection.'], function(){
+                    Route::get('/list', [ConnectionController::class, 'index'])->name('list');
+                    Route::get('/create', [ConnectionController::class, 'add'])->name('add');
+                    Route::post('/create', [ConnectionController::class, 'create'])->name('add');
+                    Route::get('/edit/{id}', [ConnectionController::class, 'edit'])->name('edit');
+                    Route::post('/edit/{id}', [ConnectionController::class, 'update'])->name('edit');
+                    Route::get('/delete/{id}', [ConnectionController::class, 'delete'])->name('delete');
+                    Route::get('/search', [ConnectionController::class, 'search'])->name('search');
+                });
 
             });
         });
