@@ -66,6 +66,17 @@
                     <li><a href="{{ route('admin.tags.create') }}">Add New Tag</a></li>
                 </ul>
             </li>
+            <li class="@if(str_contains(request()->route()->getName(), 'admin.cms')) mm-active @endif">
+                <a class="ai-icon" href="{{ route('admin.cms.list') }}" aria-expanded="true">
+                    <i class="flaticon-381-file-2"></i>
+                    <span class="nav-text">Cms Pages</span>
+                    <span class="nav-text fa fa-chevron-down float-right"></span> <!-- Collapsible icon -->
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="{{ route('admin.cms.list') }}">All Cms Pages</a></li>
+                    <li><a href="{{ route('admin.cms.add') }}">Add New Cms Page</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>
