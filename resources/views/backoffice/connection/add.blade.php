@@ -129,11 +129,17 @@
         $(document).ready(function() {
 
             $('.extra-fields-button').click(function() {
-                $('.category_records').clone().appendTo('.category_records_dynamic');
+
+                var clonedFields = $('.category_records').first().clone();
+                clonedFields.find('input').each(function() {
+                    $(this).val('');
+                });
+                clonedFields.appendTo('.category_records_dynamic');
+
                 $('.category_records_dynamic .category_records').addClass('single remove');
                 // $('.single .extra-fields-button').remove();
                 $('.single').append(
-                    '<a href="javascript:void(0)" class="col-md-2 remove-field btn-remove-customer"><i class="fa fa-trash fa-2x"></a>'
+                    '<a href="javascript:void(0)" class="col-md-2 remove-field"><i class="fa fa-trash fa-2x"></a>'
                 );
                 $('.category_records_dynamic > .single').attr("class",
                     "row align-items-center mb-3 remove");

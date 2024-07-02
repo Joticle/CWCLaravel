@@ -113,14 +113,15 @@
                                 </div>
                             </div>
                             @foreach (json_decode($row->categories) as $index => $category)
-                                <div class="row align-items-center mb-3 category_records">
+                                <div
+                                    class="row align-items-center mb-3 category_records  @if (!$loop->first) remove @endif">
                                     <div class="col-md-4">
                                         <div class="form-group mb-0">
-                                            {{ Form::text('categories[' . $index . '][name]', $category->name, ['class' => 'form-control', 'required' => 'true', 'id' => 'text', 'placeholder' => 'Enter Category Name']) }}
+                                            {{ Form::text('categories[][name]', $category->name, ['class' => 'form-control', 'required' => 'true', 'id' => 'text', 'placeholder' => 'Enter Category Name']) }}
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        {{ Form::file('categories[' . $index . '][icon]', ['class' => 'form-control', 'required' => 'true', 'id' => 'icon', 'accept' => 'image/*']) }}
+                                        {{ Form::file('categories[][icon]', ['class' => 'form-control', 'id' => 'icon', 'accept' => 'image/*']) }}
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group mt-4">
@@ -128,6 +129,10 @@
                                                 src="{{ $row->getCategoryIcon($category->icon) }}">
                                         </div>
                                     </div>
+                                    @if (!$loop->first)
+                                        <a href="javascript:void(0)" class="col-md-2 remove-field"><i
+                                                class="fa fa-trash fa-2x"></i></a>
+                                    @endif
                                 </div>
                             @endforeach
 
@@ -153,11 +158,18 @@
         $(document).ready(function() {
 
             $('.extra-fields-button').click(function() {
-                $('.category_records').clone().appendTo('.category_records_dynamic');
+
+                var clonedFields = $('.category_records').first().clone();
+                clonedFields.find('input').each(function() {
+                    $(this).val('');
+                });
+                var imgTags = clonedFields.find('img').remove();
+                clonedFields.appendTo('.category_records_dynamic');
+
                 $('.category_records_dynamic .category_records').addClass('single remove');
                 // $('.single .extra-fields-button').remove();
                 $('.single').append(
-                    '<a href="javascript:void(0)" class="col-md-2 remove-field btn-remove-customer"><i class="fa fa-trash fa-2x"></a>'
+                    '<a href="javascript:void(0)" class="col-md-2 remove-field "><i class="fa fa-trash fa-2x"></a>'
                 );
                 $('.category_records_dynamic > .single').attr("class",
                     "row align-items-center mb-3 remove");

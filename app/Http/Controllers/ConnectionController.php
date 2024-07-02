@@ -25,7 +25,7 @@ class ConnectionController extends Controller
         $data['pulular_name'] = 'Connections';
         $breadcrumb = [];
         $breadcrumb['Connections'] = route('admin.connection.list');
-        $breadcrumb['All Courses'] = '';
+        $breadcrumb['All Connections'] = '';
         $data['breadcrumb'] = $breadcrumb;
 
         $data['data'] = Connection::paginate(env('RECORD_PER_PAGE', 10));
@@ -38,7 +38,7 @@ class ConnectionController extends Controller
         $data['pulular_name'] = 'Connections';
         $breadcrumb = [];
         $breadcrumb['Connections'] = route('admin.connection.list');
-        $breadcrumb['Add Course'] = '';
+        $breadcrumb['Add Connection'] = '';
         $data['breadcrumb'] = $breadcrumb;
 
         return view('backoffice.connection.add', $data);
@@ -95,7 +95,7 @@ class ConnectionController extends Controller
             // Handle category icon upload
             $iconFile = $category['icon'];
             $iconExtension = $iconFile->getClientOriginalExtension();
-            $iconName = $index.'_icon_' . time() . '.' . $iconExtension;
+            $iconName = $index . '_icon_' . time() . '.' . $iconExtension;
             $iconFile->move($categoryPath, $iconName);
 
             $categoryData[] = [
@@ -131,9 +131,14 @@ class ConnectionController extends Controller
         $record = Connection::findOrFail($id);
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'logo' => 'sometimes|image|max:2048',
             'description' => 'required',
-            'start_date' => 'required',
-            'price' => 'required|numeric',
+            'status' => 'required|in:0,1',
+            'button.text' => 'required',
+            'button.url' => 'required|url',
+            'button.target_blank' => 'required|in:0,1',
+            'categories.*.name' => 'required',
+            'categories.*.icon' => 'sometimes|image|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -141,13 +146,8 @@ class ConnectionController extends Controller
         }
 
         $record->name = $request->get('name');
-        //$record->slug = $this->slugify($request->get('name'), $id);
         $record->description = $request->get('description');
-        $record->start_date = $request->get('start_date');
-        $record->end_date = $request->has('end_date') ? $request->get('end_date') : null;
         $record->status = $request->get('status');
-        $record->price = $request->get('price');
-        $record->level = $request->get('level');
 
         if ($request->hasFile('logo')) {
             $uploadingPath = public_path('/uploads/connections/' . $record->id);
@@ -164,7 +164,46 @@ class ConnectionController extends Controller
             $record->logo = $image_name;
         }
 
+        // Prepare button data
+        $buttonData = [
+            'text' => $request->input('button.text'),
+            'url' => $request->input('button.url'),
+            'target_blank' => $request->input('button.target_blank'),
+        ];
+
+        // Prepare category data
+        $categoryData = [];
+
+        foreach ($request->categories as $index => $category) {
+            $categoryPath = public_path('/uploads/connections/' . $record->id . '/categories');
+            if (!is_dir($categoryPath)) {
+                mkdir($categoryPath, 0777, true);
+            }
+
+            $categories = json_decode($record->categories);
+
+            $iconName = $categories[$index]->icon ?? null;
+            if (isset($category['icon']) && $category['icon']->isValid()) {
+                // Remove old icon if exists
+                if ($iconName && file_exists($categoryPath . '/' . $iconName)) {
+                    unlink($categoryPath . '/' . $iconName);
+                }
+                $iconFile = $category['icon'];
+                $iconExtension = $iconFile->getClientOriginalExtension();
+                $iconName = $index . '_icon_' . time() . '.' . $iconExtension;
+                $iconFile->move($categoryPath, $iconName);
+            }
+
+            $categoryData[] = [
+                'name' => $category['name'],
+                'icon' => $iconName,
+            ];
+        }
+
+        $record->button = $buttonData;
+        $record->categories = $categoryData;
         $record->save();
+
         return redirect()->to(route('admin.connection.list'))->with('success', 'Course Update Successfully.');
     }
     function delete($id)
