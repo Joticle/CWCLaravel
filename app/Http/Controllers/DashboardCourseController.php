@@ -3,21 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseEnroll;
+use App\Models\Courses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class DashboardCourseController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
-    public function index()
+
+    public function myCourses()
     {
         $data = [];
         $data['title'] = 'Dashboard';
@@ -28,7 +25,7 @@ class DashboardController extends Controller
 
         $user = Auth::user();
         $data['user'] = $user;
-        $data['courseEnrolled'] = $user->courseEnrolled;
-        return view('dashboard.index', $data);
+        $data['courseEnrolled'] = CourseEnroll::where('user_id','=',$user->id)->where('status','=','Paid')->paginate(env('RECORD_PER_PAGE',6));
+        return view('dashboard.my-courses', $data);
     }
 }

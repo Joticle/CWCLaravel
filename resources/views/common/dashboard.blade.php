@@ -6,51 +6,7 @@
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-3">
-                    <div class="left-sindebar-dashboard">
-                        <div class="dashboard-left-single-wrapper">
-
-                            <a href="{{route('dashboard.index')}}" class="single-item @if (\Route::currentRouteName() == 'dashboard.index') active @endif">
-                                <i class="fa-light fa-house"></i>
-                                <p>Dashboard</p>
-                            </a>
-
-                            <a href="#" class="single-item ">
-                                <i class="fa-regular fa-user"></i>
-                                <p>My Profile</p>
-                            </a>
-
-                            <a href="{{route('dashboard.my.courses')}}" class="single-item @if (\Route::currentRouteName() == 'dashboard.my.courses') active @endif">
-                                <i class="fa-light fa-graduation-cap"></i>
-                                <p>Enrolled Courses</p>
-                            </a>
-
-                            <a href="#" class="single-item ">
-                                <i class="fa-sharp fa-light fa-bookmark"></i>
-                                <p>Wishlist</p>
-                            </a>
-
-
-                            <a href="#" class="single-item ">
-                                <i class="fa-sharp fa-light fa-bag-shopping"></i>
-                                <p>Order History</p>
-                            </a>
-
-                        </div>
-                        <div class="dashboard-left-single-wrapper bbnone mt--40">
-                            <h4 class="title mb--5">Operations</h4>
-
-                            <a href="#" class="single-item">
-                                <i class="fa-sharp fa-regular fa-gear"></i>
-                                <p>Settings</p>
-                            </a>
-
-                            <a href="{{ route('logout') }}" class="single-item">
-                                <i class="fa-light fa-right-from-bracket"></i>
-                                <p>Logout</p>
-                            </a>
-
-                        </div>
-                    </div>
+                    @include('dashboard.left-menu')
                 </div>
                 <div class="col-lg-9">
                     @yield('sub-content')

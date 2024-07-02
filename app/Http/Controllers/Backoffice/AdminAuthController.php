@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Rules\OldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Validator;
 
 class AdminAuthController extends Controller
@@ -124,4 +125,46 @@ class AdminAuthController extends Controller
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()])->with('activeTab', 'update-password');
         }
     }
+
+    public function updateThumbnail(Request $request)
+    {
+        $validator = FacadesValidator::make($request->thumbnail, [
+            'thumbnail' => 'nullable|image|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        }
+
+        try {
+            $user = Auth::user();
+
+            if($request->hasFile('thumbnail'))
+            {
+                $uploadingPath = public_path('/uploads/user/'. $user->id);
+                if(!is_dir($uploadingPath)){
+                    mkdir($uploadingPath, 0777, true);
+                }
+                $file = $request->file('thumbnail');
+                $fileExtension = $file->getClientOriginalExtension();
+                $image_name = 'thumbnail'.time().'.'.$fileExtension;
+                $imageUpload = $file->move($uploadingPath, $image_name);
+                if ($user->thumbnail) {
+                    $previousThumbnailPath = $uploadingPath . '/' . $user->thumbnail;
+                    if (file_exists($previousThumbnailPath)) {
+                        unlink($previousThumbnailPath);
+                    }
+                }
+                $user->thumbnail = $image_name;
+                $user->save();
+            }
+
+            return redirect()->back()->with('success', 'Profile updated successfully.');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
+
+    }
+
 }

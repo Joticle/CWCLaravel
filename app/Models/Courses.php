@@ -71,4 +71,7 @@ class Courses extends Model
         return $this->hasMany(CourseModules::class,'course_id','id')->orderBy('sort_order','asc');
     }
 
+    public function courseEnrolls() {
+        return $this->hasMany(CourseEnroll::class, 'course_id');
+    }
 }

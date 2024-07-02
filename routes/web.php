@@ -9,9 +9,13 @@ use App\Http\Controllers\Backoffice\CourseModuleController;
 use App\Http\Controllers\Backoffice\StudentsFeedbackController;
 use App\Http\Controllers\Backoffice\TagController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardCourseController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\FrontEndCourseController;
 use App\Http\Controllers\FrontEndPaymentController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WhishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,15 +47,19 @@ Route::group(['middleware' => 'web'], function(){
             Route::get('/course/payment/success', [FrontEndPaymentController::class, 'paymentSuccess'])->name('payment.success');
             Route::get('/course/payment/error', [FrontEndPaymentController::class, 'paymentError'])->name('payment.error');
 
-            /*Profile*/
-            Route::get('profile', [FrontEndController::class, 'profile'])->name('profile');
-            Route::post('profile', [FrontEndController::class, 'updateProfile'])->name('profile.update.post');
-            Route::post('password-update', [FrontEndController::class, 'updateProfilePassword'])->name('password.update.post');
-
             // dashboard
-            Route::group(['prefix' => 'dashboard','as' => 'dashboard.'], function(){
+            Route::group(['prefix' => 'dashboard','as' => 'dashboard.'], function()
+            {
                 Route::get('/', [DashboardController::class, 'index'])->name('index');
-                Route::get('my-courses', [DashboardController::class, 'myCourses'])->name('my.courses');
+
+                Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+                Route::post('profile', [ProfileController::class, 'updateProfile'])->name('update.profile');
+                Route::post('password-update', [ProfileController::class, 'updatePassword'])->name('update.password');
+                Route::post('update-thumbnail', [ProfileController::class, 'updateThumbnail'])->name('update.thumbnail');
+
+                Route::get('my-courses', [DashboardCourseController::class, 'myCourses'])->name('my.courses');
+                Route::get('whishlist', [WhishlistController::class, 'index'])->name('whishlist');
+                Route::get('order-history', [OrderController::class, 'orderHistory'])->name('order-history');
             });
         });
     });
