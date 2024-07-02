@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backoffice;
 
 use App\Models\Connection;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ConnectionController extends Controller
@@ -108,21 +109,21 @@ class ConnectionController extends Controller
         $record->save();
 
 
-        return redirect()->to(route('admin.connection.list'))->with('success', 'Course Created Successfully.');
+        return redirect()->to(route('admin.connection.list'))->with('success', 'Connection Created Successfully.');
     }
 
     public function edit($id)
     {
-        $course = Connection::findOrFail($id);
+        $connection = Connection::findOrFail($id);
 
         $data = [];
         $data['singular_name'] = 'Course ';
         $data['pulular_name'] = 'Connections';
         $breadcrumb = [];
         $breadcrumb['Connections'] = route('admin.connection.list');
-        $breadcrumb[$course->name] = '';
+        $breadcrumb[$connection->name] = '';
         $data['breadcrumb'] = $breadcrumb;
-        $data['row'] = $course;
+        $data['row'] = $connection;
 
         return view('backoffice.connection.edit', $data);
     }
@@ -180,7 +181,7 @@ class ConnectionController extends Controller
                 mkdir($categoryPath, 0777, true);
             }
 
-            $categories = json_decode($record->categories);
+            $categories = $record->categories;
 
             $iconName = $categories[$index]->icon ?? null;
             if (isset($category['icon']) && $category['icon']->isValid()) {
@@ -204,34 +205,34 @@ class ConnectionController extends Controller
         $record->categories = $categoryData;
         $record->save();
 
-        return redirect()->to(route('admin.connection.list'))->with('success', 'Course Update Successfully.');
+        return redirect()->to(route('admin.connection.list'))->with('success', 'Connection Update Successfully.');
     }
     function delete($id)
     {
         Connection::whereId($id)->delete();
-        return redirect()->to(route('admin.connection.list'))->with('success', 'Course Deleted Successfully.');
+        return redirect()->to(route('admin.connection.list'))->with('success', 'Connection Deleted Successfully.');
     }
     function search(Request $request)
     {
-        $courses = Connection::where('name', 'like', '%' . $request->q . '%')->active();
-        if ($request->has('with') && $request->get('with') == 'modules') {
-            $courses = $courses->with('modules');
-        }
-        $courses = $courses->limit(15)->get();
-        $data = [];
-        foreach ($courses as $course) {
-            $row = [];
-            $row['id'] = $course->id;
-            $row['text'] = $course->name;
-            $row['logo'] = $course->getLogo();
-            $row['description'] = Str::words(strip_tags($course->description), 5, '...');
-            $row['start_date'] = _date($course->start_date);
-            $row['end_date'] = !empty($course->end_date) ? _date($course->end_date) : '--';
-            if ($request->has('with') && $request->get('with') == 'modules') {
-                $row['children'] = $course->modules;
-            }
-            $data[] = $row;
-        }
-        return ['items' => $data];
+        // $connections = Connection::where('name', 'like', '%' . $request->q . '%')->active();
+        // if ($request->has('with') && $request->get('with') == 'modules') {
+        //     $connections = $connections->with('modules');
+        // }
+        // $connections = $connections->limit(15)->get();
+        // $data = [];
+        // foreach ($connections as $connection) {
+        //     $row = [];
+        //     $row['id'] = $connection->id;
+        //     $row['text'] = $connection->name;
+        //     $row['logo'] = $connection->getLogo();
+        //     $row['description'] = Str::words(strip_tags($connection->description), 5, '...');
+        //     $row['start_date'] = _date($connection->start_date);
+        //     $row['end_date'] = !empty($connection->end_date) ? _date($connection->end_date) : '--';
+        //     if ($request->has('with') && $request->get('with') == 'modules') {
+        //         $row['children'] = $connection->modules;
+        //     }
+        //     $data[] = $row;
+        // }
+        // return ['items' => $data];
     }
 }

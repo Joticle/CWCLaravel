@@ -15,6 +15,16 @@ class Connection extends Model
         return $query->where('status', '1');
     }
 
+    public function getButtonAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    public function getCategoriesAttribute($value)
+    {
+        return json_decode($value);
+    }
+
     public function getLogo()
     {
         $value = $this->logo;

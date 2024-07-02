@@ -70,22 +70,22 @@
                                 <div class="col-md-4">
                                     <div class="form-group mb-0">
                                         <label class="text-label">Text<span class="text-danger">*</span></label>
-                                        {{ Form::text('button[text]', json_decode($row->button)->text, ['class' => 'form-control', 'required' => 'true', 'id' => 'text', 'placeholder' => 'Enter Button Text']) }}
+                                        {{ Form::text('button[text]', $row->button->text, ['class' => 'form-control', 'required' => 'true', 'id' => 'text', 'placeholder' => 'Enter Button Text']) }}
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group mb-0">
                                         <label class="text-label">URL<span class="text-danger">*</span></label>
-                                        {{ Form::text('button[url]', json_decode($row->button)->url, ['class' => 'form-control', 'required' => 'true', 'id' => 'url', 'placeholder' => 'Enter Button Url']) }}
+                                        {{ Form::text('button[url]', $row->button->url, ['class' => 'form-control', 'required' => 'true', 'id' => 'url', 'placeholder' => 'Enter Button Url']) }}
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group mb-0">
                                         <label class="text-label">Open in new tab?<span class="text-danger">*</span></label>
                                         <br>
-                                        {{ Form::radio('button[target_blank]', '1', json_decode($row->button)->target_blank == '1' ? true : false, ['id' => 'status_active']) }}
+                                        {{ Form::radio('button[target_blank]', '1', $row->button->target_blank == '1' ? true : false, ['id' => 'status_active']) }}
                                         <label for="status_active">Yes</label>
-                                        {{ Form::radio('button[target_blank]', '0', json_decode($row->button)->target_blank == '0' ? true : false, ['id' => 'status_inactive']) }}
+                                        {{ Form::radio('button[target_blank]', '0', $row->button->target_blank == '0' ? true : false, ['id' => 'status_inactive']) }}
                                         <label for="status_inactive">No</label>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @foreach (json_decode($row->categories) as $index => $category)
+                            @foreach ($row->categories as $index => $category)
                                 <div
                                     class="row align-items-center mb-3 category_records  @if (!$loop->first) remove @endif">
                                     <div class="col-md-4">

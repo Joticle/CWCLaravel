@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cases;
+use App\Models\Connection;
 use App\Models\Courses;
 use App\Models\Faqs;
 use App\Models\StudentsFeedback;
@@ -34,6 +35,7 @@ class FrontEndController extends Controller
     {
         $data = [];
         $data['studentsFeedback']  = StudentsFeedback::active()->get();
+        $data['connections']  = Connection::active()->get();
         return view('home',$data);
     }
     function logout(){
