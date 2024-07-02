@@ -49,7 +49,6 @@ class WishlistController extends Controller
 
             return response()->json(['success' => true, 'reload' => true, 'message' => 'Course bookmarked Successfully.']);
         } catch (\Exception $e) {
-            dd($e);
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
