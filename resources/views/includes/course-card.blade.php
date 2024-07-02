@@ -2,7 +2,7 @@
     <a href="{{$course->getLink()}}" class="thumbnail">
         <img src="{{$course->getLogo()}}" alt="course">
     </a>
-    <div class="save-icon">
+    <div class="save-icon bookmark-course @if ($course->is_bookmarked) solid @endif" data-course-id="{{ $course->id }}">
         <i class="fa-sharp fa-light fa-bookmark"></i>
     </div>
     <div class="tags-area-wrapper">
@@ -35,3 +35,53 @@
         @endif
     </div>
 </div>
+
+@section('page-level-script')
+    <script>
+        $(document).ready(function() {
+            $('.bookmark-course').on('click', function(event) {
+                event.preventDefault();
+                var icon = $(this);
+                var courseId = icon.data('course-id');
+
+                if (icon.hasClass('disabled')) {
+                    return;
+                }
+                icon.addClass('disabled');
+
+                $.ajax({
+                    url: '{{ route('dashboard.wishlist.action') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        course_id: courseId
+                    },
+                    success: function(result) {
+                        try {
+                            result = JSON.parse(result);
+                        } catch (e) {}
+                        if ($.trim(result.success) == 'true') {
+                            icon.toggleClass('solid');
+                            successMsg(result.message);
+                            // if (result.reload == true) {
+                            //     location.reload();
+                            // }
+                        } else {
+                            var errorsShow = '';
+                            $.each(result.message, function(k, v) {
+                                errorsShow += v + '<br>';
+                            });
+                            errorMsg(errorsShow);
+                        }
+                    },
+                    error: function(request, status, error) {
+                        errorMsg('Error: ' + error);
+                    },
+                    complete: function() {
+                        icon.removeClass('disabled');
+                    }
+                });
+            });
+        });
+    </script>
+@endsection

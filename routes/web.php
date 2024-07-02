@@ -15,7 +15,7 @@ use App\Http\Controllers\FrontEndCourseController;
 use App\Http\Controllers\FrontEndPaymentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WhishlistController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,7 +58,10 @@ Route::group(['middleware' => 'web'], function(){
                 Route::post('update-thumbnail', [ProfileController::class, 'updateThumbnail'])->name('update.thumbnail');
 
                 Route::get('my-courses', [DashboardCourseController::class, 'myCourses'])->name('my.courses');
-                Route::get('whishlist', [WhishlistController::class, 'index'])->name('whishlist');
+
+                Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist');
+                Route::post('wishlist', [WishlistController::class, 'action'])->name('wishlist.action');
+
                 Route::get('order-history', [OrderController::class, 'orderHistory'])->name('order-history');
             });
         });
