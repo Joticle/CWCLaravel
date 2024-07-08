@@ -3,7 +3,7 @@
 namespace App\Models\Traits\Course;
 
 use App\Models\CourseEnroll;
-use App\Models\CourseModules;
+use App\Models\CourseModule;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +11,7 @@ trait Relationships
 {
     function modules()
     {
-        return $this->hasMany(CourseModules::class, 'course_id', 'id')->orderBy('sort_order', 'asc');
+        return $this->hasMany(CourseModule::class, 'course_id', 'id')->orderBy('sort_order', 'asc');
     }
 
     public function courseEnrolls()

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\CourseModule\Attributes;
 use App\Models\Traits\CourseModule\Relationships;
 
-class CourseModules extends Model
+class CourseModule extends Model
 {
     use HasFactory, SoftDeletes, Attributes, Relationships;
     /**
@@ -17,7 +17,6 @@ class CourseModules extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
-    protected $table = 'course_modules'; // Specify the table name if different from model name convention
 
     protected $fillable = [
         'course_id',

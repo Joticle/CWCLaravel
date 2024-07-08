@@ -108,7 +108,7 @@ class CourseController extends Controller
     public function delete($id)
     {
         try {
-            $course = Course::whereId($id);
+            $course = Course::findOrFail($id);
             $this->courseService->delete($course);
 
             return redirect()->to(route('admin.course.list'))->with('success', 'Course Deleted Successfully.');

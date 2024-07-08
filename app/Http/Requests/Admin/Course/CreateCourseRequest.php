@@ -31,6 +31,7 @@ class CreateCourseRequest extends FormRequest
             'logo' => 'required|image',
             'description' => 'required',
             'start_date' => 'required',
+            'end_date' => 'required',
             'price' => 'required|numeric',
             'level' => 'required|in:' . implode(',', Course::LEVELS),
         ];

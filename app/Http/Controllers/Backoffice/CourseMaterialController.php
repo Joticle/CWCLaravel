@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backoffice;
 
 use App\Models\ContentTypes;
 use App\Models\CourseModuleContent;
-use App\Models\CourseModules;
+use App\Models\CourseModule;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class CourseMaterialController extends Controller
         $course_id = 0;
         $courseModule = [];
         if($module_id){
-            $courseModule = CourseModules::whereId($module_id)->first();
+            $courseModule = CourseModule::whereId($module_id)->first();
             $course_id = $courseModule->course_id;
         }
         $course = Course::whereId($course_id)->first();
@@ -77,7 +77,7 @@ class CourseMaterialController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
-        $courseModule = CourseModules::whereId($module_id)->first();
+        $courseModule = CourseModule::whereId($module_id)->first();
         $course_id = $courseModule->course_id;
 
         $data = [];
