@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backoffice\AdminAuthController;
 use App\Http\Controllers\Backoffice\AdminController;
+use App\Http\Controllers\Backoffice\CmsController;
 use App\Http\Controllers\Backoffice\ContentTypeController;
 use App\Http\Controllers\Backoffice\CourseController;
 use App\Http\Controllers\Backoffice\CourseMaterialController;
@@ -132,6 +133,17 @@ Route::group(['middleware' => 'web'], function(){
 
                 Route::get('tags/search', [TagController::class,'search'])->name('tags.search');
                 Route::resource('tags', TagController::class);
+
+                /*CMC module*/
+                Route::group(['prefix' => 'cms','as' => 'cms.'], function(){
+                    Route::get('/list', [CmsController::class, 'index'])->name('list');
+                    Route::get('/create', [CmsController::class, 'add'])->name('add');
+                    Route::post('/create', [CmsController::class, 'create'])->name('add');
+                    Route::get('/edit/{id}', [CmsController::class, 'edit'])->name('edit');
+                    Route::post('/edit/{id}', [CmsController::class, 'update'])->name('edit');
+                    Route::get('/delete/{id}', [CmsController::class, 'delete'])->name('delete');
+                    Route::get('/search', [CmsController::class, 'search'])->name('search');
+                });
 
             });
         });
