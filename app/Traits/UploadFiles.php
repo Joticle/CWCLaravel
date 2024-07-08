@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Http\UploadedFile;
 
-trait UploadsFiles
+trait UploadFiles
 {
     public function uploadFile(UploadedFile $file, $field = '', $subField = false)
     {
@@ -38,8 +38,27 @@ trait UploadsFiles
         return $fileName;
     }
 
+    public function getFile($field = '', $subField = false)
+    {
+        $value = $this->{$field};
+        if ($value != "") {
+            $uploadPath = $this->getUploadUrl() . '/' . $this->id;
+            if($subField) {
+                $uploadPath .= '/' . $field;
+            }
+            return $uploadPath . '/' . $value;
+        } else {
+            return asset('images/profile.png');
+        }
+    }
+
     protected function getUploadPath()
     {
         return public_path('uploads/' . strtolower(class_basename($this)));
+    }
+
+    protected function getUploadUrl()
+    {
+        return asset('uploads/' . strtolower(class_basename($this)));
     }
 }

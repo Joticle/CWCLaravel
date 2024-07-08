@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 use App\Models\Traits\User\Attributes;
 use App\Models\Traits\User\Relationships;
+use App\Traits\UploadFiles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Attributes, Relationships;
+    use HasApiTokens, HasFactory, Notifiable, Attributes, Relationships, UploadFiles;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'thumbnail'
     ];
 
     /**

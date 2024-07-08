@@ -4,6 +4,9 @@ namespace App\Http\Requests\User;
 
 use App\Rules\OldPassword;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UpdateUserPasswordRequest extends FormRequest
 {
@@ -14,7 +17,7 @@ class UpdateUserPasswordRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,4 +32,22 @@ class UpdateUserPasswordRequest extends FormRequest
             'new_password' => 'required|min:8|confirmed|different:old_password'
         ];
     }
+
+    protected function passedValidation()
+    {
+        $this->merge([
+            'password' => Hash::make($this->new_password),
+        ]);
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $response = redirect()->back()
+            ->withErrors($validator)
+            ->withInput()
+            ->with('activeTab', 'update-password');
+
+        throw new HttpResponseException($response);
+    }
+
 }

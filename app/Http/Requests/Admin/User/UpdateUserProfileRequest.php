@@ -24,7 +24,8 @@ class UpdateUserProfileRequest extends FormRequest
     public function rules()
     {
         return [
-           'name' => 'required',
+            'name' => 'required',
+            'thumbnail' => 'nullable|image|max:2048',
         ];
     }
 }
