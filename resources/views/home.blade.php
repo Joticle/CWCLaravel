@@ -167,83 +167,72 @@
         <div class="container">
             <h3>What is College For World Connections?</h3>
             <p class="paragraph">College for World Connections Center for Innovation & Learning is a full-service Educator Ecosystem for teaching and empowering adults, professionals, and teams in Leadership Principles. In partnership with Joticle, Inc., our academic instructors dedicate their knowledge and expertise to improving the lives of others through leadership instruction, creative and critical thinking development, and world schooling. Leaders RISE and become empowered in a learner friendly, educator respected, and educationally elevated platform. </p>
-            <div class="row align-items-center">
-                <div class="col-xl-6 col-lg-12">
-                    <!-- about-one-imagearea -->
-                    <div class="about-one-left-image">
-                        <div class="first-order">
-                            <a href="#" class="category-style-one">
-                                <div class="icon">
-                                    <img src="images/one.png" alt="brand">
-                                </div>
-                                <h5 class="title">LEADERS</h5>
-                            </a>
-                            <a href="#" class="category-style-one">
-                                <div class="icon">
-                                    <img src="images/two.png" alt="brand">
-                                </div>
-                                <h5 class="title">ENTREPRENEURS</h5>
-                            </a>
-                        </div>
-                        <div class="first-order">
-                            <a href="#" class="category-style-one">
-                                <div class="icon">
-                                    <img src="images/three.png" alt="brand">
-                                </div>
-                                <h5 class="title">FAITH-BASED</h5>
-                                <!--<span>130+ Courses</span>-->
-                            </a>
-                            <a href="#" class="category-style-one">
-                                <div class="icon">
-                                    <img src="images/four.png" alt="brand">
-                                </div>
-                                <h5 class="title">EDUCATORS</h5>
-                                <!--<span>130+ Courses</span>-->
-                            </a>
-                        </div>
-                        <div class="first-order">
-                            <a href="#" class="category-style-one">
-                                <div class="icon">
-                                    <img src="images/five.png" alt="brand">
-                                </div>
-                                <h5 class="title">DOCTORAL LEARNERS</h5>
-                            </a>
-                            <a href="#" class="category-style-one">
-                                <div class="icon">
-                                    <img src="images/six.png" alt="brand">
-                                </div>
-                                <h5 class="title">NON-PROFITS</h5>
-                            </a>
-                        </div>
+            @foreach ($connections as $connection)
+                <div class="rts-section-gapBottom">
+                    <div class="row align-items-center">
+                        <div class="col-xl-6 col-lg-12">
+                            <!-- about-one-imagearea -->
+                            <div class="about-one-left-image">
+                                @foreach ($connection->categories as $index => $category)
+                                    @if ($index % 2 == 0)
+                                        <div class="first-order">
+                                    @endif
 
-                    </div>
-                    <!-- about-one-imagearea end -->
-                </div>
-                <div class="col-xl-6 col-lg-12 pl--60 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
-                    <div class="title-area-left-style">
-                        <div class="pre-title">
-                            <img src="site-assets/images/banner/bulb.png" alt="icon">
-                            <span>Gateway to Lifelong Learning</span>
-                        </div>
-                        <h2 class="title">What is College For World Connections?</h2>
-                        <p class="post-title">College for World Connections Center for Innovation & Learning is a full-service Educator Ecosystem for teaching and empowering adults, professionals, and teams in Leadership Principles. In partnership with Joticle, Inc., our academic instructors dedicate their knowledge and expertise to improving the lives of others through leadership instruction, creative and critical thinking development, and world schooling. Leaders RISE and become empowered in a learner friendly, educator respected, and educationally elevated platform. </p>
-                    </div>
-                    <div class="about-inner-right-one">
-                        <div class="author-area">
-                            <div class="single-author-and-info">
-                                <img src="images/logo.png" style="width: 250px;" alt="about">
+                                    <a href="#" class="category-style-one">
+                                        <div class="icon">
+                                            <img src="{{ $connection->getCategoryIcon($category->icon) }}" alt="brand">
+                                        </div>
+                                        <h5 class="title">{{ $category->name }}</h5>
+                                    </a>
+
+                                    @if ($index % 2 == 1 || $loop->last)
+                                        </div>
+                                    @endif
+                                @endforeach
+
                             </div>
-                            <a href="#" class="rts-btn btn-primary">About Us</a>
+                            <!-- about-one-imagearea end -->
+                        </div>
+                        <div class="col-xl-6 col-lg-12 pl--60 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
+                            <div class="title-area-left-style">
+                                <div class="pre-title">
+                                    <img src="site-assets/images/banner/bulb.png" alt="icon">
+                                    <span>Gateway to Lifelong Learning</span>
+                                </div>
+                                <h2 class="title">What is College For World Connections?</h2>
+                                <p class="post-title">College for World Connections Center for Innovation & Learning is a full-service Educator Ecosystem for teaching and empowering adults, professionals, and teams in Leadership Principles. In partnership with Joticle, Inc., our academic instructors dedicate their knowledge and expertise to improving the lives of others through leadership instruction, creative and critical thinking development, and world schooling. Leaders RISE and become empowered in a learner friendly, educator respected, and educationally elevated platform. </p>
+                            </div>
+                            <div class="about-inner-right-one">
+                                <div class="author-area">
+                                    <div class="single-author-and-info">
+                                        <img src="images/logo.png" style="width: 250px;" alt="about">
+                                    </div>
+                                    <a href="#" class="rts-btn btn-primary">About Us</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-lg-10 col-md-9">
+                            <h3>{{ Str::upper($connection->name) }}</h3>
+                            <p>{{ $connection->description }}</p>
+                            @if($connection->button)
+                                <a href="{{ $connection->button->url }}" @if($connection->button->target_blank) target="_blank" @endif class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
+                            @endif
+                        </div>
+                        <div class="col-lg-2 col-md-3 d-none d-md-block">
+                            <img src="{{ $connection->getLogo() }}" class="img-fluid" alt="{{ $connection->name }}">
                         </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
+
         </div>
     </div>
     <!-- about area end -->
 
     <!-- about area start -->
-    <div class="about-area-start rts-section-gapBottom">
+    {{-- <div class="about-area-start rts-section-gapBottom">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-md-9">
@@ -256,7 +245,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="about-area-start rts-section-gapBottom">
         <div class="container">
             <div class="row">
