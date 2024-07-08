@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backoffice;
 
 use App\Models\CourseModules;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +32,7 @@ class CourseModuleController extends Controller
     public function index($course_id=0)
     {
         $data = [];
-        $course = Courses::whereId($course_id)->first();
+        $course = Course::whereId($course_id)->first();
 
         $data['singular_name'] = 'Course Module';
         $data['pulular_name'] = 'Course Modules';

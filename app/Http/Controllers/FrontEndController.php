@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cases;
 use App\Models\Connection;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\Faqs;
 use App\Models\StudentsFeedback;
 use App\Models\User;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backoffice;
 use App\Models\ContentTypes;
 use App\Models\CourseModuleContent;
 use App\Models\CourseModules;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +41,7 @@ class CourseMaterialController extends Controller
             $courseModule = CourseModules::whereId($module_id)->first();
             $course_id = $courseModule->course_id;
         }
-        $course = Courses::whereId($course_id)->first();
+        $course = Course::whereId($course_id)->first();
 
         $data['singular_name'] = 'Course Content';
         $data['pulular_name'] = 'Course Contents';

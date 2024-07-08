@@ -2,7 +2,7 @@
 namespace App\Utility;
 
 use App\Models\CourseEnroll;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\Payments;
 use Stripe\Checkout\Session;
 
@@ -54,7 +54,7 @@ class StripeController
                     $courseEnroll->status = 'Paid';
                     $courseEnroll->save();
 
-                    $course = Courses::find($courseEnroll->course_id);
+                    $course = Course::find($courseEnroll->course_id);
                     $success = 'true';
                     $message = 'Payment Confirmed Successfully.';
                     $url = route('course.detail',$course->slug);
@@ -79,7 +79,7 @@ class StripeController
                     $courseEnroll->status = 'Cancel';
                     $courseEnroll->save();
 
-                    $course = Courses::find($courseEnroll->course_id);
+                    $course = Course::find($courseEnroll->course_id);
                     $url = route('course.detail',$course->slug);
 
                 }

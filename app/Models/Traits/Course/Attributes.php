@@ -22,18 +22,14 @@ trait Attributes
 
     public function getLogo()
     {
-        $value = $this->logo;
-        if ($value != "") {
-            $uploadingPath = public_path('/uploads/courses/' . $this->id);
-            return asset('/uploads/courses/' . $this->id . '/' . $value);
-        } else {
-            return asset('images/no-image.jpg');
-        }
+        return $this->getFile('logo') ?:  asset('images/no-image.jpg');
     }
+
     public function getLink()
     {
         return route('course.detail', $this->slug);
     }
+
     public function enrolled()
     {
         $enrolled_courses = \auth()->user()->courseEnrolled->pluck('course_id')->toArray();

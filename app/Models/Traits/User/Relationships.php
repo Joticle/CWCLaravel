@@ -2,7 +2,7 @@
 
 namespace App\Models\Traits\User;
 
-use App\Models\Courses;
+use App\Models\Course;
 
 trait Relationships
 {
@@ -22,6 +22,6 @@ trait Relationships
 
     public function wishlist()
     {
-        return $this->belongsToMany(Courses::class, 'wishlists', 'user_id', 'course_id')->withTimestamps();
+        return $this->belongsToMany(Course::class, 'wishlists', 'user_id', 'course_id')->withTimestamps();
     }
 }

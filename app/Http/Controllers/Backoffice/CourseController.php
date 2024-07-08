@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Backoffice;
 
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Course\CreateCourseRequest;
+use App\Http\Requests\Admin\Course\UpdateCourseRequest;
 use App\Models\Tag;
+use App\Services\CourseService;
 use Illuminate\Support\Str;
 use Validator;
 
@@ -19,8 +22,11 @@ class CourseController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    private CourseService $courseService;
+
+    public function __construct(CourseService $courseService)
     {
+        $this->courseService = $courseService;
         $this->middleware('auth');
     }
 
@@ -39,8 +45,8 @@ class CourseController extends Controller
         $breadcrumb['All Courses'] = '';
         $data['breadcrumb'] = $breadcrumb;
 
-        $data['data'] = Courses::paginate(env('RECORD_PER_PAGE',10));
-        return view('backoffice.courses.list',$data);
+        $data['data'] = Course::paginate(env('RECORD_PER_PAGE', 10));
+        return view('backoffice.courses.list', $data);
     }
     public function add()
     {
@@ -51,73 +57,27 @@ class CourseController extends Controller
         $breadcrumb['Courses'] = route('admin.course.list');
         $breadcrumb['Add Course'] = '';
         $data['breadcrumb'] = $breadcrumb;
-        $data['levels'] = Courses::LEVELS;
+        $data['levels'] = Course::LEVELS;
         $data['tags'] = Tag::all();
 
-        return view('backoffice.courses.add',$data);
+        return view('backoffice.courses.add', $data);
     }
-    public function create(Request $request)
+    public function create(CreateCourseRequest $request)
     {
-        //debug($request->all(),1);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'logo' => 'required|image',
-            'description' => 'required',
-            'start_date' => 'required',
-            'price' => 'required|numeric',
-            'level' => 'required|in:' . implode(',', Courses::LEVELS),
-        ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
-        }
-        $tags = null;
-        // transform tags and insert new in tags table
-        if(!empty($request->tags)) {
-            (new TagController())->createNewTags($request->tags);
-            $tags = implode(',', $request->tags);
-        }
+        try {
 
-        $data = [];
-        $data['name'] = $request->get('name');
-        $data['slug'] = $this->slugify($request->get('name'));
-        $data['description'] = $request->get('description');
-        $data['start_date'] = $request->get('start_date');
-        $data['end_date'] = $request->has('end_date')?$request->get('end_date'):null;
-        $data['price'] = $request->get('price');
-        $data['level'] = $request->get('level');
-        $data['tags'] = $tags;
-        $record = Courses::create($data);
+            $this->courseService->store($request->all());
 
-        if($request->hasFile('logo')){
-            $uploadingPath = public_path('/uploads/courses/'.$record->id);
-            if(!is_dir($uploadingPath)){
-                mkdir($uploadingPath,0777);
-            }
-            $file = $request->file('logo');
-            $fileExtension = $file->getClientOriginalExtension();
-            $image_name = 'logo'.time().'.'.$fileExtension;
-            $imageUpload = $file->move($uploadingPath, $image_name);
-            $record->logo = $image_name;
-            $record->save();
+            return redirect()->to(route('admin.course.list'))->with('success', 'Course Created Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
-        return redirect()->to(route('admin.course.list'))->with('success','Course Created Successfully.');
     }
-    private function slugify($text,$id=''){
-        $slug = Str::slug($text);
-        $isExists = Courses::where('slug','=',$slug);
-        if(!empty($id)){
-            $isExists = $isExists->where('id','!=',$id);
-        }
-        $isExists = $isExists->count();
-        if($isExists){
-            $slug = $slug.'-'.$isExists;
-        }
-        return $slug;
-    }
+
     public function edit($id)
     {
-        $course = Courses::findOrFail($id);
+        $course = Course::findOrFail($id);
 
         $data = [];
         $data['singular_name'] = 'Course ';
@@ -127,84 +87,57 @@ class CourseController extends Controller
         $breadcrumb[$course->name] = '';
         $data['breadcrumb'] = $breadcrumb;
         $data['row'] = $course;
-        $data['levels'] = Courses::LEVELS;
+        $data['levels'] = Course::LEVELS;
         $data['tags'] = Tag::all();
 
-        return view('backoffice.courses.edit',$data);
+        return view('backoffice.courses.edit', $data);
     }
-    public function update(Request $request,$id)
+    public function update(UpdateCourseRequest $request, $id)
     {
-        $record = Courses::findOrFail($id);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'description' => 'required',
-            'start_date' => 'required',
-            'price' => 'required|numeric',
-            'level' => 'required|in:' . implode(',', Courses::LEVELS),
-        ]);
+        try {
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            $course = Course::findOrFail($id);
+            $this->courseService->update($course, $request->all());
+
+            return redirect()->to(route('admin.course.list'))->with('success', 'Course Update Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
-
-        $tags = null;
-        // transform tags and insert new in tags table
-        if(!empty($request->tags)) {
-            (new TagController())->createNewTags($request->tags);
-            $tags = implode(',', $request->tags);
-        }
-
-        $record->name = $request->get('name');
-        //$record->slug = $this->slugify($request->get('name'), $id);
-        $record->description = $request->get('description');
-        $record->start_date = $request->get('start_date');
-        $record->end_date = $request->has('end_date')?$request->get('end_date'):null;
-        $record->status = $request->get('status');
-        $record->price = $request->get('price');
-        $record->level = $request->get('level');
-        $record->tags = $tags;
-
-        if($request->hasFile('logo')){
-            $uploadingPath = public_path('/uploads/courses/'.$record->id);
-            if(!is_dir($uploadingPath)){
-                mkdir($uploadingPath,0777);
-            }
-            if(!empty($record->logo)){
-                unlink($uploadingPath.'/'.$record->logo);
-            }
-            $file = $request->file('logo');
-            $fileExtension = $file->getClientOriginalExtension();
-            $image_name = 'logo'.time().'.'.$fileExtension;
-            $imageUpload = $file->move($uploadingPath, $image_name);
-            $record->logo = $image_name;
-        }
-        $record->save();
-        return redirect()->to(route('admin.course.list'))->with('success','Course Update Successfully.');
     }
-    function delete($id){
-        Courses::whereId($id)->delete();
-        return redirect()->to(route('admin.course.list'))->with('success','Course Deleted Successfully.');
+
+    public function delete($id)
+    {
+        try {
+            $course = Course::whereId($id);
+            $this->courseService->delete($course);
+
+            return redirect()->to(route('admin.course.list'))->with('success', 'Course Deleted Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
     }
-    function search(Request $request){
-        $courses = Courses::where('name','like','%'.$request->q.'%')->active();
-        if($request->has('with') && $request->get('with') == 'modules'){
+
+    public function search(Request $request)
+    {
+        $courses = Course::where('name', 'like', '%' . $request->q . '%')->active();
+        if ($request->has('with') && $request->get('with') == 'modules') {
             $courses = $courses->with('modules');
         }
         $courses = $courses->limit(15)->get();
         $data = [];
-        foreach ($courses as $course){
+        foreach ($courses as $course) {
             $row = [];
             $row['id'] = $course->id;
             $row['text'] = $course->name;
             $row['logo'] = $course->getLogo();
             $row['description'] = Str::words(strip_tags($course->description), 5, '...');
             $row['start_date'] = _date($course->start_date);
-            $row['end_date'] = !empty($course->end_date)?_date($course->end_date):'--';
-            if($request->has('with') && $request->get('with') == 'modules'){
+            $row['end_date'] = !empty($course->end_date) ? _date($course->end_date) : '--';
+            if ($request->has('with') && $request->get('with') == 'modules') {
                 $row['children'] = $course->modules;
             }
             $data[] = $row;
         }
-        return ['items'=>$data];
+        return ['items' => $data];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseEnroll;
-use App\Models\Courses;
+use App\Models\Course;
 use App\Models\User;
 use App\Utility\StripeController;
 use Carbon\Carbon;

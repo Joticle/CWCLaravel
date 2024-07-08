@@ -2,13 +2,13 @@
 
 namespace App\Models\Traits\CourseEnroll;
 
-use App\Models\Courses;
+use App\Models\Course;
 
 trait Relationships
 {
 
     public function course()
     {
-        return $this->hasOne(Courses::class, 'id', 'course_id');
+        return $this->hasOne(Course::class, 'id', 'course_id');
     }
 }
