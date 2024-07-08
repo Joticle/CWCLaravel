@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Traits\CourseEnroll\Attributes;
+use App\Models\Traits\CourseEnroll\Relationships;
 
 class CourseEnroll extends Model
 {
-    use HasFactory;
+    use Attributes, Relationships, HasFactory;
     /**
      * The attributes that should be mutated to dates.
      *
@@ -24,7 +26,5 @@ class CourseEnroll extends Model
         'status',
         'payment_id'
     ];
-    function course(){
-        return $this->hasOne(Courses::class,'id','course_id');
-    }
+
 }

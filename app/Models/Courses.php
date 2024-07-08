@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Traits\Course\Attributes;
+use App\Models\Traits\Course\Relationships;
 
 class Courses extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes, Attributes, Relationships;
 
     /**
      * The attributes that should be mutated to dates.
@@ -34,55 +35,4 @@ class Courses extends Model
         'tags'
     ];
 
-    public function scopeActive($query)
-    {
-        return $query->where('status', '1');
-    }
-
-    public function getBadgeClassAttribute()
-    {
-        if($this->level === 'Beginner')
-            return 'info';
-        else if($this->level === 'Intermediate')
-            return 'success';
-        else
-            return 'danger';
-    }
-
-    public function getLogo(){
-        $value = $this->logo;
-        if($value != ""){
-            $uploadingPath = public_path('/uploads/courses/'.$this->id);
-            return asset('/uploads/courses/'.$this->id.'/'.$value);
-        } else {
-            return asset('images/no-image.jpg');
-        }
-    }
-    public function getLink(){
-        return route('course.detail',$this->slug);
-    }
-    public function enrolled(){
-        $enrolled_courses = \auth()->user()->courseEnrolled->pluck('course_id')->toArray();
-        if(in_array($this->id, $enrolled_courses)){
-            return true;
-        }
-        return false;
-    }
-    function modules(){
-        return $this->hasMany(CourseModules::class,'course_id','id')->orderBy('sort_order','asc');
-    }
-
-    public function courseEnrolls() {
-        return $this->hasMany(CourseEnroll::class, 'course_id');
-    }
-
-    public function getIsBookmarkedAttribute()
-    {
-        return $this->wishlist()->where('user_id', Auth::id())->exists();
-    }
-
-    public function wishlist()
-    {
-        return $this->hasMany(Wishlist::class, 'course_id');
-    }
 }
