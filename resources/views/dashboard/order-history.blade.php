@@ -49,7 +49,7 @@
                         <tr>
                             <td colspan="5">{{ $orders->links() }}</td>
                         </tr>
-                        </tfoot>
+                    </tfoot>
                 </table>
             </div>
         </div>

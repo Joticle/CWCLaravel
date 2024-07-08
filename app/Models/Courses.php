@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Courses extends Model
 {
@@ -73,5 +74,15 @@ class Courses extends Model
 
     public function courseEnrolls() {
         return $this->hasMany(CourseEnroll::class, 'course_id');
+    }
+
+    public function getIsBookmarkedAttribute()
+    {
+        return $this->wishlist()->where('user_id', Auth::id())->exists();
+    }
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class, 'course_id');
     }
 }

@@ -60,4 +60,9 @@ class User extends Authenticatable
     public function courseOrders(){
         return $this->hasMany('\App\Models\CourseEnroll','user_id');
     }
+
+    public function wishlist()
+    {
+        return $this->belongsToMany(Courses::class, 'wishlists', 'user_id', 'course_id')->withTimestamps();
+    }
 }

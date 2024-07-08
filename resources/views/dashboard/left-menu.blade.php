@@ -17,7 +17,7 @@
             <p>Enrolled Courses</p>
         </a>
 
-        <a href="{{ route('dashboard.whishlist') }}" class="single-item @if (request()->route()->getName() == 'dashboard.whishlist') active @endif">
+        <a href="{{ route('dashboard.wishlist') }}" class="single-item @if (request()->route()->getName() == 'dashboard.wishlist') active @endif">
             <i class="fa-sharp fa-light fa-bookmark"></i>
             <p>Wishlist</p>
         </a>
