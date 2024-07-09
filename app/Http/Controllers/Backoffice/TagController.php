@@ -6,6 +6,7 @@ use App\Models\Tag;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TagRequest;
 use App\Services\TagService;
+use Illuminate\Http\Request;
 
 class TagController extends Controller
 {

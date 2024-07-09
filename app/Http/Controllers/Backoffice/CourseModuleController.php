@@ -61,7 +61,7 @@ class CourseModuleController extends Controller
     {
         try {
 
-            $this->courseModuleService->store($request->validated());
+            $this->courseModuleService->store($request->all());
 
             return redirect()->back()->with('success', 'Course Module Created Successfully.');
         } catch (\Exception $e) {
@@ -78,12 +78,9 @@ class CourseModuleController extends Controller
     }
     public function update(UpdateCourseModuleRequest $request, $id)
     {
-
         try {
-
             $courseModule = CourseModule::findOrFail($id);
-            $this->courseModuleService->update($courseModule, $request->validated());
-
+            $this->courseModuleService->update($courseModule, $request->all());
             return redirect()->back()->with('success', 'Course Module Update Successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);

@@ -31,16 +31,17 @@ class CreateCourseModuleRequest extends FormRequest
             'name' => 'required',
             'description' => 'required',
             'start_date' => 'required',
-            'end_date' => 'nullable',
-            'course_id' => 'required|exists:courses,id',
-
+            'end_date' => 'nullable'
         ];
     }
 
     protected function passedValidation()
     {
+
+        $course = Course::findOrFail($this->course_id);
         $this->merge([
             'slug' => $this->slugify($this->name),
+            'course_id' => $course->id
         ]);
     }
 
