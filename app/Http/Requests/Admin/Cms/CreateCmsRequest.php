@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin\Course;
+namespace App\Http\Requests\Admin\Cms;
 
-use App\Http\Controllers\Backoffice\TagController;
-use App\Models\Course;
-use App\Models\Tag;
-use App\Services\TagService;
+use App\Models\Cms;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
-class CreateCourseRequest extends FormRequest
+class CreateCmsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,32 +27,21 @@ class CreateCourseRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'logo' => 'required|image',
-            'description' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'price' => 'required|numeric',
-            'level' => 'required|in:' . implode(',', Course::LEVELS),
+            'content' => 'required',
         ];
     }
 
     protected function passedValidation()
     {
-        $tags = null;
-        if (!empty($this->tags)) {
-            (new TagController(new TagService(new Tag())))->createNewTags($this->tags);
-            $tags = implode(',', $this->tags);
-        }
         $this->merge([
-            'slug' => $this->slugify($this->name),
-            'tags' => $tags,
+            'slug' => $this->slugify($this->name)
         ]);
     }
 
     private function slugify($text, $id = '')
     {
         $slug = Str::slug($text);
-        $isExists = Course::where('slug', '=', $slug);
+        $isExists = Cms::where('slug', '=', $slug);
         if (!empty($id)) {
             $isExists = $isExists->where('id', '!=', $id);
         }
@@ -65,4 +51,5 @@ class CreateCourseRequest extends FormRequest
         }
         return $slug;
     }
+
 }

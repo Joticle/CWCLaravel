@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers\Backoffice;
 
-use App\Models\Course;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Cms\CreateCmsRequest;
+use App\Http\Requests\Admin\Cms\UpdateCmsRequest;
 use App\Models\Cms;
-use App\Models\Tag;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use App\Services\CmsService;
 
 class CmsController extends Controller
 {
@@ -21,8 +16,11 @@ class CmsController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    private CmsService $cmsService;
+
+    public function __construct(CmsService $cmsService)
     {
+        $this->cmsService = $cmsService;
         $this->middleware('auth');
     }
 
@@ -56,39 +54,18 @@ class CmsController extends Controller
 
         return view('backoffice.cms.add', $data);
     }
-    public function create(Request $request)
+    public function create(CreateCmsRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'content' => 'required',
-        ]);
+        try {
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            $this->cmsService->store($request->all());
+
+            return redirect()->to(route('admin.cms.list'))->with('success', 'Cms Page Created Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
-
-
-        $data = [];
-        $data['name'] = $request->get('name');
-        $data['slug'] = $this->slugify($request->get('name'));
-        $data['content'] = $request->get('content');
-        $record = Cms::create($data);
-
-        return redirect()->to(route('admin.cms.list'))->with('success', 'Cms Page Created Successfully.');
     }
-    private function slugify($text, $id = '')
-    {
-        $slug = Str::slug($text);
-        $isExists = Cms::where('slug', '=', $slug);
-        if (!empty($id)) {
-            $isExists = $isExists->where('id', '!=', $id);
-        }
-        $isExists = $isExists->count();
-        if ($isExists) {
-            $slug = $slug . '-' . $isExists;
-        }
-        return $slug;
-    }
+
     public function edit($id)
     {
         $cms = Cms::findOrFail($id);
@@ -104,32 +81,32 @@ class CmsController extends Controller
 
         return view('backoffice.cms.edit', $data);
     }
-    public function update(Request $request, $id)
+    public function update(UpdateCmsRequest $request, $id)
     {
-        $record = Cms::findOrFail($id);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'content' => 'required',
-            'status' => 'required|in:0,1'
-        ]);
+        try {
+            $cms = Cms::findOrFail($id);
+            $this->cmsService->update($cms, $request->validated());
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->to(route('admin.cms.list'))->with('success', 'Cms Page Update Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
-
-        $record->name = $request->get('name');
-        $record->content = $request->get('content');
-        $record->status = $request->get('status');
-
-        $record->save();
-        return redirect()->to(route('admin.cms.list'))->with('success', 'Cms Page Update Successfully.');
     }
-    function delete($id)
+
+    public function delete($id)
     {
-        Cms::find($id)->delete();
-        return redirect()->to(route('admin.cms.list'))->with('success', 'Cms Page Deleted Successfully.');
+        try {
+            $cms = Cms::findOrFail($id);
+
+            $this->cmsService->delete($cms);
+
+            return redirect()->to(route('admin.cms.list'))->with('success', 'Cms Page Deleted Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
     }
-    function search(Request $request)
+
+    public function search(Request $request)
     {
         $cms = Cms::where('name', 'like', '%' . $request->q . '%')->limit(15)->get(['id', 'name as text']);
         return ['items' => $cms];
