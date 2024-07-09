@@ -65,7 +65,7 @@ class FrontEndCourseController extends Controller
         $today = Carbon::today();
 
         $data['course'] = $course;
-        $data['contentTypes'] = ContentTypes::pluck('type','id')->toArray();
+        $data['contentTypes'] = ContentType::pluck('type','id')->toArray();
         return view('course-detail',$data);
     }
     function courseEnroll($slug){

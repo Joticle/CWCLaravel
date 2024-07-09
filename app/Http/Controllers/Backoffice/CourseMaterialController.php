@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backoffice;
 
-use App\Models\ContentTypes;
+use App\Models\ContentType;
 use App\Models\CourseModuleContent;
 use App\Models\CourseModule;
 use App\Models\Course;
@@ -65,7 +65,7 @@ class CourseMaterialController extends Controller
         $data['courseModule'] = $courseModule;
 
         $data['data']   = CourseModuleContent::where('course_id', '=', $course_id)->where('course_module_id', '=', $module_id)->orderBy('sort_order', 'asc')->get();
-        $content_types = ContentTypes::where('status', '=', '1')->get()->toArray();
+        $content_types = ContentType::where('status', '=', '1')->get()->toArray();
         $data['content_types'] = array_column($content_types, null, 'id');
         return view('backoffice.course-material.list', $data);
     }

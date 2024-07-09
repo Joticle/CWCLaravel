@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Backoffice;
 
-use App\Models\ContentTypes;
+use App\Models\ContentType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ContentType\CreateContentTypeRequest;
+use App\Services\ContentTypeService;
 use Illuminate\Support\Str;
 use Validator;
 
@@ -17,8 +19,11 @@ class ContentTypeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    private ContentTypeService $contentTypeService;
+
+    public function __construct(ContentTypeService $contentTypeService)
     {
+        $this->contentTypeService = $contentTypeService;
         $this->middleware('auth');
     }
 
@@ -37,8 +42,8 @@ class ContentTypeController extends Controller
         $breadcrumb['All Content Types'] = '';
         $data['breadcrumb'] = $breadcrumb;
 
-        $data['data'] = ContentTypes::paginate(env('RECORD_PER_PAGE',10));
-        return view('backoffice.content-types.list',$data);
+        $data['data'] = ContentType::paginate(env('RECORD_PER_PAGE', 10));
+        return view('backoffice.content-types.list', $data);
     }
     public function add()
     {
@@ -49,29 +54,23 @@ class ContentTypeController extends Controller
         $breadcrumb['Add Content Type'] = '';
         $data['breadcrumb'] = $breadcrumb;
 
-        return view('backoffice.content-types.add',$data);
+        return view('backoffice.content-types.add', $data);
     }
-    public function create(Request $request)
+    public function create(CreateContentTypeRequest $request)
     {
-        //debug($request->all(),1);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'type' => 'required'
-        ]);
+        try {
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            $this->contentTypeService->store($request->all());
+
+            return redirect()->to(route('admin.content-type.list'))->with('success', 'Content Type Created Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
-        $data = [];
-        $data['name'] = $request->get('name');
-        $data['type'] = $request->get('type');
-        $record = ContentTypes::create($data);
-        return redirect()->to(route('admin.content-type.list'))->with('success','Content Type Created Successfully.');
     }
 
     public function edit($id)
     {
-        $course = ContentTypes::findOrFail($id);
+        $course = ContentType::findOrFail($id);
 
         $data = [];
         $data['singular_name'] = 'Content Type';
@@ -82,27 +81,28 @@ class ContentTypeController extends Controller
         $data['breadcrumb'] = $breadcrumb;
         $data['row'] = $course;
 
-        return view('backoffice.content-types.edit',$data);
+        return view('backoffice.content-types.edit', $data);
     }
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $record = ContentTypes::findOrFail($id);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'type' => 'required'
-        ]);
+        try {
+            $contentType = ContentType::findOrFail($id);
+            $this->contentTypeService->update($contentType, $request->all());
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->to(route('admin.content-type.list'))->with('success', 'Content Type Update Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
-        $record->name = $request->get('name');
-        $record->type = $request->get('type');
-        $record->status = $request->get('status');
-        $record->save();
-        return redirect()->to(route('admin.content-type.list'))->with('success','Content Type Update Successfully.');
     }
-    function delete($id){
-        ContentTypes::whereId($id)->delete();
-        return redirect()->to(route('admin.content-type.list'))->with('success','Content Type Deleted Successfully.');
+    public function delete($id)
+    {
+        try {
+            $contentType = ContentType::findOrFail($id);
+            $this->contentTypeService->delete($contentType);
+
+            return redirect()->to(route('admin.content-type.list'))->with('success', 'Content Type Deleted Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

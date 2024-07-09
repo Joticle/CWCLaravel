@@ -83,7 +83,7 @@ function _date($date){
 }
 function getContentList(){
     $list = [];
-    foreach (App\Models\ContentTypes::CONTENTLIST as $key=>$content){
+    foreach (App\Models\ContentType::CONTENTLIST as $key=>$content){
         $list[$key] = $content['name'];
     }
     return $list;

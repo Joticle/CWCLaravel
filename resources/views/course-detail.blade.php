@@ -109,7 +109,7 @@
                                                     </div>
                                                     @foreach($course_module->contents as $key_content=>$course_content)
                                                         @php
-                                                            $content_list = App\Models\ContentTypes::CONTENTLIST;
+                                                            $content_list = App\Models\ContentType::CONTENTLIST;
                                                             $content_icon = $content_list[$contentTypes[$course_content->content_type_id]]['icon']??'';
                                                         @endphp
 
