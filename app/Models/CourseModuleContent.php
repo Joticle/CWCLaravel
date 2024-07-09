@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\UploadFiles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CourseModuleContent extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes, UploadFiles;
 
     /**
      * The attributes that should be mutated to dates.

@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CourseModuleContent\CreateCourseModuleContentRequest;
+use App\Services\CourseModuleContentService;
 use Illuminate\Support\Str;
 use Validator;
 
@@ -21,8 +23,11 @@ class CourseMaterialController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    private CourseModuleContentService $courseModuleContentService;
+
+    public function __construct(CourseModuleContentService $courseModuleContentService)
     {
+        $this->courseModuleContentService = $courseModuleContentService;
         $this->middleware('auth');
     }
 
@@ -31,13 +36,13 @@ class CourseMaterialController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($module_id=0)
+    public function index($module_id = 0)
     {
 
         $data = [];
         $course_id = 0;
         $courseModule = [];
-        if($module_id){
+        if ($module_id) {
             $courseModule = CourseModule::whereId($module_id)->first();
             $course_id = $courseModule->course_id;
         }
@@ -47,11 +52,11 @@ class CourseMaterialController extends Controller
         $data['pulular_name'] = 'Course Contents';
         $breadcrumb = [];
         $breadcrumb['Courses'] = route('admin.course.list');
-        if($course && $module_id){
-            $breadcrumb[$course->name] = route('admin.course.edit',$course->id);
-            $breadcrumb[$courseModule->name] = route('admin.course.module.list',$course->id);
-        }else{
-            Session::flash('activeModal','selectCourseModuleModal');
+        if ($course && $module_id) {
+            $breadcrumb[$course->name] = route('admin.course.edit', $course->id);
+            $breadcrumb[$courseModule->name] = route('admin.course.module.list', $course->id);
+        } else {
+            Session::flash('activeModal', 'selectCourseModuleModal');
         }
         $breadcrumb['Course Module Content'] = '';
         $data['breadcrumb'] = $breadcrumb;
@@ -59,60 +64,45 @@ class CourseMaterialController extends Controller
         $data['course'] = $course;
         $data['courseModule'] = $courseModule;
 
-        $data['data']   = CourseModuleContent::where('course_id','=',$course_id)->where('course_module_id','=',$module_id)->orderBy('sort_order','asc')->get();
-        $content_types = ContentTypes::where('status','=','1')->get()->toArray();
+        $data['data']   = CourseModuleContent::where('course_id', '=', $course_id)->where('course_module_id', '=', $module_id)->orderBy('sort_order', 'asc')->get();
+        $content_types = ContentTypes::where('status', '=', '1')->get()->toArray();
         $data['content_types'] = array_column($content_types, null, 'id');
-        return view('backoffice.course-material.list',$data);
+        return view('backoffice.course-material.list', $data);
     }
 
-    public function create(Request $request, $module_id)
+    public function create(CreateCourseModuleContentRequest $request)
     {
-        //debug($request->all(),1);
-        $validator = Validator::make($request->all(), [
-            'content_type' => 'required',
-            'name' => 'required',
-            'value' => 'required',
-        ]);
+        try {
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            $this->courseModuleContentService->store($request->all());
+            return redirect()->back()->with('success', 'Course Module Content Created Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
-        $courseModule = CourseModule::whereId($module_id)->first();
-        $course_id = $courseModule->course_id;
+    }
 
-        $data = [];
-        $data['course_id'] = $course_id;
-        $data['course_module_id'] = $module_id;
-        $data['name'] = $request->get('name');
-        $data['content_type_id'] = $request->get('content_type');
-        $record = CourseModuleContent::create($data);
-        if($request->hasFile('value')){
-            $uploadingPath = public_path('/uploads/course-module-content/'.$record->id);
-            if(!is_dir($uploadingPath)){
-                mkdir($uploadingPath,0777);
+    public function delete($id)
+    {
+        try {
+            $courseModuleContent = CourseModuleContent::findOrFail($id);
+            $this->courseModuleContentService->delete($courseModuleContent);
+
+            return redirect()->back()->with('success', 'Course Module Content Deleted Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function sort(Request $request)
+    {
+        try {
+            $sorting = $request->get('sorting');
+            foreach ($sorting as $id => $sort_order) {
+                CourseModuleContent::whereId($id)->update(['sort_order' => $sort_order]);
             }
-            $file = $request->file('value');
-            $fileExtension = $file->getClientOriginalExtension();
-            $image_name = 'file-'.rand(0,999).'-'.time().'.'.$fileExtension;
-            $imageUpload = $file->move($uploadingPath, $image_name);
-            $record->value = $image_name;
-            $record->save();
-        }else{
-            $record->value = $request->get('value');
-            $record->save();
+            return ['success' => 'true', 'message' => 'Sorted'];
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
-        return redirect()->back()->with('success','Course Module Content Created Successfully.');
-    }
-    function delete($id){
-        CourseModuleContent::whereId($id)->delete();
-        return redirect()->back()->with('success','Course Module Content Deleted Successfully.');
-    }
-    function sort(Request $request){
-        //debug($request->all(),1);
-        $sorting = $request->get('sorting');
-        foreach ($sorting as $id=>$sort_order){
-            CourseModuleContent::whereId($id)->update(['sort_order'=>$sort_order]);
-        }
-        return ['success'=>'true','message'=>'Sorted'];
     }
 }

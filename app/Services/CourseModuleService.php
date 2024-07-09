@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Exceptions\GeneralException;
-use App\Models\Course;
 use App\Models\CourseModule;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +15,7 @@ class CourseModuleService extends BaseService
     /**
      * CourseModuleService constructor.
      *
-     * @param Course $course_module
+     * @param CourseModule $course_module
      */
     public function __construct(CourseModule $course_module)
     {
@@ -52,10 +51,10 @@ class CourseModuleService extends BaseService
      * @param CourseModule $course_module
      * @param array $data
      *
-     * @return Course
+     * @return CourseModule
      * @throws \Throwable
      */
-    public function update(Course $course_module, array $data = []): CourseModule
+    public function update(CourseModule $course_module, array $data = []): CourseModule
     {
         DB::beginTransaction();
 
@@ -79,7 +78,7 @@ class CourseModuleService extends BaseService
      * @return CourseModule
      * @throws GeneralException
      */
-    public function delete(Course $course_module): CourseModule
+    public function delete(CourseModule $course_module): CourseModule
     {
         if ($this->deleteById($course_module->id)) {
             return $course_module;
