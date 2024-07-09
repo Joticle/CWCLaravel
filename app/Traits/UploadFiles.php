@@ -6,7 +6,7 @@ use Illuminate\Http\UploadedFile;
 
 trait UploadFiles
 {
-    public function uploadFile(UploadedFile $file, $field = '', $subField = false)
+    public function uploadFile(UploadedFile $file, $field = '', $subField = false, $subFieldValue = '')
     {
         if (!$this->exists) {
             $this->save();
@@ -24,8 +24,8 @@ trait UploadFiles
             mkdir($subdirectoryPath, 0777, true);
         }
 
-        if ($field && $this->{$field}) {
-            $previousThumbnailPath = $subdirectoryPath . '/' .  $this->{$field};
+        if ($field && $this->{$field} && ($subField == true && $subFieldValue != '')) {
+            $previousThumbnailPath = $subdirectoryPath . '/' .  ($subFieldValue != '' ? $subFieldValue : $this->{$field});
             if (file_exists($previousThumbnailPath)) {
                 unlink($previousThumbnailPath);
             }
@@ -38,7 +38,7 @@ trait UploadFiles
         return $fileName;
     }
 
-    public function getFile($field = '', $subField = false)
+    public function getFile($field = '', $subField = false, $subFieldValue = '')
     {
         $value = $this->{$field};
         if ($value != "") {
@@ -46,7 +46,7 @@ trait UploadFiles
             if($subField) {
                 $uploadPath .= '/' . $field;
             }
-            return $uploadPath . '/' . $value;
+            return $uploadPath . '/' . ($subFieldValue != '' ? $subFieldValue : $value);
         } else {
             return asset('images/profile.png');
         }

@@ -21,20 +21,11 @@ trait Attributes
 
     public function getLogo()
     {
-        $value = $this->logo;
-        if ($value != "") {
-            return asset('/uploads/connections/' . $this->id . '/' . $value);
-        } else {
-            return asset('images/no-image.jpg');
-        }
+        return $this->getFile('logo') ?:  asset('images/no-image.jpg');
     }
 
     public function getCategoryIcon($name)
     {
-        if ($name != "") {
-            return asset('/uploads/connections/' . $this->id . '/categories/' . $name);
-        } else {
-            return asset('images/no-image.jpg');
-        }
+        return $this->getFile('categories', true, $name) ?:  asset('images/no-image.jpg');
     }
 }
