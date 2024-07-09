@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backoffice;
 
 use App\Models\Tag;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TagRequest;
+use App\Http\Requests\Admin\TagRequest;
+use App\Services\TagService;
 
 class TagController extends Controller
 {
@@ -14,6 +14,14 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private TagService $tagService;
+
+    public function __construct(TagService $tagService)
+    {
+        $this->tagService = $tagService;
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $data = [];
@@ -24,8 +32,8 @@ class TagController extends Controller
         $breadcrumb['All Tags'] = '';
         $data['breadcrumb'] = $breadcrumb;
 
-        $data['data'] = Tag::paginate(env('RECORD_PER_PAGE',10));
-        return view('backoffice.tags.index',$data);
+        $data['data'] = Tag::paginate(env('RECORD_PER_PAGE', 10));
+        return view('backoffice.tags.index', $data);
     }
 
     /**
@@ -43,7 +51,7 @@ class TagController extends Controller
         $breadcrumb['Add Tag'] = '';
         $data['breadcrumb'] = $breadcrumb;
 
-        return view('backoffice.tags.create',$data);
+        return view('backoffice.tags.create', $data);
     }
 
     /**
@@ -54,8 +62,14 @@ class TagController extends Controller
      */
     public function store(TagRequest $request)
     {
-        Tag::create($request->validated());
-        return redirect()->to(route('admin.tags.index'))->with('success','Tag Created Successfully.');
+        try {
+
+            $this->tagService->store($request->validated());
+
+            return redirect()->to(route('admin.tags.index'))->with('success', 'Tag Created Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -86,7 +100,7 @@ class TagController extends Controller
         $data['breadcrumb'] = $breadcrumb;
         $data['row'] = $tag;
 
-        return view('backoffice.tags.edit',$data);
+        return view('backoffice.tags.edit', $data);
     }
 
     /**
@@ -98,8 +112,13 @@ class TagController extends Controller
      */
     public function update(TagRequest $request, Tag $tag)
     {
-        $tag->update($request->validated());
-        return redirect()->to(route('admin.tags.index'))->with('success','Tag Updated Successfully.');
+        try {
+
+            $this->tagService->update($tag, $request->validated());
+            return redirect()->to(route('admin.tags.index'))->with('success', 'Tag Updated Successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -110,25 +129,29 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        $tag->delete();
-        return response()->json(['success' => true,'reload' => true, 'message' => 'Tag Deleted Successfully.']);
+        try {
+            $this->tagService->delete($tag);
+
+            return response()->json(['success' => true, 'reload' => true, 'message' => 'Tag Deleted Successfully.']);
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function search(Request $request)
     {
-        $tags = Tag::where('name','like','%'.$request->q.'%')->limit(15)->get(['id', 'name as text']);
+        $tags = Tag::where('name', 'like', '%' . $request->q . '%')->limit(15)->get(['id', 'name as text']);
         return ['items' => $tags];
     }
 
     public function createNewTags(array $tagNames)
     {
         try {
-            foreach($tagNames as $name) {
+            foreach ($tagNames as $name) {
                 Tag::firstOrCreate(['name' => trim($name)]);
             }
             return true;
-
-        } catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             return false;
         }
     }
