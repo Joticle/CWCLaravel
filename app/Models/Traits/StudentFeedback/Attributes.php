@@ -14,13 +14,7 @@ trait Attributes
 
     public function getImage()
     {
-        $value = $this->image;
-        if ($value != "") {
-            $uploadingPath = public_path('/uploads/students/' . $this->id);
-            return asset('/uploads/students/' . $this->id . '/' . $value);
-        } else {
-            return asset('images/no-image.jpg');
-        }
+        return $this->getFile('image') ?:  asset('images/no-image.jpg');
     }
 
     public function getRatingHtmlAttribute()

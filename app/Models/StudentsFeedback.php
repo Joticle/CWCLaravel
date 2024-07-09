@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\StudentFeedback\Attributes;
 use App\Models\Traits\StudentFeedback\Relationships;
+use App\Traits\UploadFiles;
 
 class StudentsFeedback extends Model
 {
-    use HasFactory, Attributes, Relationships;
+    use HasFactory, Attributes, Relationships, UploadFiles;
 
     protected $guarded = ['id'];
 
