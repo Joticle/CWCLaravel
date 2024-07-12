@@ -88,6 +88,17 @@
                     <li><a href="{{ route('admin.connection.add') }}">Add New Connection</a></li>
                 </ul>
             </li>
+            <li class="@if (str_contains(request()->route()->getName(), 'admin.banner')) mm-active @endif">
+                <a class="ai-icon" href="{{ route('admin.banner.list') }}" aria-expanded="true">
+                    <i class="flaticon-381-file-2"></i>
+                    <span class="nav-text">Banners</span>
+                    <span class="nav-text fa fa-chevron-down float-right"></span>
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="{{ route('admin.banner.list') }}">All Banners</a></li>
+                    <li><a href="{{ route('admin.banner.add') }}">Add New Banner</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

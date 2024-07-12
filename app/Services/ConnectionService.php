@@ -63,7 +63,6 @@ class ConnectionService extends BaseService
                 $connection->save();
             }
         } catch (Exception $e) {
-            dd($e);
             DB::rollBack();
 
             throw new GeneralException($e->getMessage());
@@ -121,7 +120,6 @@ class ConnectionService extends BaseService
 
             $connection->update($data);
         } catch (Exception $e) {
-            dd($e);
             DB::rollBack();
             throw new GeneralException(__('There was a problem updating this Connection. Please try again.'));
         }

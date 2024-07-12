@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backoffice\AdminAuthController;
 use App\Http\Controllers\Backoffice\AdminController;
+use App\Http\Controllers\Backoffice\BannerController;
 use App\Http\Controllers\Backoffice\CmsController;
 use App\Http\Controllers\Backoffice\ContentTypeController;
 use App\Http\Controllers\Backoffice\CourseController;
@@ -158,6 +159,17 @@ Route::group(['middleware' => 'web'], function(){
                     Route::post('/edit/{id}', [ConnectionController::class, 'update'])->name('edit');
                     Route::get('/delete/{id}', [ConnectionController::class, 'delete'])->name('delete');
                     Route::get('/search', [ConnectionController::class, 'search'])->name('search');
+                });
+
+                /*Connection*/
+                Route::group(['prefix' => 'banner','as' => 'banner.'], function(){
+                    Route::get('/list', [BannerController::class, 'index'])->name('list');
+                    Route::get('/create', [BannerController::class, 'add'])->name('add');
+                    Route::post('/create', [BannerController::class, 'create'])->name('add');
+                    Route::get('/edit/{id}', [BannerController::class, 'edit'])->name('edit');
+                    Route::post('/edit/{id}', [BannerController::class, 'update'])->name('edit');
+                    Route::get('/delete/{id}', [BannerController::class, 'delete'])->name('delete');
+                    Route::get('/search', [BannerController::class, 'search'])->name('search');
                 });
 
             });
