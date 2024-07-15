@@ -46,7 +46,8 @@ class BannerService extends BaseService
             $banner = Banner::create(['pre_title' => $data['pre_title'], 'title' => $data['title'], 'description' => $data['description'], 'button' => json_encode($buttonData)]);
 
             if (isset($data['image'])) {
-                $banner->logo = $banner->uploadFile($data['image'], 'image');
+                $banner->image = $banner->uploadFile($data['image'], 'image');
+                $banner->save();
             }
         } catch (Exception $e) {
             DB::rollBack();
@@ -71,7 +72,7 @@ class BannerService extends BaseService
         DB::beginTransaction();
 
         try {
-            if (isset($data['button']['text']) && isset($data['button']['url']) && isset($data['button']['target_blank'])) {
+            if (!empty($data['button']['text']) && !empty($data['button']['url']) && !empty($data['button']['target_blank'])) {
                 $data['button'] = [
                     'text' => $data['button']['text'],
                     'url' => $data['button']['url'],

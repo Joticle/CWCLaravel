@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Cases;
 use App\Models\Connection;
 use App\Models\Course;
@@ -36,6 +37,7 @@ class FrontEndController extends Controller
         $data = [];
         $data['studentsFeedback']  = StudentsFeedback::active()->get();
         $data['connections']  = Connection::active()->get();
+        $data['banners']  = Banner::active()->get();
         return view('home',$data);
     }
     function logout(){

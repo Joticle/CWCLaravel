@@ -51,7 +51,6 @@ class BannerController extends Controller
     public function create(CreateBannerRequest $request)
     {
         try {
-            dd($request->validated());
             $this->bannerService->store($request->validated());
 
             return redirect()->to(route('admin.banner.list'))->with('success', 'Banner Created Successfully.');

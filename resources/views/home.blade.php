@@ -2,74 +2,71 @@
 
 @section('content')
     <!-- banner area start -->
-    <div class="banner-area-one shape-move">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 order-xl-1 order-lg-1 order-sm-2 order-2">
-                    <div class="banner-content-one">
-                        <div class="inner">
-                            <div class="pre-title-banner">
-                                <img src="site-assets/images/banner/bulb.png" width="22" alt="icon">
-                                <span>Gateway to Lifelong Learning</span>
-                            </div>
-                            <h1 class="title-banner">
-                                Unlock Your Potential <br>
-                                with <span>Online Learning</span>
-                                <img src="site-assets/images/banner/02.png" alt="banner">
-                            </h1>
-                            <p class="disc">Discover a world of knowledge and opportunities with our online
-                                education platform pursue a new career.</p>
-                            <div class="banner-btn-author-wrapper">
-                                <a href="{{route('courses')}}" class="rts-btn btn-primary with-arrow">View All Course <i class="fa-regular fa-arrow-right"></i></a>
-                                <div class="sm-image-wrapper">
-                                    <div class="images-wrap">
-                                        <img src="site-assets/images/banner/shape/06.png" alt="banner">
-                                        <img class="two" src="site-assets/images/banner/shape/07.png" alt="banner">
-                                        <img class="three" src="site-assets/images/banner/shape/08.png" alt="banner">
-                                    </div>
-                                    <div class="info">
-                                        <h6 class="title">2k students</h6>
-                                        <span>Joint our online Class</span>
-                                    </div>
+    @foreach ($banners as $banner)
+        <div class="banner-area-one shape-move">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 order-xl-1 order-lg-1 order-sm-2 order-2">
+                        <div class="banner-content-one">
+                            <div class="inner">
+                                <div class="pre-title-banner">
+                                    <img src="site-assets/images/banner/bulb.png" width="22" alt="icon">
+                                    <span>{{ $banner->pre_title }}</span>
                                 </div>
+                                <h1 class="title-banner">
+                                    {{ $banner->title }}
+                                    {{-- <img src="site-assets/images/banner/02.png" alt="banner"> --}}
+                                </h1>
+                                <p class="disc">{{ $banner->description }}</p>
+                                @if (optional($banner->button)->url)
+                                    <div class="banner-btn-author-wrapper">
+                                        <a href="{{ optional($banner->button)->url }}"
+                                            @if (optional($banner->button)->target_blank) target="_blank" @endif
+                                            class="rts-btn btn-primary with-arrow">{{ optional($banner->button)->text }}
+                                            <i class="fa-regular fa-arrow-right"></i></a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6 order--xl-2 order-lg-2 order-sm-1 order-1">
-                    <div class="banner-right-img">
-                        <img src="site-assets/images/banner/01.png" alt="banner">
+                    <div class="col-lg-6 order--xl-2 order-lg-2 order-sm-1 order-1">
+                        <div class="banner-right-img">
+                            <img src="{{ $banner->getImage() }}" alt="banner">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="review-thumb">
-            <!-- single review -->
-            <div class="review-single">
-                <img src="site-assets/images/banner/03.png" alt="banner">
-                <div class="info-right">
-                    <h6 class="title">4.5</h6>
-                    <span>(2.4k Review)</span>
+            {{-- <div class="review-thumb">
+                <!-- single review -->
+                <div class="review-single">
+                    <img src="site-assets/images/banner/03.png" alt="banner">
+                    <div class="info-right">
+                        <h6 class="title">4.5</h6>
+                        <span>(2.4k Review)</span>
+                    </div>
                 </div>
-            </div>
-            <!-- single review end -->
-            <!-- single review -->
-            <div class="review-single two">
-                <img src="site-assets/images/banner/04.png" alt="banner">
-                <div class="info-right">
-                    <h6 class="title">100+
-                    </h6>
-                    <span>Online Course</span>
+                <!-- single review end -->
+                <!-- single review -->
+                <div class="review-single two">
+                    <img src="site-assets/images/banner/04.png" alt="banner">
+                    <div class="info-right">
+                        <h6 class="title">100+
+                        </h6>
+                        <span>Online Course</span>
+                    </div>
                 </div>
-            </div>
-            <!-- single review end -->
+                <!-- single review end -->
+            </div> --}}
+            {{-- <div class="shape-image">
+                <div class="shape one" data-speed="0.04" data-revert="true"><img
+                        src="site-assets/images/banner/shape/banner-shape01.svg" alt="shape_image"></div>
+                <div class="shape two" data-speed="0.04"><img src="site-assets/images/banner/shape/banner-shape02.svg"
+                        alt="shape_image"></div>
+                <div class="shape three" data-speed="0.04"><img src="site-assets/images/banner/shape/banner-shape03.svg"
+                        alt="shape_image"></div>
+            </div> --}}
         </div>
-        <div class="shape-image">
-            <div class="shape one" data-speed="0.04" data-revert="true"><img src="site-assets/images/banner/shape/banner-shape01.svg" alt="shape_image"></div>
-            <div class="shape two" data-speed="0.04"><img src="site-assets/images/banner/shape/banner-shape02.svg" alt="shape_image"></div>
-            <div class="shape three" data-speed="0.04"><img src="site-assets/images/banner/shape/banner-shape03.svg" alt="shape_image"></div>
-        </div>
-    </div>
+    @endforeach
     <!-- banner area end -->
 
     <!-- brand area start -->
@@ -81,7 +78,8 @@
                         <div class="left-title">
                             <h6 class="title">Trusted by:</h6>
                         </div>
-                        <div class="swiper mySwiper-category-1 swiper-data" data-swiper='{
+                        <div class="swiper mySwiper-category-1 swiper-data"
+                            data-swiper='{
                             "spaceBetween":30,
                             "slidesPerView":6,
                             "loop": true,
@@ -166,7 +164,12 @@
     <div class="about-area-start rts-section-gapBottom">
         <div class="container">
             <h3>What is College For World Connections?</h3>
-            <p class="paragraph">College for World Connections Center for Innovation & Learning is a full-service Educator Ecosystem for teaching and empowering adults, professionals, and teams in Leadership Principles. In partnership with Joticle, Inc., our academic instructors dedicate their knowledge and expertise to improving the lives of others through leadership instruction, creative and critical thinking development, and world schooling. Leaders RISE and become empowered in a learner friendly, educator respected, and educationally elevated platform. </p>
+            <p class="paragraph">College for World Connections Center for Innovation & Learning is a full-service Educator
+                Ecosystem for teaching and empowering adults, professionals, and teams in Leadership Principles. In
+                partnership with Joticle, Inc., our academic instructors dedicate their knowledge and expertise to improving
+                the lives of others through leadership instruction, creative and critical thinking development, and world
+                schooling. Leaders RISE and become empowered in a learner friendly, educator respected, and educationally
+                elevated platform. </p>
             @foreach ($connections as $connection)
                 <div class="rts-section-gapBottom">
                     <div class="row align-items-center">
@@ -186,48 +189,54 @@
                                     </a>
 
                                     @if ($index % 2 == 1 || $loop->last)
-                                        </div>
-                                    @endif
-                                @endforeach
-
                             </div>
-                            <!-- about-one-imagearea end -->
-                        </div>
-                        <div class="col-xl-6 col-lg-12 pl--60 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
-                            <div class="title-area-left-style">
-                                <div class="pre-title">
-                                    <img src="site-assets/images/banner/bulb.png" alt="icon">
-                                    <span>Gateway to Lifelong Learning</span>
-                                </div>
-                                <h2 class="title">What is College For World Connections?</h2>
-                                <p class="post-title">College for World Connections Center for Innovation & Learning is a full-service Educator Ecosystem for teaching and empowering adults, professionals, and teams in Leadership Principles. In partnership with Joticle, Inc., our academic instructors dedicate their knowledge and expertise to improving the lives of others through leadership instruction, creative and critical thinking development, and world schooling. Leaders RISE and become empowered in a learner friendly, educator respected, and educationally elevated platform. </p>
-                            </div>
-                            <div class="about-inner-right-one">
-                                <div class="author-area">
-                                    <div class="single-author-and-info">
-                                        <img src="images/logo.png" style="width: 250px;" alt="about">
-                                    </div>
-                                    <a href="#" class="rts-btn btn-primary">About Us</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-lg-10 col-md-9">
-                            <h3>{{ Str::upper($connection->name) }}</h3>
-                            <p>{{ $connection->description }}</p>
-                            @if($connection->button)
-                                <a href="{{ $connection->button->url }}" @if($connection->button->target_blank) target="_blank" @endif class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
-                            @endif
-                        </div>
-                        <div class="col-lg-2 col-md-3 d-none d-md-block">
-                            <img src="{{ $connection->getLogo() }}" class="img-fluid" alt="{{ $connection->name }}">
-                        </div>
-                    </div>
-                </div>
+            @endif
             @endforeach
 
         </div>
+        <!-- about-one-imagearea end -->
+    </div>
+    <div class="col-xl-6 col-lg-12 pl--60 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
+        <div class="title-area-left-style">
+            <div class="pre-title">
+                <img src="site-assets/images/banner/bulb.png" alt="icon">
+                <span>Gateway to Lifelong Learning</span>
+            </div>
+            <h2 class="title">What is College For World Connections?</h2>
+            <p class="post-title">College for World Connections Center for Innovation & Learning is a full-service Educator
+                Ecosystem for teaching and empowering adults, professionals, and teams in Leadership Principles. In
+                partnership with Joticle, Inc., our academic instructors dedicate their knowledge and expertise to improving
+                the lives of others through leadership instruction, creative and critical thinking development, and world
+                schooling. Leaders RISE and become empowered in a learner friendly, educator respected, and educationally
+                elevated platform. </p>
+        </div>
+        <div class="about-inner-right-one">
+            <div class="author-area">
+                <div class="single-author-and-info">
+                    <img src="images/logo.png" style="width: 250px;" alt="about">
+                </div>
+                <a href="#" class="rts-btn btn-primary">About Us</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-10 col-md-9">
+            <h3>{{ Str::upper($connection->name) }}</h3>
+            <p>{{ $connection->description }}</p>
+            @if ($connection->button)
+                <a href="{{ $connection->button->url }}" @if ($connection->button->target_blank) target="_blank" @endif
+                    class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
+            @endif
+        </div>
+        <div class="col-lg-2 col-md-3 d-none d-md-block">
+            <img src="{{ $connection->getLogo() }}" class="img-fluid" alt="{{ $connection->name }}">
+        </div>
+    </div>
+    </div>
+    @endforeach
+
+    </div>
     </div>
     <!-- about area end -->
 
@@ -254,7 +263,11 @@
                 </div>
                 <div class="col-lg-10 col-md-9 order-lg-2">
                     <h3>ENTREPRENEURS RISE</h3>
-                    <p>Entrepreneurs Rise is the ultimate course for anyone looking to start or grow a successful business. Developed by entrepreneurs and business experts, you are provided with a comprehensive roadmap for building a business from the ground up, including how to identify and validate your idea, create a solid business plan, attract customers and investors, and navigate the challenges of scaling and growth.</p>
+                    <p>Entrepreneurs Rise is the ultimate course for anyone looking to start or grow a successful business.
+                        Developed by entrepreneurs and business experts, you are provided with a comprehensive roadmap for
+                        building a business from the ground up, including how to identify and validate your idea, create a
+                        solid business plan, attract customers and investors, and navigate the challenges of scaling and
+                        growth.</p>
                     <a href="#" class="mt--10 rts-btn btn-primary">Learn More</a>
                 </div>
             </div>
@@ -311,9 +324,9 @@
                         </div>
                         <div class="shape-image">
                             <div class="shape one" data-speed="0.04" data-revert="true"><img
-                                        src="site-assets/images/banner/18.png" alt=""></div>
+                                    src="site-assets/images/banner/18.png" alt=""></div>
                             <div class="shape three" data-speed="0.04"><img src="site-assets/images/banner/17.png"
-                                                                            alt=""></div>
+                                    alt=""></div>
                         </div>
                     </div>
                 </div>

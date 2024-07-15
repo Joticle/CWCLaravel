@@ -77,19 +77,19 @@
                             <div class="row align-items-center mb-3">
                                 <div class="col-md-4">
                                     <div class="form-group mb-0">
-                                        <label class="text-label">Text<span class="text-danger">*</span></label>
-                                        {{ Form::text('button[text]', optional($row->button)->text, ['class' => 'form-control', 'required' => 'true', 'id' => 'text', 'placeholder' => 'Enter Button Text']) }}
+                                        <label class="text-label">Text</label>
+                                        {{ Form::text('button[text]', optional($row->button)->text, ['class' => 'form-control', 'id' => 'text', 'placeholder' => 'Enter Button Text']) }}
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group mb-0">
-                                        <label class="text-label">URL<span class="text-danger">*</span></label>
-                                        {{ Form::text('button[url]', optional($row->button)->url, ['class' => 'form-control', 'required' => 'true', 'id' => 'url', 'placeholder' => 'Enter Button Url']) }}
+                                        <label class="text-label">URL</label>
+                                        {{ Form::text('button[url]', optional($row->button)->url, ['class' => 'form-control', 'id' => 'url', 'placeholder' => 'Enter Button Url']) }}
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group mb-0">
-                                        <label class="text-label">Open in new tab?<span class="text-danger">*</span></label>
+                                        <label class="text-label">Open in new tab?</label>
                                         <br>
                                         {{ Form::radio('button[target_blank]', '1', optional($row->button)->target_blank == '1' ? true : false, ['id' => 'status_active']) }}
                                         <label for="status_active">Yes</label>
@@ -100,13 +100,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <button type="submit" class="btn btn-primary">Update {{ $singular_name }}</button>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button type="submit" class="btn btn-primary">Update {{ $singular_name }}</button>
+                        </div>
                     </div>
+                    {{ Form::close() }}
                 </div>
-                {{ Form::close() }}
             </div>
         </div>
     </div>
