@@ -38,6 +38,12 @@
                                 {{ Form::file('logo', ['class' => 'form-control', 'required' => 'true', 'id' => 'logo', 'accept' => 'image/*']) }}
                             </div>
                         </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label class="text-label">Course Syllabus<span class="text-danger">*</span></label>
+                                {{ Form::file('syllabuses[]', ['class' => 'form-control', 'required' => 'true', 'id' => 'syllabuses', 'accept' => '.pdf,.doc,.docx,.txt,.odt,.rtf,.xls,.xlsx,.csv,.ods', 'multiple' => true]) }}
+                            </div>
+                        </div>
                         <div class="col-md-12 mb-2">
                             <div class="form-group">
                                 <label class="text-label">Course Description<span class="text-danger">*</span></label>

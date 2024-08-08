@@ -4,6 +4,7 @@ namespace App\Models\Traits\Course;
 
 use App\Models\CourseEnroll;
 use App\Models\CourseModule;
+use App\Models\CourseSyllabus;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,5 +28,10 @@ trait Relationships
     public function wishlist()
     {
         return $this->hasMany(Wishlist::class, 'course_id');
+    }
+
+    public function syllabuses()
+    {
+        return $this->hasMany(CourseSyllabus::class);
     }
 }

@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Course\CreateCourseRequest;
 use App\Http\Requests\Admin\Course\UpdateCourseRequest;
+use App\Models\CourseSyllabus;
 use App\Models\Tag;
 use App\Services\CourseService;
+use App\Services\CourseSyllabusService;
 use Illuminate\Support\Str;
 use Validator;
 
@@ -23,10 +25,12 @@ class CourseController extends Controller
      * @return void
      */
     private CourseService $courseService;
+    private CourseSyllabusService $courseSyllabusService;
 
     public function __construct(CourseService $courseService)
     {
         $this->courseService = $courseService;
+        $this->courseSyllabusService = new CourseSyllabusService(new CourseSyllabus());
         $this->middleware('auth');
     }
 
@@ -67,7 +71,11 @@ class CourseController extends Controller
 
         try {
 
-            $this->courseService->store($request->all());
+            $course = $this->courseService->store($request->all());
+            if(!empty($request->syllabuses)) {
+                $request->merge(['course_id' => $course->id]);
+                $this->courseSyllabusService->store($request->only('syllabuses', 'course_id'));
+            }
 
             return redirect()->to(route('admin.course.list'))->with('success', 'Course Created Successfully.');
         } catch (\Exception $e) {
