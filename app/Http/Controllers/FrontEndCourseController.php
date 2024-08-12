@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContentType;
 use App\Models\ContentTypes;
 use App\Models\CourseEnroll;
 use App\Models\Course;
