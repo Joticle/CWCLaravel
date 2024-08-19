@@ -31,11 +31,12 @@
                         </div>
                         <div class="body">
                             <ul class="menu">
-                                <li><a href="#">Latest Courses</a></li>
-                                <li><a href="#">Mission & Vision</a></li>
-                                <li><a href="#">Join a Carrer</a></li>
-                                <li><a href="#">Zoom Meeting</a></li>
-                                <li><a href="#">Pricing Plan</a></li>
+                                @foreach ($pages as $page)
+                                    <li><a
+                                            href="{{ route('cms-page', ['slug' => $page->slug]) }}">{{ $page->name }}</a>
+                                    </li>
+                                @endforeach
+
                             </ul>
                         </div>
                     </div>
@@ -47,11 +48,13 @@
                         </div>
                         <div class="body">
                             <ul class="menu">
-                                <li><a href="#">Course One</a></li>
-                                <li><a href="#">Course Two</a></li>
-                                <li><a href="#">Create Course</a></li>
-                                <li><a href="#">Lesson Details</a></li>
-                                <li><a href="#">Instructor</a></li>
+                                @foreach ($connections as $connection)
+                                    @if ($connection->button->url)
+                                        <li><a
+                                            href="{{ $connection->button->url }}" @if ($connection->button->target_blank) target="_blank" @endif>{{ $connection->button->text }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>

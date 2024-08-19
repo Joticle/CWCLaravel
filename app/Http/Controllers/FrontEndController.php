@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Cases;
+use App\Models\Cms;
 use App\Models\Connection;
 use App\Models\Course;
 use App\Models\Faqs;
@@ -43,5 +44,14 @@ class FrontEndController extends Controller
     function logout(){
         Auth::logout();
         return redirect()->to(route('index'));
+    }
+    public function cmsPage($slug)
+    {
+        $page = Cms::where('slug', $slug)->firstOrFail();
+
+        $data = [];
+        $data['page']  = $page;
+
+        return view('cms-page', $data);
     }
 }
