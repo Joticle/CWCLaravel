@@ -51,9 +51,11 @@
                 <div class="my-course-enroll">
                     <div class="row g-5 mt--10">
                         @foreach($courseEnrolled->take(3) as $course)
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                @include('includes.course-card',['course'=>$course->course,'dashboard'=>true])
-                            </div>
+                            @if($course->course)
+                                <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                    @include('includes.course-card',['course'=>$course->course,'dashboard'=>true])
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
