@@ -240,10 +240,10 @@
                 ajax: {
                     url: '{{route('admin.course.search')}}',
                     dataType: 'json',
-                    delay: 250,
+                    delay: 500,
                     data: function (params) {
                         return {
-                            q: params.term, // search term
+                            q: params.term || '',
                         };
                     },
                     processResults: function (data, params) {
@@ -254,7 +254,7 @@
                     cache: true
                 },
                 placeholder: 'Search Course',
-                minimumInputLength: 1,
+                minimumInputLength: 0,
                 templateResult: formatRepo,
                 templateSelection: formatRepoSelection
             });
