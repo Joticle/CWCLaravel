@@ -32,7 +32,7 @@ class UpdateConnectionRequest extends FormRequest
             'description' => 'required',
             'status' => 'required|in:0,1',
             'button.text' => 'required',
-            'button.url' => 'required|url',
+            'button.url' => 'required',
             'button.target_blank' => 'required|in:0,1',
             'categories.*.name' => 'required',
             'categories.*.icon' => 'sometimes|image|max:2048'

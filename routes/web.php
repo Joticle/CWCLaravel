@@ -177,3 +177,5 @@ Route::group(['middleware' => 'web'], function(){
     });
 });
 Auth::routes();
+
+Route::get('page/{slug}', [FrontEndController::class, 'cmsPage'])->name('cms-page');

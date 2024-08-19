@@ -26,6 +26,40 @@
                 </div>
                 <div class="card-body">
                     {{ Form::open(['url' => route('admin.connection.add'), 'method' => 'post', 'autocomplete' => 'off', 'files' => true]) }}
+                    <div>
+                        <div class="align-items-center mb-3">
+                            <div class="align-items-center d-flex flex-row justify-content-between section-header">
+                                <h3 class="section-title mb-0">Connection Box</h3>
+                                <a class="extra-fields-button" href="javascript:void(0)"><i
+                                        class="fa fa-plus-circle mr-2 fa-2x"></i></a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label class="text-label">Name<span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label class="text-label">Icon<span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center mb-3 category_records">
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <input type="text" class="form-control" name="categories[][name]"
+                                        placeholder="Enter Connection Box Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                {{ Form::file('categories[][icon]', ['class' => 'form-control', 'required' => 'true', 'id' => 'icon', 'accept' => 'image/*']) }}
+                            </div>
+                        </div>
+                        <div class="category_records_dynamic"></div>
+                    </div>
+                    <h3>Primary Detail</h3>
                     <div class="row">
                         <div class="col-md-6 mb-2">
                             <div class="form-group">
@@ -49,20 +83,20 @@
                     <div>
                         <div class="align-items-center mb-3">
                             <div class="align-items-center d-flex flex-row justify-content-between section-header">
-                                <h3 class="section-title mb-0">Button</h3>
+                                <h3 class="section-title mb-0">Action Item</h3>
                             </div>
                         </div>
                         <div class="row align-items-center mb-3">
                             <div class="col-md-4">
                                 <div class="form-group mb-0">
                                     <label class="text-label">Text<span class="text-danger">*</span></label>
-                                    {{ Form::text('button[text]', '', ['class' => 'form-control', 'required' => 'true', 'id' => 'text', 'placeholder' => 'Enter Button Text']) }}
+                                    {{ Form::text('button[text]', '', ['class' => 'form-control', 'required' => 'true', 'id' => 'text', 'placeholder' => 'Enter Action Item Text']) }}
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-0">
                                     <label class="text-label">URL<span class="text-danger">*</span></label>
-                                    {{ Form::text('button[url]', '', ['class' => 'form-control', 'required' => 'true', 'id' => 'url', 'placeholder' => 'Enter Button Url']) }}
+                                    {{ Form::text('button[url]', '', ['class' => 'form-control', 'required' => 'true', 'id' => 'url', 'placeholder' => 'Enter Action Item Url']) }}
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -76,40 +110,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div>
-                        <div class="align-items-center mb-3">
-                            <div class="align-items-center d-flex flex-row justify-content-between section-header">
-                                <h3 class="section-title mb-0">Categories</h3>
-                                <a class="extra-fields-button" href="javascript:void(0)"><i
-                                        class="fa fa-plus-circle mr-2 fa-2x"></i></a>
-                            </div>
-                        </div>
-                        <div class="row align-items-center mb-3">
-                            <div class="col-md-4">
-                                <div class="form-group mb-0">
-                                    <label class="text-label">Name<span class="text-danger">*</span></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mb-0">
-                                    <label class="text-label">Icon<span class="text-danger">*</span></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row align-items-center mb-3 category_records">
-                            <div class="col-md-4">
-                                <div class="form-group mb-0">
-                                    <input type="text" class="form-control" name="categories[][name]"
-                                        placeholder="Enter Category Name" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                {{ Form::file('categories[][icon]', ['class' => 'form-control', 'required' => 'true', 'id' => 'icon', 'accept' => 'image/*']) }}
-                            </div>
-                        </div>
-                        <div class="category_records_dynamic"></div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">

@@ -127,11 +127,14 @@ class CourseController extends Controller
 
     public function search(Request $request)
     {
+
+        $limit = $request->q == '' ? 5 : 15;
+
         $courses = Course::where('name', 'like', '%' . $request->q . '%')->active();
         if ($request->has('with') && $request->get('with') == 'modules') {
             $courses = $courses->with('modules');
         }
-        $courses = $courses->limit(15)->get();
+        $courses = $courses->limit($limit)->get();
         $data = [];
         foreach ($courses as $course) {
             $row = [];
