@@ -66,7 +66,7 @@ class ConnectionController extends Controller
         $connection = Connection::findOrFail($id);
 
         $data = [];
-        $data['singular_name'] = 'Course ';
+        $data['singular_name'] = 'Connection ';
         $data['pulular_name'] = 'Connections';
         $breadcrumb = [];
         $breadcrumb['Connections'] = route('admin.connection.list');

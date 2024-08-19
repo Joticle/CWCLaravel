@@ -33,7 +33,7 @@ class CreateConnectionRequest extends FormRequest
             'logo' => 'required|image',
             'description' => 'required',
             'button.text' => 'required',
-            'button.url' => 'required|url',
+            'button.url' => 'required',
             'button.target_blank' => 'required|in:0,1',
             'categories.*.name' => 'required',
             'categories.*.icon' => 'required|image|max:2048',
