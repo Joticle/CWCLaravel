@@ -75,8 +75,8 @@ $(document).ready(function () {
                 if (willDelete && typeof method == 'undefined') {
                     window.location.href = url;
                 }
-                else {
-                    console.log(url, method);
+                else if (willDelete) {
+
                     $.ajax({
                         type: method,
                         url: url,
