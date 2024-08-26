@@ -78,7 +78,7 @@
                         </div>
                         <div class="col-md-6 mb-2">
                             <div class="form-group">
-                                <label class="text-label">Select Course Tags<span class="text-danger">*</span></label>
+                                <label class="text-label">Select Course Tags</label>
                                 <select id="tags" name="tags[]" multiple="multiple" class="form-control">
                                     @foreach ($tags as $tag)
                                         <option value="{{ $tag->name }}">{{ $tag->name }}</option>

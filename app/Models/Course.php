@@ -21,7 +21,7 @@ class Course extends Model
      */
     protected $dates = ['deleted_at'];
 
-    const LEVELS = ['Beginner' => 'Beginner', 'Intermediate' => 'Intermediate', 'Expert' => 'Expert'];
+    const LEVELS = ['Beginner' => 'Beginner', 'Intermediate' => 'Intermediate', 'Expert' => 'Expert', 'All Levels' => 'All Levels'];
     const DEFAULT_LEVEL = 'Beginner';
 
     protected $fillable = [
