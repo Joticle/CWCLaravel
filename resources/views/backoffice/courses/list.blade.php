@@ -65,7 +65,7 @@
                                         <td>
                                             <div class="d-flex">
                                                 <a href="{{route('admin.course.edit',$row->id)}}" data-toggle="tooltip" title="Edit {{$singular_name}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-                                                &nbsp;<a data-toggle="tooltip" title="Delete {{$singular_name}}" href="{{route('admin.course.delete',$row->id)}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                &nbsp;<a data-toggle="tooltip" title="Delete {{$singular_name}}" href="javascript:void(0)" data-href="{{route('admin.course.delete',$row->id)}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                                 &nbsp;<a href="{{route('admin.course.module.list',$row->id)}}" data-toggle="tooltip" title="Manage {{$singular_name}} Modules" class="btn btn-success shadow btn-xs sharp me-1"><i class="fa fa-newspaper-o"></i></a>
                                             </div>
                                         </td>

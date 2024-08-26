@@ -60,7 +60,7 @@
                                                 &nbsp;<a href="{{route('editUser',$row['id'])}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
                                             @endif
                                             @if(hasPermissions([$role.'_delete'],true))
-                                                &nbsp;<a data-toggle="tooltip" title="Delete {{ucfirst($role)}}?" href="{{route('deleteUser',$row['id'])}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                &nbsp;<a data-toggle="tooltip" title="Delete {{ucfirst($role)}}?" href="javascript:void(0)" data-href="{{route('deleteUser',$row['id'])}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                             @endif
                                             @if(hasPermissions([$role.'_view'],true))
                                                 &nbsp;<a data-toggle="tooltip" title="View User Info" href="{{route('userProfile',$row['id'])}}" class="btn btn-info shadow btn-xs sharp"><i class="fa fa-user"></i></a>

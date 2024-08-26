@@ -39,6 +39,7 @@
 </div>
 <!-- Scripts -->
 @include('backoffice.includes.scripts')
+@include('backoffice.includes.image-cropper')
 @yield('page-level-script')
 
 </body>

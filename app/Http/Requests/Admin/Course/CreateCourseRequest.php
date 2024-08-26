@@ -31,10 +31,10 @@ class CreateCourseRequest extends FormRequest
         return [
             'name' => 'required',
             'logo' => 'required|image',
-            'syllabuses.*' => 'required|file|mimes:pdf,doc,docx,txt,odt,rtf,xls,xlsx,csv,ods',
+            'syllabuses.*' => 'nullable|file|mimes:pdf,doc,docx,txt,odt,rtf,xls,xlsx,csv,ods',
             'description' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required',
+            'end_date' => 'nullable',
             'price' => 'required|numeric',
             'level' => 'required|in:' . implode(',', Course::LEVELS),
         ];

@@ -65,7 +65,7 @@
                                                         class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                             class="fa fa-pencil"></i></a>
                                                     &nbsp;<a data-toggle="tooltip" title="Delete {{ $singular_name }}"
-                                                        href="{{ route('admin.banner.delete', $row->id) }}"
+                                                    href="javascript:void(0)" data-href="{{ route('admin.banner.delete', $row->id) }}"
                                                         class="btn btn-danger deletedBtn shadow btn-xs sharp"><i
                                                             class="fa fa-trash"></i></a>
                                                 </div>

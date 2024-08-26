@@ -35,18 +35,19 @@
                         <div class="col-md-6 mb-2">
                             <div class="form-group">
                                 <label class="text-label">Course Logo<span class="text-danger">*</span></label>
-                                {{ Form::file('logo', ['class' => 'form-control', 'required' => 'true', 'id' => 'logo', 'accept' => 'image/*']) }}
+                                {{ Form::file('logo', ['class' => 'form-control crop-input', 'required' => 'true', 'id' => 'logo', 'accept' => '.png, .jpeg, .jpg, .gif', 'data-aspect-ratio' => 200 / 200]) }}
+                                <span class="text-danger">Preferred Size 200 X 200</span>
                             </div>
                         </div>
                         <div class="col-md-6 mb-2">
                             <div class="form-group">
-                                <label class="text-label">Course Syllabus<span class="text-danger">*</span></label>
-                                {{ Form::file('syllabuses[]', ['class' => 'form-control', 'required' => 'true', 'id' => 'syllabuses', 'accept' => '.pdf,.doc,.docx,.txt,.odt,.rtf,.xls,.xlsx,.csv,.ods', 'multiple' => true]) }}
+                                <label class="text-label">Course Syllabus</label>
+                                {{ Form::file('syllabuses[]', ['class' => 'form-control', 'id' => 'syllabuses', 'accept' => '.pdf,.doc,.docx,.txt,.odt,.rtf,.xls,.xlsx,.csv,.ods', 'multiple' => true]) }}
                             </div>
                         </div>
                         <div class="col-md-12 mb-2">
                             <div class="form-group">
-                                <label class="text-label">Course Description<span class="text-danger">*</span></label>
+                                <label class="text-label">Course Description</label>
                                 {{ Form::textarea('description', '',['class' => 'form-control tiny', 'id' => 'description']) }}
                             </div>
                         </div>
@@ -66,6 +67,7 @@
                             <div class="form-group">
                                 <label class="text-label">Price<span class="text-danger">*</span></label>
                                 {{ Form::number('price', '', ['class' => 'form-control', 'required' => 'true', 'placeholder' => '0.00', 'min' => '0', 'step' => '0.01']) }}
+                                <span class="text-danger">0=Free</span>
                             </div>
                         </div>
                         <div class="col-md-6 mb-2">

@@ -8,16 +8,18 @@
 <script src="{!! asset('admin-assets/js/plugins-init/select2-init.js') !!}"></script>
 
 <!-- pickdate -->
-<script src="{{asset('admin-assets/vendor/moment/moment.min.js')}}"></script>
-<script src="{{asset('admin-assets/vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script>
+<script src="{{ asset('admin-assets/vendor/moment/moment.min.js') }}"></script>
+<script
+    src="{{ asset('admin-assets/vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}">
+</script>
 <!-- sweetalert -->
-<script src="{{asset('admin-assets/vendor/sweetalert2/dist/sweetalert.min.js')}}"></script>
-
-<!-- Place the first <script> tag in your HTML's <head> -->
-<script src="https://cdn.tiny.cloud/1/73cwwiwv6ulmcv9zakewcqnh0jug3r7wtvet0djiornrlr5h/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script src="{{ asset('admin-assets/vendor/sweetalert2/dist/sweetalert.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/{{ env('TINY_TOKEN') }}/tinymce/6/tinymce.min.js" referrerpolicy="origin">
+</script>
 <script>
     tinymceInit();
+
     function tinymceInit() {
         tinymce.init({
             selector: 'textarea.tiny',
@@ -27,97 +29,97 @@
             toolbar: ''
         });
     }
+
     function tinymceReInit(_id) {
         tinymce.remove();
         tinymce.init({
-            selector: '.'+_id,
+            selector: '.' + _id,
             plugins: [
                 'wordcount'
             ],
             toolbar: ''
         });
     }
-
 </script>
 
 <script>
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
-    @if(isset($errors))
-    @foreach ($errors->all() as $error)
-        errorMsg('{{$error}}');
-    @endforeach
+    @if (isset($errors))
+        @foreach ($errors->all() as $error)
+            errorMsg('{{ $error }}');
+        @endforeach
     @endif
-    @if(session()->has('success'))
+    @if (session()->has('success'))
         successMsg('{{ session()->get('success') }}')
     @endif
 
 
 
-$(document).ready(function () {
+    $(document).ready(function() {
 
-        $("body").on("click", ".deletedBtn", function (e) {
+        $("body").on("click", ".deletedBtn", function(e) {
             e.preventDefault();
-            let url = $(this).attr("href");
+            let url = $(this).attr('data-href');
             let method = $(this).attr('data-method');
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete && typeof method == 'undefined') {
-                    window.location.href = url;
-                }
-                else if (willDelete) {
+            if (url) {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete && typeof method == 'undefined') {
+                        window.location.href = url;
+                    } else if (willDelete) {
 
-                    $.ajax({
-                        type: method,
-                        url: url,
-                        success: function(result){
-                            try {
-                                result = JSON.parse(result);
-                            }catch(e) {}
-                            if($.trim(result.success) == 'true'){
-                                successMsg(result.message);
-                                if(result.reload == true) {
-                                    location.reload();
+                        $.ajax({
+                            type: method,
+                            url: url,
+                            success: function(result) {
+                                try {
+                                    result = JSON.parse(result);
+                                } catch (e) {}
+                                if ($.trim(result.success) == 'true') {
+                                    successMsg(result.message);
+                                    if (result.reload == true) {
+                                        location.reload();
+                                    }
+                                } else {
+                                    var errorsShow = '';
+                                    $.each(result.message, function(k, v) {
+                                        errorsShow += v + '<br>';
+                                    });
+                                    errorMsg(errorsShow);
                                 }
-                            }else{
-                                var errorsShow = '';
-                                $.each(result.message, function(k, v) {
-                                    errorsShow += v+'<br>';
-                                });
-                                errorMsg(errorsShow);
+                            },
+                            error: function(request, status, error) {
+                                errorMsg(error);
                             }
-                        },
-                        error: function (request, status, error) {
-                            errorMsg(error);
-                        }
-                    });
-                }
-            });
+                        });
+                    }
+                });
+            }
         });
         $('[data-toggle="tooltip"]').tooltip();
     });
 
     // show success msg
-    function successMsg(msg){
+    function successMsg(msg) {
         toastr.success(msg);
     }
 
     // show error msg
-    function errorMsg(msg){
+    function errorMsg(msg) {
         window.toastr.error(msg);
     }
 
-    function showLoader(){
+    function showLoader() {
         $.blockUI({
             css: {
                 border: 'none',
@@ -130,32 +132,33 @@ $(document).ready(function () {
             baseZ: 2000,
         });
     }
-    function hideLoader(){
+
+    function hideLoader() {
         $.unblockUI();
     }
 
-    function createCookie(name,value,days) {
+    function createCookie(name, value, days) {
         if (days) {
             var date = new Date();
-            date.setTime(date.getTime()+(days*24*60*60*1000));
-            var expires = "; expires="+date.toGMTString();
-        }
-        else var expires = "";
-        document.cookie = name+"="+value+expires+"; path=/";
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            var expires = "; expires=" + date.toGMTString();
+        } else var expires = "";
+        document.cookie = name + "=" + value + expires + "; path=/";
     }
+
     function readCookie(name) {
         var nameEQ = name + "=";
         var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
+        for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
         }
         return null;
     }
 
     /*delete cookies*/
     function eraseCookie(name) {
-        createCookie(name,"",-1);
+        createCookie(name, "", -1);
     }
 </script>

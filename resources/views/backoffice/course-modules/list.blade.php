@@ -63,7 +63,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{route('admin.course.edit',$course->id)}}" data-toggle="tooltip" title="Edit {{$singular_name}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-                                            &nbsp;<a data-toggle="tooltip" title="Delete {{$singular_name}}" href="{{route('admin.course.delete',$course->id)}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                            &nbsp;<a data-toggle="tooltip" title="Delete {{$singular_name}}" href="javascript:void(0)" data-href="{{route('admin.course.delete',$course->id)}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -116,7 +116,7 @@
                                             <td>
                                                 <div class="d-flex">
                                                     <a onclick="editCourseModule('{{$row->id}}')" href="javascript:void(0)" data-toggle="tooltip" title="Edit {{$singular_name}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-                                                    &nbsp;<a data-toggle="tooltip" title="Delete {{$singular_name}}" href="{{route('admin.course.module.delete',$row->id)}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                    &nbsp;<a data-toggle="tooltip" title="Delete {{$singular_name}}" href="javascript:void(0)" data-href="{{route('admin.course.module.delete',$row->id)}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                                     &nbsp;<a data-toggle="tooltip" title="Add Course Module Content" href="{{route('admin.course.content.list',$row->id)}}" class="btn btn-success shadow btn-xs sharp"><i class="flaticon-381-map-1"></i></a>
                                                 </div>
                                             </td>

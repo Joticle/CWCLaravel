@@ -8,5 +8,5 @@
 <!-- Pick date -->
 <link rel="stylesheet" href="{{asset('admin-assets/vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
 <meta name="csrf-token" content="{{csrf_token()}}" />

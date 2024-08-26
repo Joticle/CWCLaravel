@@ -90,7 +90,7 @@
                                                 </div>
                                             @endif
                                             @if(hasPermissions(['faq_delete'],true))
-                                                &nbsp;<a data-toggle="tooltip" title="Delete Category" href="{{route('deleteFaq',$row['id'])}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                &nbsp;<a data-toggle="tooltip" title="Delete Category" href="javascript:void(0)" data-href="{{route('deleteFaq',$row['id'])}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
                                             @endif
                                         </div>
                                     </td>

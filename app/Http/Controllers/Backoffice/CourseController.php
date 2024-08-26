@@ -49,7 +49,7 @@ class CourseController extends Controller
         $breadcrumb['All Courses'] = '';
         $data['breadcrumb'] = $breadcrumb;
 
-        $data['data'] = Course::paginate(env('RECORD_PER_PAGE', 10));
+        $data['data'] = Course::latest()->paginate(env('RECORD_PER_PAGE', 10));
         return view('backoffice.courses.list', $data);
     }
     public function add()

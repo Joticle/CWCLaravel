@@ -33,7 +33,7 @@ class UpdateCourseRequest extends FormRequest
             'logo' => 'nullable|image',
             'description' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required',
+            'end_date' => 'nullable',
             'price' => 'required|numeric',
             'level' => 'required|in:' . implode(',', Course::LEVELS),
             'status' => 'required|in:0,1'
