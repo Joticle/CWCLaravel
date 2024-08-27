@@ -165,7 +165,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 order-cl-2 order-lg-2 order-md-1 order-sm-1 order-1  rts-sticky-column-item">
+                <div class="col-lg-4 order-cl-2 order-lg-2 order-md-1 order-sm-1 order-1  {{--rts-sticky-column-item--}}">
                     <!-- right- sticky bar area -->
                     <div class="right-course-details">
                         <!-- single course-sidebar -->
