@@ -258,6 +258,10 @@
                 templateResult: formatRepo,
                 templateSelection: formatRepoSelection
             });
+            // get default 5 courses
+            $('#select_search_course').data('select2').trigger('query', {
+                term: ''
+            });
 
             {{--Fields Sorting--}}
             $(".sortable_table").sortable({

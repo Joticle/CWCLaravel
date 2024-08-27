@@ -7,9 +7,11 @@
                     aria-hidden="true"></i></button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <img id="rawImage" src="" alt="">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <img id="rawImage" src="" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
