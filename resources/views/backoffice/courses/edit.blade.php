@@ -34,8 +34,8 @@
                         </div>
                         <div class="col-md-4 mb-2">
                             <div class="form-group">
-                                <label class="text-label">Course Logo<span class="text-danger">*</span></label>
-                                {{ Form::file('logo', ['class' => 'form-control', 'id' => 'logo', 'accept' => 'image/*']) }}
+                                <label class="text-label">Course Logo</label>
+                                {{ Form::file('logo', ['class' => 'form-control crop-input', 'id' => 'logo', 'accept' => 'image/*']) }}
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -65,6 +65,7 @@
                             <div class="form-group">
                                 <label class="text-label">Price<span class="text-danger">*</span></label>
                                 {{ Form::number('price', $row->price, ['class' => 'form-control', 'required' => 'true', 'placeholder' => '0.00', 'min' => '0', 'step' => '0.01']) }}
+                                <span class="text-danger">0=Free</span>
                             </div>
                         </div>
                         <div class="col-md-6 mb-2">

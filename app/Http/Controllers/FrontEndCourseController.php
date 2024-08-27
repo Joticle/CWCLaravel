@@ -40,9 +40,12 @@ class FrontEndCourseController extends Controller
         $breadcrumb['All Courses'] = '';
         $data['breadcrumb'] = $breadcrumb;
         $today = Carbon::today();
-        $data['courses'] = Course::active()->where(function ($query) use ($today) {
+        $userId = user_id();
+        $data['courses'] = Course::active()->withCount(['enrolledUsers as is_enrolled' => function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        }, 'modules'])->where(function ($query) use ($today) {
             $query->whereNull('end_date')->orWhere('end_date', '>=', $today);
-        })->withCount('modules')->paginate(env('RECORD_PER_PAGE',10));
+        })->paginate(env('RECORD_PER_PAGE', 10));
         //$enrolled_courses = \auth()->user()->courseEnrolled->pluck('course_id')->toArray();
         return view('courses',$data);
     }

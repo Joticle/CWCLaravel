@@ -7,7 +7,7 @@
     </div>
     <div class="tags-area-wrapper">
         <div class="single-tag">
-            <span>{{printPrice($course->price)}}</span>
+            <span class="@if($course->is_enrolled) opacity-0 @endif">{{printPrice($course->price)}}</span>
         </div>
     </div>
     <div class="lesson-studente">
@@ -27,7 +27,7 @@
     <div class="rating-and-price">
         <a href="{{$course->getLink()}}" class="rts-btn btn-border">Detail</a>
         @if(!$dashboard)
-            @if($course->enrolled())
+            @if($course->is_enrolled)
                 <a href="{{$course->getLink()}}" class="rts-btn btn-success text-white"><i class="fa fa-check"></i> Enrolled</a>
             @else
                 <a href="{{route('course.enroll',$course->slug)}}" class="rts-btn btn-primary">Enroll Now</a>

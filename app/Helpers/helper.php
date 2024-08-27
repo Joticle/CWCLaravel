@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Auth;
+
 function debug($array,$exit=0){
     echo '<pre>';
     print_r($array);
@@ -100,4 +103,14 @@ function isActiveClass($route){
     }
     return '';
 }
+function user_id()
+{
+    return Auth::user()->id;
+}
+function user()
+{
+    return Auth::user();
+}
+
+
 ?>

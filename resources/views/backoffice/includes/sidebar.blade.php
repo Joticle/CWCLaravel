@@ -10,6 +10,28 @@
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
+            <li class="@if (str_contains(request()->route()->getName(), 'admin.cms')) mm-active @endif">
+                <a class="ai-icon" href="{{ route('admin.cms.list') }}" aria-expanded="true">
+                    <i class="flaticon-381-file-2"></i>
+                    <span class="nav-text">Page Builder</span>
+                    <span class="nav-text fa fa-chevron-down float-right"></span> <!-- Collapsible icon -->
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="{{ route('admin.cms.list') }}">All Pages</a></li>
+                    <li><a href="{{ route('admin.cms.add') }}">Add New Page</a></li>
+                </ul>
+            </li>
+            <li class="@if (str_contains(request()->route()->getName(), 'admin.connection')) mm-active @endif">
+                <a class="ai-icon" href="{{ route('admin.connection.list') }}" aria-expanded="true">
+                    <i class="flaticon-381-file-2"></i>
+                    <span class="nav-text">Connections</span>
+                    <span class="nav-text fa fa-chevron-down float-right"></span>
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="{{ route('admin.connection.list') }}">All Connections</a></li>
+                    <li><a href="{{ route('admin.connection.add') }}">Add New Connection</a></li>
+                </ul>
+            </li>
             <li>
                 <a class="ai-icon" href="javascript:void(0)" aria-expanded="false">
                     <i class="flaticon-381-book"></i>
@@ -73,28 +95,6 @@
                 <ul aria-expanded="false" class="collapse">
                     <li><a href="{{ route('admin.tags.index') }}">All Tags</a></li>
                     <li><a href="{{ route('admin.tags.create') }}">Add New Tag</a></li>
-                </ul>
-            </li>
-            <li class="@if (str_contains(request()->route()->getName(), 'admin.cms')) mm-active @endif">
-                <a class="ai-icon" href="{{ route('admin.cms.list') }}" aria-expanded="true">
-                    <i class="flaticon-381-file-2"></i>
-                    <span class="nav-text">Cms Pages</span>
-                    <span class="nav-text fa fa-chevron-down float-right"></span> <!-- Collapsible icon -->
-                </a>
-                <ul aria-expanded="false" class="collapse">
-                    <li><a href="{{ route('admin.cms.list') }}">All Cms Pages</a></li>
-                    <li><a href="{{ route('admin.cms.add') }}">Add New Cms Page</a></li>
-                </ul>
-            </li>
-            <li class="@if (str_contains(request()->route()->getName(), 'admin.connection')) mm-active @endif">
-                <a class="ai-icon" href="{{ route('admin.connection.list') }}" aria-expanded="true">
-                    <i class="flaticon-381-file-2"></i>
-                    <span class="nav-text">Connections</span>
-                    <span class="nav-text fa fa-chevron-down float-right"></span>
-                </a>
-                <ul aria-expanded="false" class="collapse">
-                    <li><a href="{{ route('admin.connection.list') }}">All Connections</a></li>
-                    <li><a href="{{ route('admin.connection.add') }}">Add New Connection</a></li>
                 </ul>
             </li>
             <li class="@if (str_contains(request()->route()->getName(), 'admin.banner')) mm-active @endif">

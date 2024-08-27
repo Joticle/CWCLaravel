@@ -2,6 +2,8 @@
 
 namespace App\Models\Traits\Course;
 
+use Illuminate\Support\Facades\Auth;
+
 trait Attributes
 {
 
@@ -37,5 +39,10 @@ trait Attributes
             return true;
         }
         return false;
+    }
+
+    public function getIsBookmarkedAttribute()
+    {
+        return $this->wishlist()->where('user_id', Auth::id())->exists();
     }
 }
