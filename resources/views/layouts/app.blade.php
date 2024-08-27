@@ -15,6 +15,6 @@
 <!-- Scripts -->
 @include('includes.scripts')
 @yield('page-level-script')
-
+@stack('js')
 </body>
 </html>

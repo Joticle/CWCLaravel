@@ -6,6 +6,7 @@ use App\Models\ContentType;
 use App\Models\ContentTypes;
 use App\Models\CourseEnroll;
 use App\Models\Course;
+use App\Models\Tag;
 use App\Models\User;
 use App\Utility\StripeController;
 use Carbon\Carbon;
@@ -47,6 +48,11 @@ class FrontEndCourseController extends Controller
             $query->whereNull('end_date')->orWhere('end_date', '>=', $today);
         })->paginate(env('RECORD_PER_PAGE', 10));
         //$enrolled_courses = \auth()->user()->courseEnrolled->pluck('course_id')->toArray();
+
+        $data['levels'] = Course::LEVELS;
+        $data['tags'] = Tag::pluck('name');
+
+
         return view('courses',$data);
     }
     /**

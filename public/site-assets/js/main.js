@@ -487,7 +487,7 @@
           $(window).scroll(function () {
               if ($(this).scrollTop() > 250) {
                   var bars = document.querySelectorAll('.meter > span');
-                  console.clear();
+                //   console.clear();
                   setInterval(function () {
                       bars.forEach(function (bar) {
                           var getWidth = parseFloat(bar.dataset.progress);

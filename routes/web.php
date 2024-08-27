@@ -18,6 +18,7 @@ use App\Http\Controllers\FrontEndCourseController;
 use App\Http\Controllers\FrontEndPaymentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagController as ControllersTagController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,9 @@ Route::group(['middleware' => 'web'], function(){
             Route::get('/courses', [FrontEndCourseController::class, 'courses'])->name('courses');
             Route::get('/course/{slug}', [FrontEndCourseController::class, 'courseDetail'])->name('course.detail');
             Route::get('/course/enroll/{slug}', [FrontEndCourseController::class, 'courseEnroll'])->name('course.enroll');
+
+            // Tags search
+            Route::get('tags/search', [ControllersTagController::class, 'search'])->name('tags.search');
 
             /*Stripe*/
             Route::get('/course/payment/success', [FrontEndPaymentController::class, 'paymentSuccess'])->name('payment.success');

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title',$title)
+@section('title', $title)
 @section('content')
     {{-- bread crumb area --}}
     <div class="rts-bread-crumbarea-1 rts-section-gap bg_image">
@@ -10,9 +10,9 @@
                         <h1 class="title">Our Course</h1>
                         <!-- breadcrumb pagination area -->
                         <div class="pagination-wrapper">
-                            @foreach($breadcrumb as $bTile=>$bLink)
-                                <a href="{{!empty($bLink)?$bLink:'#'}}">{{$bTile}}</a>
-                                @if(!empty($bLink))
+                            @foreach ($breadcrumb as $bTile => $bLink)
+                                <a href="{{ !empty($bLink) ? $bLink : '#' }}">{{ $bTile }}</a>
+                                @if (!empty($bLink))
                                     <i class="fa-regular fa-chevron-right"></i>
                                 @endif
                             @endforeach
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    {{-- bread crumb area end--}}
+    {{-- bread crumb area end --}}
     <!-- course area start -->
     <div class="rts-course-default-area rts-section-gap">
         <div class="container">
@@ -47,78 +47,32 @@
                             <h6 class="title">Level</h6>
                             <div class="checkbox-filter filter-body">
                                 <div class="checkbox-wrapper">
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="lavel-1">
-                                            <label for="lavel-1">All Levels</label><br>
+                                    @foreach ($levels as $index => $level)
+                                        <div class="single-checkbox-filter">
+                                            <div class="check-box">
+                                                <input name="level" type="checkbox" id="lavel-{{ $index }}"
+                                                    value="{{ $index }}">
+                                                <label for="lavel-{{ $index }}">{{ $level }}</label><br>
+                                            </div>
+                                            {{-- <span class="number">(130)</span> --}}
                                         </div>
-                                        <span class="number">(130)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="lavel-2">
-                                            <label for="lavel-2">Beginner</label><br>
-                                        </div>
-                                        <span class="number">(85)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="lavel-3">
-                                            <label for="lavel-3">Intermediate</label><br>
-                                        </div>
-                                        <span class="number">(210)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="lavel-4">
-                                            <label for="lavel-4">Expert</label><br>
-                                        </div>
-                                        <span class="number">(45)</span>
-                                    </div>
-                                    <!-- single check box end -->
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                         <!-- single filter wized end -->
                         <!-- single filter wized -->
                         <div class="single-filter-left-wrapper">
-                            <h6 class="title">Tage</h6>
+                            <h6 class="title">Tag</h6>
                             <div class="checkbox-filter filter-body">
-                                <div class="checkbox-wrapper">
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="Tage-1">
-                                            <label for="Tage-1">Course</label><br>
-                                        </div>
-                                        <span class="number">(10)</span>
+                                <div class="search-filter filter-body mb--0">
+                                    <div class="input-wrapper">
+                                        <input id="tag-search" type="text" placeholder="Search Tag...">
+                                        <i class="fa-light fa-magnifying-glass"></i>
                                     </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="Tage-2">
-                                            <label for="Tage-2">Education</label><br>
-                                        </div>
-                                        <span class="number">(85)</span>
-                                    </div>
-                                    <!-- single check box end -->
-                                    <!-- single check box -->
-                                    <div class="single-checkbox-filter">
-                                        <div class="check-box">
-                                            <input type="checkbox" id="Tage-3">
-                                            <label for="Tage-3">LMS</label><br>
-                                        </div>
-                                        <span class="number">(21)</span>
-                                    </div>
-                                    <!-- single check box end -->
+                                </div>
+                                <div id="tagList" class="checkbox-wrapper">
+
                                 </div>
                             </div>
                         </div>
@@ -156,9 +110,12 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="row g-5 mt--10">
-                        @foreach($courses as $course)
+                        @foreach ($courses as $course)
                             <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                @include('includes.course-card',['course'=>$course,'dashboard'=>false])
+                                @include('includes.course-card', [
+                                    'course' => $course,
+                                    'dashboard' => false,
+                                ])
                             </div>
                         @endforeach
                     </div>
@@ -166,8 +123,8 @@
                         <div class="col-lg-12">
                             <!-- rts-pagination-area -->
                             <div class="rts-pagination-area-2">
-                                {{$courses->links()}}
-                                @include('includes.paginator-counter',['data'=>$courses])
+                                {{ $courses->links() }}
+                                @include('includes.paginator-counter', ['data' => $courses])
                             </div>
                             <!-- rts-pagination-area end -->
                         </div>
@@ -178,3 +135,35 @@
     </div>
     <!-- course area end -->
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            // Initial load
+            loadTags(); // Load default 10 tags on page load
+
+            // Search functionality
+            $('#tag-search').on('input', function() {
+                const searchTerm = $(this).val();
+                loadTags(searchTerm);
+            });
+        });
+
+        function loadTags(searchTerm = '') {
+
+            $.ajax({
+                url: '{{ route('tags.search') }}', // Replace with your API endpoint
+                dataType: 'json',
+                data: {
+                    q: searchTerm
+                },
+                success: function(data) {
+                    if(data.success == true) {
+                        $('#tagList').html(data.html);
+                    }
+                },
+                error: function() {
+                }
+            });
+        }
+    </script>
+@endpush
