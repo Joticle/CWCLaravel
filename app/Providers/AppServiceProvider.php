@@ -28,12 +28,20 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        $pages = Cms::active()->get(['slug','name']);
-        View::share('pages', $pages);
-        $connections = Connection::active()->get(['name', 'button']);
-        View::share('connections', $connections);
-
         \Schema::defaultStringLength(191);
         Paginator::useBootstrap();
+
+        if (\Schema::hasTable('cms')) {
+            $pages = Cms::active()->get(['slug','name']);
+        } else {
+            $pages = collect(); // Return an empty collection or handle it accordingly
+        }
+        if (\Schema::hasTable('connection')) {
+            $connections = Connection::active()->get(['name', 'button']);
+        } else {
+            $connections = collect(); // Return an empty collection or handle it accordingly
+        }
+        View::share('pages', $pages);
+        View::share('connections', $connections);
     }
 }
