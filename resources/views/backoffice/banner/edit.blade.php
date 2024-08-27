@@ -28,12 +28,12 @@
                     {{ Form::open(['url' => route('admin.banner.edit', $row->id), 'method' => 'post', 'autocomplete' => 'off', 'files' => true]) }}
                     <div class="row">
 
-                        <div class="col-md-6 mb-2">
+                        {{-- <div class="col-md-6 mb-2">
                             <div class="form-group">
                                 <label class="text-label">Pre Title<span class="text-danger">*</span></label>
                                 {{ Form::text('pre_title', $row->pre_title, ['class' => 'form-control', 'required' => 'true', 'id' => 'pre_title', 'placeholder' => 'Enter Pre Title']) }}
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-6 mb-2">
                             <div class="form-group">
                                 <label class="text-label">Title<span class="text-danger">*</span></label>

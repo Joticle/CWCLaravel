@@ -56,7 +56,10 @@ class FrontEndCourseController extends Controller
      */
 
     function courseDetail($slug){
-        $course = Course::active()->where('slug','=',$slug)->withCount('modules')->firstOrFail();
+        $userId = user_id();
+        $course = Course::active()->where('slug','=',$slug)->withCount(['enrolledUsers as is_enrolled' => function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        }, 'modules'])->firstOrFail();
 
         $data = [];
         $data['title'] = $course->name;

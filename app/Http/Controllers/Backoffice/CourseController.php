@@ -125,7 +125,7 @@ class CourseController extends Controller
         }
     }
 
-    public function search(Request $request)
+    public function search(Request $request, $limit = 15)
     {
 
         $limit = $request->q == '' ? 5 : 15;

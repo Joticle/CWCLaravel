@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title',$title)
+@section('title', $title)
 @section('content')
     <!-- course details breadcrumb -->
     <div class="course-details-breadcrumb-1 bg_image rts-section-gap">
@@ -8,41 +8,43 @@
                 <div class="col-lg-12">
                     <div class="single-course-left-align-wrapper">
                         <div class="meta-area">
-                            @foreach($breadcrumb as $bTile=>$bLink)
-                                <a href="{{!empty($bLink)?$bLink:'#'}}" class="{{!empty($bLink)?'':'active'}}">{{$bTile}}</a>
-                                @if(!empty($bLink))
+                            @foreach ($breadcrumb as $bTile => $bLink)
+                                <a href="{{ !empty($bLink) ? $bLink : '#' }}"
+                                    class="{{ !empty($bLink) ? '' : 'active' }}">{{ $bTile }}</a>
+                                @if (!empty($bLink))
                                     <i class="fa-regular fa-chevron-right"></i>
                                 @endif
                             @endforeach
                         </div>
                         <h1 class="title">
-                            {{$course->name}}
+                            {{ $course->name }}
                         </h1>
                         <div class="rating-area">
-                            {{--<div class="stars-area">
+                            {{-- <div class="stars-area">
                                 <span>4.5</span>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-regular fa-star"></i>
-                            </div>--}}
+                            </div> --}}
                             <div class="students">
                                 <i class="fa-thin fa-users"></i>
-                                <span>{{$course->modules_count}} {{ Str::plural('Lesson', $course->modules_count) }}</span>
+                                <span>{{ $course->modules_count }}
+                                    {{ Str::plural('Lesson', $course->modules_count) }}</span>
                             </div>
                             <div class="calender-area-stars">
                                 <i class="fa-light fa-calendar-lines-pen"></i>
-                                <span>Last updated {{_date($course->updated_at)}}</span>
+                                <span>Last updated {{ _date($course->updated_at) }}</span>
                             </div>
                         </div>
-                        {{--<div class="author-area">
+                        {{-- <div class="author-area">
                             <div class="author">
                                 <img src="assets/images/breadcrumb/01.png" alt="breadcrumb">
                                 <h6 class="name"><span>By</span> William U.</h6>
                             </div>
                             <p> <span>Categories: </span> Web Developments</p>
-                        </div>--}}
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -59,27 +61,34 @@
                     <div class="course-details-btn-wrapper pb--50">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#course-details" type="button" role="tab" aria-controls="course-details" aria-selected="true">Course Information</button>
+                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                    data-bs-target="#course-details" type="button" role="tab"
+                                    aria-controls="course-details" aria-selected="true">Course Information</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link " id="course-content-tab" data-bs-toggle="tab" data-bs-target="#course-content" type="button" role="tab" aria-controls="course-content" aria-selected="false">Course Content</button>
+                                <button class="nav-link " id="course-content-tab" data-bs-toggle="tab"
+                                    data-bs-target="#course-content" type="button" role="tab"
+                                    aria-controls="course-content" aria-selected="false">Course Content</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Review</button>
+                                <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews"
+                                    type="button" role="tab" aria-controls="reviews"
+                                    aria-selected="false">Review</button>
                             </li>
                         </ul>
                     </div>
                     <div class="tab-content mt--50" id="myTabContent">
-                        <div class="tab-pane fade  show active" id="course-details" role="tabpanel" aria-labelledby="course-details-tab">
+                        <div class="tab-pane fade  show active" id="course-details" role="tabpanel"
+                            aria-labelledby="course-details-tab">
                             <div class="course-content-wrapper">
                                 {!! $course->description !!}
                                 <div class="module-wrapper">
                                     <h6 class="title">What Will You Learn?</h6>
 
                                     <div class="row">
-                                        @foreach($course->modules as $course_module)
+                                        @foreach ($course->modules as $course_module)
                                             <div class="col-md-4">
-                                                <i class="fa-regular fa-check text-primary"></i> {{$course_module->name}}
+                                                <i class="fa-regular fa-check text-primary"></i> {{ $course_module->name }}
                                             </div>
                                         @endforeach
                                     </div>
@@ -93,41 +102,51 @@
 
                                 <!-- course content accordion area -->
                                 <div class="accordion mt--30" id="accordionExample">
-                                    @foreach($course->modules as $key=>$course_module)
+                                    @foreach ($course->modules as $key => $course_module)
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModule-{{$course_module->id}}" aria-expanded="true" aria-controls="collapseModule-{{$course_module->id}}">
-                                                    <span>{{$course_module->name}}</span>
-                                                    <span>{{$course_module->contents->count()}} {{ Str::plural('Lecture', $course_module->contents->count()) }}</span>
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseModule-{{ $course_module->id }}"
+                                                    aria-expanded="true"
+                                                    aria-controls="collapseModule-{{ $course_module->id }}">
+                                                    <span>{{ $course_module->name }}</span>
+                                                    <span>{{ $course_module->contents->count() }}
+                                                        {{ Str::plural('Lecture', $course_module->contents->count()) }}</span>
                                                 </button>
                                             </h2>
-                                            <div id="collapseModule-{{$course_module->id}}" class="accordion-collapse collapse {{!$key?'show':''}}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div id="collapseModule-{{ $course_module->id }}"
+                                                class="accordion-collapse collapse {{ !$key ? 'show' : '' }}"
+                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <!-- play single area start -->
                                                     <div class="p-3">
                                                         {!! $course_module->description !!}
                                                     </div>
-                                                    @foreach($course_module->contents as $key_content=>$course_content)
+                                                    @foreach ($course_module->contents as $key_content => $course_content)
                                                         @php
                                                             $content_list = App\Models\ContentType::CONTENTLIST;
-                                                            $content_icon = $content_list[$contentTypes[$course_content->content_type_id]]['icon']??'';
+                                                            $content_icon =
+                                                                $content_list[
+                                                                    $contentTypes[$course_content->content_type_id]
+                                                                ]['icon'] ?? '';
                                                         @endphp
 
-                                                        <a href="{{$course->enrolled()?'':'#'}}" class="play-vedio-wrapper">
+                                                        <a href="{{ $course->is_enrolled ? '' : '#' }}"
+                                                            class="play-vedio-wrapper">
                                                             <div class="left">
-                                                                <i class="fa-light {{$content_icon}}"></i>
-                                                                <span>{{$course_content->name}}</span>
+                                                                <i class="fa-light {{ $content_icon }}"></i>
+                                                                <span>{{ $course_content->name }}</span>
                                                             </div>
                                                             <div class="right">
-                                                                @if($course->enrolled())
+                                                                @if ($course->is_enrolled)
                                                                     <span class="play">Preview</span>
                                                                 @else
                                                                     <i class="fa-regular fa-lock"></i>
                                                                 @endif
                                                             </div>
                                                         </a>
-                                                @endforeach
-                                                <!-- play single area end -->
+                                                    @endforeach
+                                                    <!-- play single area end -->
                                                 </div>
                                             </div>
                                         </div>
@@ -152,27 +171,30 @@
                         <!-- single course-sidebar -->
                         <div class="course-side-bar">
                             <div class="thumbnail text-center">
-                                <img src="{{$course->getLogo()}}" alt="">
+                                <img src="{{ $course->getLogo() }}" alt="">
                             </div>
-                            <div class="price-area">
-                                <h3 class="title">{{printPrice($course->price)}}</h3>
-                                @if(empty($course->price))
-                                    <span class="discount">100%</span>
-                                @endif
-                            </div>
-                            {{--<div class="clock-area">
+
+                            {{-- <div class="clock-area">
                                 <i class="fa-light fa-clock"></i>
                                 <span>2 Day left at this price!</span>
-                            </div>--}}
-                            @if($course->enrolled())
-                                <a href="#" class="rts-btn btn-success text-white"><i class="fa fa-check"></i> Enrolled</a>
+                            </div> --}}
+                            @if ($course->is_enrolled)
+                                <a href="javascript:void(0)" class="rts-btn btn-success text-white"><i class="fa fa-check"></i>
+                                    Enrolled</a>
                             @else
-                                <a href="{{route('course.enroll',$course->slug)}}" class="rts-btn btn-primary">Enroll Now</a>
+                                <div class="price-area">
+                                    <h3 class="title">{{ printPrice($course->price) }}</h3>
+                                    @if (empty($course->price))
+                                        <span class="discount">100%</span>
+                                    @endif
+                                </div>
+                                <a href="{{ route('course.enroll', $course->slug) }}" class="rts-btn btn-primary">Enroll
+                                    Now</a>
                             @endif
 
                             <div class="what-includes">
                                 <span class="m">Money-Back Guarantee</span>
-                                {{--<h5 class="title">This course includes: </h5>--}}
+                                {{-- <h5 class="title">This course includes: </h5> --}}
                                 <div class="single-include">
                                     <div class="left">
                                         <i class="fa-light fa-chart-bar"></i>
@@ -188,7 +210,7 @@
                                         <span>Duration</span>
                                     </div>
                                     <div class="right">
-                                        <span>6 hours 56 minutes</span>
+                                        <span>{{ $course->duration }}</span>
                                     </div>
                                 </div>
                                 <div class="single-include">
@@ -197,7 +219,7 @@
                                         <span>Created</span>
                                     </div>
                                     <div class="right">
-                                        <span>{{_date($course->created_at)}}</span>
+                                        <span>{{ _date($course->created_at) }}</span>
                                     </div>
                                 </div>
                                 <div class="single-include">
@@ -206,7 +228,7 @@
                                         <span>Update</span>
                                     </div>
                                     <div class="right">
-                                        <span>{{_date($course->updated_at)}}</span>
+                                        <span>{{ _date($course->updated_at) }}</span>
                                     </div>
                                 </div>
                                 <div class="single-include">
@@ -228,7 +250,7 @@
                         <!-- single course-sidebar -->
                         <div class="course-side-bar">
                             <!-- course single sidebar -->
-                            <div class="course-single-information">
+                            {{-- <div class="course-single-information">
                                 <h5 class="title">Material Includes</h5>
                                 <div class="body">
                                     <!-- ingle check -->
@@ -256,7 +278,7 @@
                                     </div>
                                     <!-- ingle check end -->
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- course single sidebar end-->
                             <!-- course single sidebar -->
                             <div class="course-single-information">
@@ -278,21 +300,18 @@
                             </div>
                             <!-- course single sidebar end-->
                             <!-- course single sidebar -->
-                            <div class="course-single-information">
-                                <h5 class="title">Tags</h5>
-                                <div class="body">
-                                    <div class="tags-wrapper">
-                                        <!-- single tags -->
-                                        <span>Course</span>
-                                        <span>Design</span>
-                                        <span>Web development</span>
-                                        <span>Business</span>
-                                        <span>UI/UX</span>
-                                        <span>Financial</span>
-                                        <!-- single tags end -->
+                            @if($course->formatTags)
+                                <div class="course-single-information">
+                                    <h5 class="title">Tags</h5>
+                                    <div class="body">
+                                        <div class="tags-wrapper">
+                                            @foreach ($course->formatTags as $tag)
+                                                <span>{{ ucFirst($tag) }}</span>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                             <!-- course single sidebar end-->
                             <!-- course single sidebar -->
                             <div class="course-single-information">

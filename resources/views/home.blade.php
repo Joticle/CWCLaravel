@@ -2,163 +2,48 @@
 
 @section('content')
     <!-- banner area start -->
-    @foreach ($banners as $banner)
-        <div class="banner-area-one shape-move">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 order-xl-1 order-lg-1 order-sm-2 order-2">
-                        <div class="banner-content-one">
-                            <div class="inner">
-                                <div class="pre-title-banner">
-                                    <img src="site-assets/images/banner/bulb.png" width="22" alt="icon">
-                                    <span>{{ $banner->pre_title }}</span>
-                                </div>
-                                <h1 class="title-banner">
-                                    {{ $banner->title }}
-                                    {{-- <img src="site-assets/images/banner/02.png" alt="banner"> --}}
-                                </h1>
-                                <p class="disc">{{ $banner->description }}</p>
-                                @if (optional($banner->button)->url)
-                                    <div class="banner-btn-author-wrapper">
-                                        <a href="{{ optional($banner->button)->url }}"
-                                            @if (optional($banner->button)->target_blank) target="_blank" @endif
-                                            class="rts-btn btn-primary with-arrow">{{ optional($banner->button)->text }}
-                                            <i class="fa-regular fa-arrow-right"></i></a>
+    @if ($banners->count() > 0)
+        <!-- banner area start -->
+        <div class="swiper mySwiper-home-slider-1">
+            <div class="swiper-wrapper">
+                @foreach ($banners as $banner)
+                    <div class="banner-area-one swiper-slide banner-bg">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 order-xl-1 order-lg-1 order-sm-2 order-2">
+                                    <div class="banner-content-one">
+                                        <div class="inner">
+                                            <h1 class="title-banner">
+                                                {{ $banner->title }}
+                                                {{-- <img src="site-assets/images/banner/02.png" alt="banner"> --}}
+                                            </h1>
+                                            <p class="disc">{{ $banner->description }}</p>
+                                            @if (optional($banner->button)->url)
+                                                <div class="banner-btn-author-wrapper">
+                                                    <a href="{{ optional($banner->button)->url }}"
+                                                        @if (optional($banner->button)->target_blank) target="_blank" @endif
+                                                        class="rts-btn btn-primary with-arrow">{{ optional($banner->button)->text }}
+                                                        <i class="fa-regular fa-arrow-right"></i></a>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
-                                @endif
+                                </div>
+                                <div class="col-lg-6 order--xl-2 order-lg-2 order-sm-1 order-1">
+                                    <div class="banner-right-img">
+                                        <img src="{{ $banner->getImage() }}" alt="banner">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 order--xl-2 order-lg-2 order-sm-1 order-1">
-                        <div class="banner-right-img">
-                            <img src="{{ $banner->getImage() }}" alt="banner">
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
-            {{-- <div class="review-thumb">
-                <!-- single review -->
-                <div class="review-single">
-                    <img src="site-assets/images/banner/03.png" alt="banner">
-                    <div class="info-right">
-                        <h6 class="title">4.5</h6>
-                        <span>(2.4k Review)</span>
-                    </div>
-                </div>
-                <!-- single review end -->
-                <!-- single review -->
-                <div class="review-single two">
-                    <img src="site-assets/images/banner/04.png" alt="banner">
-                    <div class="info-right">
-                        <h6 class="title">100+
-                        </h6>
-                        <span>Online Course</span>
-                    </div>
-                </div>
-                <!-- single review end -->
-            </div> --}}
-            {{-- <div class="shape-image">
-                <div class="shape one" data-speed="0.04" data-revert="true"><img
-                        src="site-assets/images/banner/shape/banner-shape01.svg" alt="shape_image"></div>
-                <div class="shape two" data-speed="0.04"><img src="site-assets/images/banner/shape/banner-shape02.svg"
-                        alt="shape_image"></div>
-                <div class="shape three" data-speed="0.04"><img src="site-assets/images/banner/shape/banner-shape03.svg"
-                        alt="shape_image"></div>
-            </div> --}}
+            <div class="swiper-pagination"></div>
         </div>
-    @endforeach
+        <!-- banner area end -->
+    @endif
     <!-- banner area end -->
-
-    <!-- brand area start -->
-    <div class="brand-area-one ptb--100">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="brand-style-one ">
-                        <div class="left-title">
-                            <h6 class="title">Trusted by:</h6>
-                        </div>
-                        <div class="swiper mySwiper-category-1 swiper-data"
-                            data-swiper='{
-                            "spaceBetween":30,
-                            "slidesPerView":6,
-                            "loop": true,
-                            "speed": 1500,
-                            "autoplay":{
-                                "delay":"4000"
-                            },
-                            "breakpoints":{
-                            "0":{
-                                "slidesPerView":2,
-                                "spaceBetween":30},
-                            "320":{
-                                "slidesPerView":2,
-                                "spaceBetween":30},
-                            "480":{
-                                "slidesPerView":3,
-                                "spaceBetween":30},
-                            "640":{
-                                "slidesPerView":4,
-                                "spaceBetween":30},
-                            "840":{
-                                "slidesPerView":4,
-                                "spaceBetween":30},
-                            "1140":{
-                                "slidesPerView":6,
-                                "spaceBetween":30}
-                            }
-                        }'>
-                            <div class="swiper-wrapper">
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/08.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/09.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/10.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/11.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/12.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/13.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- brand area end -->
 
     <!-- about area start -->
     <div class="about-area-start rts-section-gapBottom">
@@ -273,7 +158,96 @@
             </div>
         </div>
     </div>
-    <!-- fun facts area end -->
+    <!-- trusties area start -->
+    <div class="brand-area-one ptb--100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="brand-style-one ">
+                        <div class="left-title">
+                            <h6 class="title">Trusted by:</h6>
+                        </div>
+                        <div class="swiper mySwiper-category-1 swiper-data"
+                            data-swiper='{
+                            "spaceBetween":30,
+                            "slidesPerView":6,
+                            "loop": true,
+                            "speed": 1500,
+                            "autoplay":{
+                                "delay":"4000"
+                            },
+                            "breakpoints":{
+                            "0":{
+                                "slidesPerView":2,
+                                "spaceBetween":30},
+                            "320":{
+                                "slidesPerView":2,
+                                "spaceBetween":30},
+                            "480":{
+                                "slidesPerView":3,
+                                "spaceBetween":30},
+                            "640":{
+                                "slidesPerView":4,
+                                "spaceBetween":30},
+                            "840":{
+                                "slidesPerView":4,
+                                "spaceBetween":30},
+                            "1140":{
+                                "slidesPerView":6,
+                                "spaceBetween":30}
+                            }
+                        }'>
+                            <div class="swiper-wrapper">
+                                <!-- single swiper style -->
+                                <div class="swiper-slide">
+                                    <div class="brand-area">
+                                        <img src="site-assets/images/brand/08.svg" alt="brand">
+                                    </div>
+                                </div>
+                                <!-- single swiper style -->
+                                <!-- single swiper style -->
+                                <div class="swiper-slide">
+                                    <div class="brand-area">
+                                        <img src="site-assets/images/brand/09.svg" alt="brand">
+                                    </div>
+                                </div>
+                                <!-- single swiper style -->
+                                <!-- single swiper style -->
+                                <div class="swiper-slide">
+                                    <div class="brand-area">
+                                        <img src="site-assets/images/brand/10.svg" alt="brand">
+                                    </div>
+                                </div>
+                                <!-- single swiper style -->
+                                <!-- single swiper style -->
+                                <div class="swiper-slide">
+                                    <div class="brand-area">
+                                        <img src="site-assets/images/brand/11.svg" alt="brand">
+                                    </div>
+                                </div>
+                                <!-- single swiper style -->
+                                <!-- single swiper style -->
+                                <div class="swiper-slide">
+                                    <div class="brand-area">
+                                        <img src="site-assets/images/brand/12.svg" alt="brand">
+                                    </div>
+                                </div>
+                                <!-- single swiper style -->
+                                <!-- single swiper style -->
+                                <div class="swiper-slide">
+                                    <div class="brand-area">
+                                        <img src="site-assets/images/brand/13.svg" alt="brand">
+                                    </div>
+                                </div>
+                                <!-- single swiper style -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- trusties area end -->
     <div class="rts-feedback-area rts-section-gap bg-light-1 shape-move">
         <div class="container">
             <div class="row">

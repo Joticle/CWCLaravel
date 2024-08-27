@@ -24,7 +24,7 @@ class CreateBannerRequest extends FormRequest
     public function rules()
     {
         return [
-            'pre_title' => 'required',
+            // 'pre_title' => 'required',
             'title' => 'required',
             'image' => 'sometimes|image|max:2048',
             'description' => 'required',

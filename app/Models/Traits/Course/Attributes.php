@@ -2,6 +2,7 @@
 
 namespace App\Models\Traits\Course;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 trait Attributes
@@ -44,5 +45,15 @@ trait Attributes
     public function getIsBookmarkedAttribute()
     {
         return $this->wishlist()->where('user_id', Auth::id())->exists();
+    }
+
+    public function getformatTagsAttribute()
+    {
+        return $this->tags ? explode(',', $this->tags) : null;
+    }
+
+    public function getdurationAttribute()
+    {
+        return Carbon::parse($this->start_date)->diffForHumans(Carbon::parse($this->end_date), true);
     }
 }

@@ -120,6 +120,20 @@
                 });
             });
             $(document).ready(function () {
+                var swiper = new Swiper(".mySwiper-home-slider-1", {
+                    slidesPerView: 1,
+                    spaceBetween: 24,
+                    loop: true,
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                        clickable: true
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true
+                    },
+                });
                 var swiper = new Swiper(".mySwiper-testimonials-1", {
                     slidesPerView: 1,
                     spaceBetween: 24,
@@ -173,7 +187,7 @@
               };
               // call init function
               initSwipers(defaults);
-              
+
               function initSwipers(defaults = {}, selector = ".swiper-data") {
                 let swipers = document.querySelectorAll(selector);
                 swipers.forEach((swiper) => {
@@ -186,13 +200,13 @@
                     ...defaults,
                     ...optionsData
                   };
-              
+
                   //console.log(options);
                   // init
                   new Swiper(swiper, options);
                 });
               }
-              
+
             })
 
         },
@@ -205,7 +219,7 @@
           $('.counter').addClass('animated fadeInDownBig');
           $('h3').addClass('animated fadeIn');
         },
-        
+
         // search popup
         searchOption: function () {
             $(document).on('click', '#search', function () {
@@ -241,13 +255,13 @@
 
         cartNumberIncDec: function(){
             $(document).ready(function(){
-              
+
             $(function () {
               $(".button").on("click", function () {
                 var $button = $(this);
                 var $parent = $button.parent();
                 var oldValue = $parent.find('.input').val();
-          
+
                 if ($button.text() == "+") {
                   var newVal = parseFloat(oldValue) + 1;
                 } else {
@@ -267,72 +281,72 @@
 
         niceSelect: function(){
             $('.nice-select').each(function() {
-  
+
                 var select = $(this),
                     name = select.attr('name');
-                
+
                 select.hide();
-                
+
                 select.wrap('<div class="nice-select-wrap"></div>');
-                
+
                 var parent = select.parent('.nice-select-wrap');
-                
+
                 parent.append('<ul id=' + name + ' style="display:none"></ul>');
-                
+
                 select.find('option').each(function() {
-              
+
                   var option = $(this),
                       value = option.attr('value'),
                       label = option.text();
-                  
+
                   if (option.is(":first-child")) {
-                    
+
                     $('<a href="#" class="drop">' + label + '</a>').insertBefore(parent.find('ul'));
-                    
+
                   } else {
-                    
+
                     parent.find('ul').append('<li><a href="#" id="' + value + '">' + label + '</a></li>');
-                    
+
                   }
-                  
+
                 });
-                
+
                 parent.find('a').on('click', function(e) {
-                  
+
                   parent.toggleClass('down').find('ul').slideToggle(300);
-                  
+
                   e.preventDefault();
-                
+
                 });
-                
+
                 parent.find('ul a').on('click', function(e) {
-                  
+
                   var niceOption = $(this),
                           value = niceOption.attr('id'),
                       text = niceOption.text();
-                  
+
                   select.val(value);
-                  
+
                   parent.find('.drop').text(text);
-                  
+
                   e.preventDefault();
-                
+
                 });
-                
+
               });
         },
 
         backToTopInit: function () {
           $(document).ready(function(){
           "use strict";
-      
+
           var progressPath = document.querySelector('.progress-wrap path');
           var pathLength = progressPath.getTotalLength();
           progressPath.style.transition = progressPath.style.WebkitTransition = 'none';
           progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
           progressPath.style.strokeDashoffset = pathLength;
           progressPath.getBoundingClientRect();
-          progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';		
+          progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';
           var updateProgress = function () {
             var scroll = $(window).scrollTop();
             var height = $(document).height() - $(window).height();
@@ -340,7 +354,7 @@
             progressPath.style.strokeDashoffset = progress;
           }
           updateProgress();
-          $(window).scroll(updateProgress);	
+          $(window).scroll(updateProgress);
           var offset = 50;
           var duration = 550;
           jQuery(window).on('scroll', function() {
@@ -349,23 +363,23 @@
             } else {
               jQuery('.progress-wrap').removeClass('active-progress');
             }
-          });				
+          });
           jQuery('.progress-wrap').on('click', function(event) {
             event.preventDefault();
             jQuery('html, body').animate({scrollTop: 0}, duration);
             return false;
           })
-          
-          
+
+
         });
-  
+
         },
 
         mesonaryTab: function(){
           $(window).on("load", function() {
 
             var isotope = $(".main-isotop");
-    
+
             if(isotope.length){
                 var iso = new Isotope( '.filter', {
                     itemSelector: '.element-item',
@@ -374,7 +388,7 @@
                       equalheight: true
                      }
                   });
-                  
+
                   // filter functions
                   var filterFns = {
                     // show if name ends with -ium
@@ -383,7 +397,7 @@
                       return name.match( /ium$/ );
                     }
                   };
-                  
+
                   // bind filter button click
                   var filtersElem = document.querySelector('.filters-button-group');
                   filtersElem.addEventListener( 'click', function( event ) {
@@ -396,7 +410,7 @@
                     filterValue = filterFns[ filterValue ] || filterValue;
                     iso.arrange({ filter: filterValue });
                   });
-                  
+
                   // change is-checked class on buttons
                   var buttonGroups = document.querySelectorAll('.button-group');
                   for ( var i=0, len = buttonGroups.length; i < len; i++ ) {
@@ -414,9 +428,9 @@
                     });
                   }
             }
-    
+
             if ($('.grid-masonary').length) {
-    
+
                 // image loaded portfolio init
                 $('.grid-masonary').imagesLoaded(function() {
                     $('.portfolio-filter').on('click', 'button', function() {
@@ -434,16 +448,16 @@
                     });
                 });
             }
-                    
+
             // portfolio Filter
             $('.portfolio-filter button').on('click', function(event) {
                 $(this).siblings('.is-checked').removeClass('is-checked');
                 $(this).addClass('is-checked');
                 event.preventDefault();
             });
-  
+
          });
-    
+
         },
 
         vedioActivation: function () {
@@ -504,9 +518,9 @@
               $('.rts-lession-left').toggleClass('sibebar-none');
           })
         },
-        
+
         filterClickButton: function () {
-          
+
           $('.discover-filter-activation').on('click', function () {
               $(this).toggleClass('open');
               $('.default-exp-expand').slideToggle('400');
@@ -544,11 +558,11 @@
             const realFileBtn = document.getElementById("real-file");
             const customBtn = document.getElementById("custom-button");
             const customTxt = document.getElementById("custom-text");
-  
+
             customBtn.addEventListener("click", function() {
               realFileBtn.click();
             });
-  
+
             realFileBtn.addEventListener("change", function() {
               if (realFileBtn.value) {
                 customTxt.innerHTML = realFileBtn.value.match(
@@ -558,7 +572,7 @@
                 customTxt.innerHTML = "No file chosen, yet.";
               }
             });
-  
+
           }
 
         },
@@ -566,31 +580,31 @@
         countDownTimer: function(){
           function makeTimer() {
 
-            //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");	
-              var endTime = new Date("29 April 2025 9:56:00 GMT+01:00");			
+            //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");
+              var endTime = new Date("29 April 2025 9:56:00 GMT+01:00");
                 endTime = (Date.parse(endTime) / 1000);
-          
+
                 var now = new Date();
                 now = (Date.parse(now) / 1000);
-          
+
                 var timeLeft = endTime - now;
-          
-                var days = Math.floor(timeLeft / 86400); 
+
+                var days = Math.floor(timeLeft / 86400);
                 var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
                 var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
                 var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
-            
+
                 if (hours < "10") { hours = "0" + hours; }
                 if (minutes < "10") { minutes = "0" + minutes; }
                 if (seconds < "10") { seconds = "0" + seconds; }
-          
+
                 $("#days").html(days + "<span>Days</span>");
                 $("#hours").html(hours + "<span>Hours</span>");
                 $("#minutes").html(minutes + "<span>Minutes</span>");
-                $("#seconds").html(seconds + "<span>Seconds</span>");		
-          
+                $("#seconds").html(seconds + "<span>Seconds</span>");
+
             }
-          
+
             setInterval(function() { makeTimer(); }, 1000);
         },
 
@@ -607,9 +621,9 @@
                 localStorage.setItem('popState', 'shown');
               });
             }
-            
+
           });
-        
+
         },
 
         sideMenu:function(){
@@ -703,11 +717,11 @@
              * after isotope('appended), not sure why?
              */
             FitRows.prototype._getItemLayoutPosition = function( item ) {
-              
+
               item.getSize();
-              
+
               var itemWidth = item.size.outerWidth;
-              
+
               // if this element cannot fit in the current row
               // need to add extra pixel to avoid layout dropping in some edge
               // bootstrap grid in firefox
@@ -716,7 +730,7 @@
                 this.x = 0;
                 this.y = this.maxY;
               }
-            
+
               // New row?
               if (this.x == 0 && this.y != 0) {
                 this.row++;
@@ -727,8 +741,8 @@
               };
               this.maxY = Math.max(this.maxY, this.y + item.size.outerHeight);
               this.x += itemWidth;
-              
-              
+
+
               // Compare Y from this row and previous row
               if (typeof this.rows[this.row] == 'undefined') {
                 this.rows[this.row] = [];
@@ -743,25 +757,25 @@
               return position;
             };
             FitRows.prototype._equalHeight = function() {
-              
+
               // Should we use this.isotope.filteredItems or this.isotope.items?
-              
+
               for (var i=0; i < this.isotope.items.length; i++) {
                 var row = this.isotope.items[i].row,
                     data = this.rows[row];
-                
+
                 if (data) {
                   var height =  data.end - data.start;
                   height -= this.isotope.items[i].size.borderTopWidth + this.isotope.items[i].size.borderBottomWidth;
                   height -= this.isotope.items[i].size.marginTop + this.isotope.items[i].size.marginBottom;
                   height -= this.gutter.height || 0;
-                  
+
                   if (this.isotope.items[i].size.isBorderBox == false) {
                     height -= this.isotope.items[i].size.paddingTop + this.isotope.items[i].size.paddingBottom;
                   }
-                  
+
                   this.isotope.items[i].size.height = height;
-                  
+
                   this.isotope.items[i].css({
                     height : height.toString() + 'px',
                   });
@@ -794,12 +808,12 @@
               );
             }
         },
-        
+
         tabToggle: function(){
           $('#rts-toggle').click(function(event) {
             $('.plan-toggle-wrap').toggleClass('active');
           });
-         
+
           $('#rts-toggle').change(function(){
                if ($(this).is(':checked')) {
                  $('.tab-content #yearly').hide();
@@ -809,29 +823,29 @@
                  $('.tab-content #yearly').show();
                  $('.tab-content #monthly').hide();
                }
-         
+
           });
         },
 
         shapeMove: function(){
           $('.shape-move').mousemove(function(e){
-      
+
             var wx = $(window).width();
             var wy = $(window).height();
-            
+
             var x = e.pageX - this.offsetLeft;
             var y = e.pageY - this.offsetTop;
-            
+
             var newx = x - wx/2;
             var newy = y - wy/2;
-            
+
             $('.shape-image .shape').each(function(){
               var speed = $(this).attr('data-speed');
               if($(this).attr('data-revert')) speed *= -1;
               TweenMax.to($(this), 1, {x: (1 - newx*speed), y: (1 - newy*speed)});
-              
+
             });
-            
+
           });
         },
 

@@ -93,7 +93,7 @@ Route::group(['middleware' => 'web'], function(){
                     Route::get('/edit/{id}', [CourseController::class, 'edit'])->name('edit');
                     Route::post('/edit/{id}', [CourseController::class, 'update'])->name('edit');
                     Route::get('/delete/{id}', [CourseController::class, 'delete'])->name('delete');
-                    Route::get('/search', [CourseController::class, 'search'])->name('search');
+                    Route::get('/search/{limit?}', [CourseController::class, 'search'])->name('search');
                 });
 
 

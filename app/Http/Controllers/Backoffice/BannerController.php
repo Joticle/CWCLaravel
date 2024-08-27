@@ -33,7 +33,7 @@ class BannerController extends Controller
         $breadcrumb['All Banners'] = '';
         $data['breadcrumb'] = $breadcrumb;
 
-        $data['data'] = Banner::paginate(env('RECORD_PER_PAGE', 10));
+        $data['data'] = Banner::latest()->paginate(env('RECORD_PER_PAGE', 10));
         return view('backoffice.banner.list', $data);
     }
     public function add()
@@ -61,16 +61,16 @@ class BannerController extends Controller
 
     public function edit($id)
     {
-        $connection = Banner::findOrFail($id);
+        $banner = Banner::findOrFail($id);
 
         $data = [];
         $data['singular_name'] = 'Banner ';
         $data['pulular_name'] = 'Banners';
         $breadcrumb = [];
         $breadcrumb['Banners'] = route('admin.banner.list');
-        $breadcrumb[$connection->name] = '';
+        $breadcrumb[$banner->title] = '';
         $data['breadcrumb'] = $breadcrumb;
-        $data['row'] = $connection;
+        $data['row'] = $banner;
 
         return view('backoffice.banner.edit', $data);
     }
@@ -78,8 +78,8 @@ class BannerController extends Controller
     {
         try {
 
-            $connection = Banner::findOrFail($id);
-            $this->bannerService->update($connection, $request->all());
+            $banner = Banner::findOrFail($id);
+            $this->bannerService->update($banner, $request->all());
 
             return redirect()->to(route('admin.banner.list'))->with('success', 'Banner Update Successfully.');
         } catch (\Exception $e) {
@@ -90,8 +90,8 @@ class BannerController extends Controller
     {
         try {
 
-            $connection = Banner::findOrFail($id);
-            $this->bannerService->delete($connection);
+            $banner = Banner::findOrFail($id);
+            $this->bannerService->delete($banner);
 
             return redirect()->to(route('admin.banner.list'))->with('success', 'Banner Deleted Successfully.');
         } catch (\Exception $e) {

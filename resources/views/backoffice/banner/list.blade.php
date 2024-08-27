@@ -34,7 +34,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Pre Title</th>
+                                    {{-- <th>Pre Title</th> --}}
                                     <th>Title</th>
                                     <th>Image</th>
                                     <th>Status</th>
@@ -47,7 +47,7 @@
                                     @foreach ($data as $index => $row)
                                         <tr>
                                             <td><strong>{{ $index + $data->firstItem() }}</strong></td>
-                                            <td>{{ $row->pre_title }}</td>
+                                            {{-- <td>{{ $row->pre_title }}</td> --}}
                                             <td>{{ $row->title }}</td>
                                             <td><img style="width: 80px;height: 50px;" src="{{ $row->getImage() }}"></td>
                                             <td>

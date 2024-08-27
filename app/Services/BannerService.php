@@ -43,7 +43,7 @@ class BannerService extends BaseService
                     'target_blank' => $data['button']['target_blank'],
                 ];
             }
-            $banner = Banner::create(['pre_title' => $data['pre_title'], 'title' => $data['title'], 'description' => $data['description'], 'button' => json_encode($buttonData)]);
+            $banner = Banner::create(['title' => $data['title'], 'description' => $data['description'], 'button' => json_encode($buttonData)]);
 
             if (isset($data['image'])) {
                 $banner->image = $banner->uploadFile($data['image'], 'image');

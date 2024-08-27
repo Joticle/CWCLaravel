@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CourseModule\CreateCourseModuleRequest;
 use App\Http\Requests\Admin\CourseModule\UpdateCourseModuleRequest;
 use App\Services\CourseModuleService;
+use App\Services\CourseService;
 use Illuminate\Support\Str;
 use Validator;
 
@@ -54,6 +55,10 @@ class CourseModuleController extends Controller
 
         $data['course'] = $course;
         $data['data']   = CourseModule::where('course_id', '=', $course_id)->orderBy('sort_order', 'asc')->get();
+        $data['prepopulatedCourses'] = [];
+        if($course_id == 0) {
+            $data['prepopulatedCourses'] = (new CourseController(new CourseService(new Course())))->search(new Request(), 5)['items'];
+        }
         return view('backoffice.course-modules.list', $data);
     }
 
