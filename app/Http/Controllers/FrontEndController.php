@@ -39,8 +39,6 @@ class FrontEndController extends Controller
         $data['studentsFeedback']  = StudentsFeedback::active()->get();
         $data['connections']  = Connection::active()->get();
         $data['banners']  = Banner::active()->get();
-        \DB::statement("ALTER TABLE `courses` CHANGE `level` `level` ENUM('Beginner','Intermediate','Expert','All Levels') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Beginner';");
-        exit;
         return view('home',$data);
     }
     function logout(){
