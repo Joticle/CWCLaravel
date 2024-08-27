@@ -246,7 +246,7 @@
                     </div>
                     <!-- right- sticky bar area end -->
                     <!-- right- sticky bar area -->
-                    <div class="right-course-details mt--30">
+                    <div class="right-course-details mt--30 mb--30">
                         <!-- single course-sidebar -->
                         <div class="course-side-bar">
                             <!-- course single sidebar -->
