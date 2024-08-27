@@ -15647,7 +15647,7 @@ nav ul li a {
 .banner-content-one {
   display: flex;
   align-items: center;
-  padding: 160px 0;
+  /*padding: 160px 0;*/
 }
 @media (max-width: 991px) {
   .banner-content-one {
