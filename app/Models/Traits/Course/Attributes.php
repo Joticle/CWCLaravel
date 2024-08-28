@@ -3,6 +3,7 @@
 namespace App\Models\Traits\Course;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 trait Attributes
@@ -55,5 +56,24 @@ trait Attributes
     public function getdurationAttribute()
     {
         return Carbon::parse($this->start_date)->diffForHumans(Carbon::parse($this->end_date), true);
+    }
+
+    public function getAudienceAttribute()
+    {
+        $courseLevel = $this->level;
+        if ($courseLevel === 'All Levels') {
+            // Generate a string with all levels except 'All Levels'
+            $suitableLevels = array_keys(self::LEVELS);
+            $suitableLevels = array_diff($suitableLevels, ['All Levels']);
+            $suitableLevels = array_map(function ($level) {
+                return $level . 's';
+            }, $suitableLevels);
+            $suitableString = 'Suitable for ' . Arr::join($suitableLevels, ', ', ' and ');
+        } else {
+            // Otherwise, just return the specific level
+            $suitableString = 'Suitable for ' . $courseLevel . 's';
+        }
+
+        return $suitableString;
     }
 }

@@ -193,7 +193,9 @@
                             @endif
 
                             <div class="what-includes">
-                                <span class="m">Money-Back Guarantee</span>
+                                @if (!$course->is_enrolled && !empty($course->price))
+                                    <span class="m">Money-Back Guarantee</span>
+                                @endif
                                 {{-- <h5 class="title">This course includes: </h5> --}}
                                 <div class="single-include">
                                     <div class="left">
@@ -231,15 +233,17 @@
                                         <span>{{ _date($course->updated_at) }}</span>
                                     </div>
                                 </div>
-                                <div class="single-include">
-                                    <div class="left">
-                                        <i class="fa-sharp fa-light fa-file-certificate"></i>
-                                        <span>Certificate</span>
+                                @if($course->certificate_issued)
+                                    <div class="single-include">
+                                        <div class="left">
+                                            <i class="fa-sharp fa-light fa-file-certificate"></i>
+                                            <span>Certificate</span>
+                                        </div>
+                                        <div class="right">
+                                            <span>Certificate of completion</span>
+                                        </div>
                                     </div>
-                                    <div class="right">
-                                        <span>{{$course->certificate_issued ? 'Certificate of completion' : 'N/A'}} </span>
-                                    </div>
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <!-- single course-sidebar end -->
@@ -339,7 +343,7 @@
                                     <!-- ingle check -->
                                     <div class="single-check">
                                         <i class="fa-light fa-circle-check"></i>
-                                        Suitable for beginners and intermediates
+                                        {{$course->audience}}
                                     </div>
                                     <!-- ingle check end -->
                                 </div>
