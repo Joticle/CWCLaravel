@@ -12,6 +12,7 @@ use App\Http\Controllers\Backoffice\StudentsFeedbackController;
 use App\Http\Controllers\Backoffice\TagController;
 use App\Http\Controllers\Backoffice\ConnectionController;
 use App\Http\Controllers\Backoffice\CourseRequirementController;
+use App\Http\Controllers\Backoffice\MenuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardCourseController;
 use App\Http\Controllers\FrontEndController;
@@ -36,14 +37,14 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['middleware' => 'web'], function(){
+Route::group(['middleware' => 'web'], function () {
     Route::get('/', [FrontEndController::class, 'index'])->name('index');
     Route::get('/home', [FrontEndController::class, 'index'])->name('home');
 
-    Route::group(['middleware' => 'auth'], function(){
+    Route::group(['middleware' => 'auth'], function () {
         Route::get('logout', [FrontEndController::class, 'logout'])->name('logout');
 
-        Route::group(['middleware' => 'check.user.status'], function(){
+        Route::group(['middleware' => 'check.user.status'], function () {
             Route::get('/courses', [FrontEndCourseController::class, 'courses'])->name('courses');
             Route::get('/courses/search', [FrontEndCourseController::class, 'coursesSearch'])->name('courses.search');
             Route::get('/course/{slug}', [FrontEndCourseController::class, 'courseDetail'])->name('course.detail');
@@ -57,8 +58,7 @@ Route::group(['middleware' => 'web'], function(){
             Route::get('/course/payment/error', [FrontEndPaymentController::class, 'paymentError'])->name('payment.error');
 
             // dashboard
-            Route::group(['prefix' => 'dashboard','as' => 'dashboard.'], function()
-            {
+            Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
                 Route::get('/', [DashboardController::class, 'index'])->name('index');
 
                 Route::get('profile', [ProfileController::class, 'index'])->name('profile');
@@ -76,14 +76,20 @@ Route::group(['middleware' => 'web'], function(){
         });
     });
 
-    Route::group(['prefix' => 'cwcadmin','as' => 'admin.'], function(){
+    Route::group(['prefix' => 'cwcadmin', 'as' => 'admin.'], function () {
         Route::get('/', [AdminAuthController::class, 'index'])->name('index');
         Route::get('/login', [AdminAuthController::class, 'login'])->name('login');
 
-        Route::group(['middleware' => 'auth'], function(){
+        Route::group(['middleware' => 'auth'], function () {
+
+            /*Paragraphs*/
+            Route::group(['prefix' => 'header', 'as' => 'header.'], function () {
+                Route::get('/menus', [MenuController::class, 'index'])->name('menus');
+            });
+
             Route::get('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
-            Route::group(['middleware' => 'check.admin.status'], function(){
+            Route::group(['middleware' => 'check.admin.status'], function () {
 
                 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
@@ -92,7 +98,7 @@ Route::group(['middleware' => 'web'], function(){
                 Route::post('/profile/updatePassword', [AdminAuthController::class, 'updatePassword'])->name('profile.updatePassword');
 
                 /*Courses*/
-                Route::group(['prefix' => 'course','as' => 'course.'], function(){
+                Route::group(['prefix' => 'course', 'as' => 'course.'], function () {
                     Route::get('/list', [CourseController::class, 'index'])->name('list');
                     Route::get('/create', [CourseController::class, 'add'])->name('add');
                     Route::post('/create', [CourseController::class, 'create'])->name('add');
@@ -104,7 +110,7 @@ Route::group(['middleware' => 'web'], function(){
 
 
                 /*Course Modules*/
-                Route::group(['prefix' => 'course-module','as' => 'course.module.'], function(){
+                Route::group(['prefix' => 'course-module', 'as' => 'course.module.'], function () {
                     Route::get('/{course_id?}', [CourseModuleController::class, 'index'])->name('list');
                     Route::post('/{course_id}', [CourseModuleController::class, 'create'])->name('add');
                     Route::post('/sort/all', [CourseModuleController::class, 'sort'])->name('sort');
@@ -114,7 +120,7 @@ Route::group(['middleware' => 'web'], function(){
                 });
 
                 /*Course Module Content*/
-                Route::group(['prefix' => 'course-material','as' => 'course.content.'], function(){
+                Route::group(['prefix' => 'course-material', 'as' => 'course.content.'], function () {
                     Route::get('/{module_id?}', [CourseMaterialController::class, 'index'])->name('list');
                     Route::post('/{module_id}', [CourseMaterialController::class, 'create'])->name('add');
                     Route::post('/sort/all', [CourseMaterialController::class, 'sort'])->name('sort');
@@ -122,7 +128,7 @@ Route::group(['middleware' => 'web'], function(){
                 });
 
                 /*Course Content Types*/
-                Route::group(['prefix' => 'content-types','as' => 'content-type.'], function(){
+                Route::group(['prefix' => 'content-types', 'as' => 'content-type.'], function () {
                     Route::get('/list', [ContentTypeController::class, 'index'])->name('list');
                     Route::get('/create', [ContentTypeController::class, 'add'])->name('add');
                     Route::post('/create', [ContentTypeController::class, 'create'])->name('add');
@@ -132,7 +138,7 @@ Route::group(['middleware' => 'web'], function(){
                 });
 
                 /*Course Requirement*/
-                Route::group(['prefix' => 'course-requirement','as' => 'course.requirement.'], function(){
+                Route::group(['prefix' => 'course-requirement', 'as' => 'course.requirement.'], function () {
                     Route::get('/{course_id?}', [CourseRequirementController::class, 'index'])->name('list');
                     Route::post('/{course_id}', [CourseRequirementController::class, 'create'])->name('add');
                     Route::post('/sort/all', [CourseRequirementController::class, 'sort'])->name('sort');
@@ -142,7 +148,7 @@ Route::group(['middleware' => 'web'], function(){
                 });
 
                 /*Student Feedback*/
-                Route::group(['prefix' => 'student-feedback','as' => 'student-feedback.'], function(){
+                Route::group(['prefix' => 'student-feedback', 'as' => 'student-feedback.'], function () {
                     Route::get('/list', [StudentsFeedbackController::class, 'index'])->name('list');
                     Route::get('/create', [StudentsFeedbackController::class, 'add'])->name('add');
                     Route::post('/create', [StudentsFeedbackController::class, 'create'])->name('add');
@@ -152,11 +158,11 @@ Route::group(['middleware' => 'web'], function(){
                     Route::get('/search', [StudentsFeedbackController::class, 'search'])->name('search');
                 });
 
-                Route::get('tags/search', [TagController::class,'search'])->name('tags.search');
+                Route::get('tags/search', [TagController::class, 'search'])->name('tags.search');
                 Route::resource('tags', TagController::class);
 
                 /*CMC module*/
-                Route::group(['prefix' => 'cms','as' => 'cms.'], function(){
+                Route::group(['prefix' => 'cms', 'as' => 'cms.'], function () {
                     Route::get('/list', [CmsController::class, 'index'])->name('list');
                     Route::get('/create', [CmsController::class, 'add'])->name('add');
                     Route::post('/create', [CmsController::class, 'create'])->name('add');
@@ -167,7 +173,7 @@ Route::group(['middleware' => 'web'], function(){
                 });
 
                 /*Connection*/
-                Route::group(['prefix' => 'connection','as' => 'connection.'], function(){
+                Route::group(['prefix' => 'connection', 'as' => 'connection.'], function () {
                     Route::get('/list', [ConnectionController::class, 'index'])->name('list');
                     Route::get('/create', [ConnectionController::class, 'add'])->name('add');
                     Route::post('/create', [ConnectionController::class, 'create'])->name('add');
@@ -178,7 +184,7 @@ Route::group(['middleware' => 'web'], function(){
                 });
 
                 /*Connection*/
-                Route::group(['prefix' => 'banner','as' => 'banner.'], function(){
+                Route::group(['prefix' => 'banner', 'as' => 'banner.'], function () {
                     Route::get('/list', [BannerController::class, 'index'])->name('list');
                     Route::get('/create', [BannerController::class, 'add'])->name('add');
                     Route::post('/create', [BannerController::class, 'create'])->name('add');
@@ -187,7 +193,6 @@ Route::group(['middleware' => 'web'], function(){
                     Route::get('/delete/{id}', [BannerController::class, 'delete'])->name('delete');
                     Route::get('/search', [BannerController::class, 'search'])->name('search');
                 });
-
             });
         });
     });
