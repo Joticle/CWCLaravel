@@ -1,6 +1,5 @@
 <div class="footer">
     <div class="copyright">
-        <p>Developed by <a href="https://joticle.com" target="_blank">Joticle</a></p>
+        <p>Developed by <a href="{{route('index')}}" target="_blank">{{ config('app.name') }}</a></p>
     </div>
 </div>
-
