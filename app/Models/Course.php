@@ -34,7 +34,8 @@ class Course extends Model
         'price',
         'tags',
         'logo',
-        'level'
+        'level',
+        'certificate_issued'
     ];
 
 }

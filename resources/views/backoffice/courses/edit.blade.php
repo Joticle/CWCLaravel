@@ -76,22 +76,32 @@
                         </div>
                         <div class="col-md-6 mb-2">
                             <div class="form-group">
-                                <label class="text-label">Status</label>
-                                <br>
-                                {{ Form::radio('status', '1', $row->status=='1'?true:false, ['id' => 'status_active']) }}
-                                <label for="status_active">Active</label>
-                                {{ Form::radio('status', '0', $row->status=='0'?true:false, ['id' => 'status_inactive']) }}
-                                <label for="status_inactive">Inactive</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-2">
-                            <div class="form-group">
                                 <label class="text-label">Select Course Tags</label>
                                 <select id="tags" name="tags[]" multiple="multiple" class="form-control">
                                     @foreach ($tags as $tag)
                                         <option value="{{ $tag->name }}"{{ in_array($tag->name, explode(',',$row->tags)) ? 'selected' : '' }}>{{ $tag->name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label class="text-label">Issue Certificate:</label>
+                                <br>
+                                {{ Form::radio('certificate_issued', '1', $row->certificate_issued=='1'?true:false, ['id' => 'certificate_issued_yes']) }}
+                                <label for="certificate_issued_yes">Yes</label>
+                                {{ Form::radio('certificate_issued', '0', $row->certificate_issued=='0'?true:false, ['id' => 'certificate_issued_no']) }}
+                                <label for="certificate_issued_no">No</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label class="text-label">Status</label>
+                                <br>
+                                {{ Form::radio('status', '1', $row->status=='1'?true:false, ['id' => 'status_active']) }}
+                                <label for="status_active">Active</label>
+                                {{ Form::radio('status', '0', $row->status=='0'?true:false, ['id' => 'status_inactive']) }}
+                                <label for="status_inactive">Inactive</label>
                             </div>
                         </div>
                     </div>

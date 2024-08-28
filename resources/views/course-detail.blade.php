@@ -237,7 +237,7 @@
                                         <span>Certificate</span>
                                     </div>
                                     <div class="right">
-                                        <span>Certificate of completion </span>
+                                        <span>{{$course->certificate_issued ? 'Certificate of completion' : 'N/A'}} </span>
                                     </div>
                                 </div>
                             </div>

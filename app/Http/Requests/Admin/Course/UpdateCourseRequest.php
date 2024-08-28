@@ -36,7 +36,8 @@ class UpdateCourseRequest extends FormRequest
             'end_date' => 'nullable',
             'price' => 'required|numeric',
             'level' => 'required|in:' . implode(',', Course::LEVELS),
-            'status' => 'required|in:0,1'
+            'status' => 'required|in:0,1',
+            'certificate_issued' => 'required|in:0,1'
         ];
     }
 
