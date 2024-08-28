@@ -32,15 +32,17 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         if (\Schema::hasTable('cms')) {
-            $pages = Cms::active()->get(['slug','name']);
+            //$pages = Cms::active()->get(['slug','name']);
         } else {
             $pages = collect(); // Return an empty collection or handle it accordingly
         }
+        $pages = collect()
         if (\Schema::hasTable('connections')) {
-            $connections = Connection::active()->get(['slug','name', 'button']);
+            //$connections = Connection::active()->get(['slug','name', 'button']);
         } else {
             $connections = collect(); // Return an empty collection or handle it accordingly
         }
+        $connections = collect(); // Return an empty collection or handle it accordingly
         View::share('pages', $pages);
         View::share('connections', $connections);
     }
