@@ -37,31 +37,31 @@ class ConnectionService extends BaseService
             // Prepare button data
             $buttonData = [
                 'text' => $data['button']['text'],
-                'url' => $data['button']['url'],
+                // 'url' => $data['button']['url'],
                 'target_blank' => $data['button']['target_blank'],
             ];
 
-            $connection = Connection::create(['name' => $data['name'], 'description' => $data['description'], 'button' => json_encode($buttonData)]);
+            $connection = Connection::create(['slug' => $data['slug'], 'name' => $data['name'], 'description' => $data['description'], 'content' => $data['content'], 'button' => json_encode($buttonData)]);
 
             if (isset($data['logo'])) {
                 $connection->logo = $connection->uploadFile($data['logo'], 'logo');
             }
 
-            if ($data['categories'] && isset($data['categories'][0]['icon'])) {
-                $categoryData = [];
-                foreach ($data['categories'] as $index => $category) {
+            // if ($data['categories'] && isset($data['categories'][0]['icon'])) {
+            //     $categoryData = [];
+            //     foreach ($data['categories'] as $index => $category) {
 
-                    $iconName = $connection->uploadFile($category['icon'], 'categories', true);
+            //         $iconName = $connection->uploadFile($category['icon'], 'categories', true);
 
-                    $categoryData[] = [
-                        'name' => $category['name'],
-                        'icon' => $iconName,
-                    ];
-                }
+            //         $categoryData[] = [
+            //             'name' => $category['name'],
+            //             'icon' => $iconName,
+            //         ];
+            //     }
 
-                $connection->categories = $categoryData;
-                $connection->save();
-            }
+            //     $connection->categories = $categoryData;
+            //     $connection->save();
+            // }
         } catch (Exception $e) {
             DB::rollBack();
 
@@ -87,36 +87,36 @@ class ConnectionService extends BaseService
         try {
             $data['button'] = [
                 'text' => $data['button']['text'],
-                'url' => $data['button']['url'],
+                // 'url' => $data['button']['url'],
                 'target_blank' => $data['button']['target_blank'],
             ];
             if (isset($data['logo'])) {
                 $data['logo'] = $connection->uploadFile($data['logo'], 'logo');
             }
             // existing categories
-            $categories = $connection->categories;
+            // $categories = $connection->categories;
 
-            if (!empty($data['categories'])) {
+            // if (!empty($data['categories'])) {
 
-                $categoryData = [];
-                foreach ($data['categories'] as $index => $category) {
+            //     $categoryData = [];
+            //     foreach ($data['categories'] as $index => $category) {
 
-                    if(isset($category['icon'])) {
-                        $iconName = $connection->uploadFile($category['icon'], 'categories', true, isset($categories[$index]->icon) ? $categories[$index]->icon : '');
-                    }
-                    else {
-                        $iconName = $categories[$index]->icon;
-                    }
+            //         if(isset($category['icon'])) {
+            //             $iconName = $connection->uploadFile($category['icon'], 'categories', true, isset($categories[$index]->icon) ? $categories[$index]->icon : '');
+            //         }
+            //         else {
+            //             $iconName = $categories[$index]->icon;
+            //         }
 
-                    $categoryData[] = [
-                        'name' => $category['name'],
-                        'icon' => $iconName,
-                    ];
-                }
-                $data['categories'] = $categoryData;
-            } else {
-                $data['categories'] = $categories;
-            }
+            //         $categoryData[] = [
+            //             'name' => $category['name'],
+            //             'icon' => $iconName,
+            //         ];
+            //     }
+            //     $data['categories'] = $categoryData;
+            // } else {
+            //     $data['categories'] = $categories;
+            // }
 
             $connection->update($data);
         } catch (Exception $e) {

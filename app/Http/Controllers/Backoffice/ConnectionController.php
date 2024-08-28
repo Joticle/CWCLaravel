@@ -35,7 +35,7 @@ class ConnectionController extends Controller
         $breadcrumb['All Connections'] = '';
         $data['breadcrumb'] = $breadcrumb;
 
-        $data['data'] = Connection::paginate(env('RECORD_PER_PAGE', 10));
+        $data['data'] = Connection::latest()->paginate(env('RECORD_PER_PAGE', 10));
         return view('backoffice.connection.list', $data);
     }
     public function add()

@@ -26,7 +26,7 @@
                 </div>
                 <div class="card-body">
                     {{ Form::open(['url' => route('admin.connection.add'), 'method' => 'post', 'autocomplete' => 'off', 'files' => true]) }}
-                    <div>
+                    {{-- <div>
                         <div class="align-items-center mb-3">
                             <div class="align-items-center d-flex flex-row justify-content-between section-header">
                                 <h3 class="section-title mb-0">Connection Box</h3>
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="category_records_dynamic"></div>
-                    </div>
+                    </div> --}}
                     <h3>Primary Detail</h3>
                     <div class="row">
                         <div class="col-md-6 mb-2">
@@ -79,6 +79,12 @@
                                 {{ Form::textarea('description', '', ['class' => 'form-control', 'id' => 'description']) }}
                             </div>
                         </div>
+                        <div class="col-md-12 mb-2">
+                            <div class="form-group">
+                                <label class="text-label">Content<span class="text-danger">*</span></label>
+                                {{ Form::textarea('content', '', ['class' => 'form-control tiny', 'id' => 'content']) }}
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <div class="align-items-center mb-3">
@@ -93,12 +99,12 @@
                                     {{ Form::text('button[text]', '', ['class' => 'form-control', 'required' => 'true', 'id' => 'text', 'placeholder' => 'Enter Action Item Text']) }}
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            {{-- <div class="col-md-4">
                                 <div class="form-group mb-0">
                                     <label class="text-label">URL<span class="text-danger">*</span></label>
                                     {{ Form::text('button[url]', '', ['class' => 'form-control', 'required' => 'true', 'id' => 'url', 'placeholder' => 'Enter Action Item Url']) }}
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-2">
                                 <div class="form-group mb-0">
                                     <label class="text-label">Open in new tab?<span class="text-danger">*</span></label>

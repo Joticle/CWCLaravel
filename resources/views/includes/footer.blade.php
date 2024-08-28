@@ -49,11 +49,11 @@
                         <div class="body">
                             <ul class="menu">
                                 @foreach ($connections as $connection)
-                                    @if ($connection->button->url)
+                                    {{-- @if ($connection->button->url) --}}
                                         <li><a
-                                            href="{{ $connection->button->url }}" @if ($connection->button->target_blank) target="_blank" @endif>{{ $connection->button->text }}</a>
+                                            href="{{ route('connection-page', ['slug' => $connection->slug]) }}" @if ($connection->button->target_blank) target="_blank" @endif>{{ $connection->button->text }}</a>
                                         </li>
-                                    @endif
+                                    {{-- @endif --}}
                                 @endforeach
                             </ul>
                         </div>

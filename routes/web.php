@@ -131,7 +131,7 @@ Route::group(['middleware' => 'web'], function(){
                     Route::get('/delete/{id}', [ContentTypeController::class, 'delete'])->name('delete');
                 });
 
-                /*Course Modules*/
+                /*Course Requirement*/
                 Route::group(['prefix' => 'course-requirement','as' => 'course.requirement.'], function(){
                     Route::get('/{course_id?}', [CourseRequirementController::class, 'index'])->name('list');
                     Route::post('/{course_id}', [CourseRequirementController::class, 'create'])->name('add');
@@ -195,3 +195,4 @@ Route::group(['middleware' => 'web'], function(){
 Auth::routes();
 
 Route::get('page/{slug}', [FrontEndController::class, 'cmsPage'])->name('cms-page');
+Route::get('{slug}', [FrontEndController::class, 'connectionPage'])->name('connection-page');

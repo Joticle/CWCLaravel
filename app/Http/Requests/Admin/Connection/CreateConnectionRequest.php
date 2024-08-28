@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Connection;
 
 use App\Http\Controllers\Backoffice\TagController;
+use App\Models\Connection;
 use App\Models\Course;
 use App\Models\Tag;
 use App\Services\TagService;
@@ -32,11 +33,34 @@ class CreateConnectionRequest extends FormRequest
             'name' => 'required',
             'logo' => 'required|image',
             'description' => 'required',
+            'content' => 'nullable',
             'button.text' => 'required',
-            'button.url' => 'required',
+            // 'button.url' => 'required',
             'button.target_blank' => 'required|in:0,1',
-            'categories.*.name' => 'required',
-            'categories.*.icon' => 'required|image|max:2048',
+            // 'categories.*.name' => 'required',
+            // 'categories.*.icon' => 'required|image|max:2048',
+            'slug' => 'required|unique:connections',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => $this->slugify($this->name)
+        ]);
+    }
+
+    private function slugify($text)
+    {
+        $slug = Str::slug($text);
+        $isExists = Connection::where('slug','Like' ,'%' . $slug . '%');
+
+        $isExistsCount = $isExists->count();
+
+        if ($isExistsCount) {
+            $slug = $slug . '-' . ($isExistsCount);
+        }
+
+        return $slug;
     }
 }

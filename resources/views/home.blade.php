@@ -41,12 +41,10 @@
             </div>
             <div class="swiper-pagination"></div>
         </div>
-        <!-- banner area end -->
     @endif
-    <!-- banner area end -->
 
-    <!-- about area start -->
-    <div class="about-area-start rts-section-gapBottom">
+    {{-- connection section --}}
+    {{-- <div class="about-area-start rts-section-gapBottom">
         <div class="container">
             <h3>What is College For World Connections?</h3>
             <p class="paragraph">College for World Connections Center for Innovation & Learning is a full-service Educator
@@ -122,25 +120,98 @@
     @endforeach
 
     </div>
-    </div>
-    <!-- about area end -->
+    </div> --}}
 
-    <!-- about area start -->
-    {{-- <div class="about-area-start rts-section-gapBottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 col-md-9">
-                    <h3>EXECUTIVE LEADERS RISE</h3>
-                    <p>Executive Leaders Rise is a hands-on interactive course for anyone looking to enhance their skills and adapt their mindset to succeed in today’s fast-paced technologically driven business world. Seasoned executives and leadership experts provide a comprehensive guide to the best practice in C-Suite leadership presence, including how to execute strategies and build strong teams leading with authenticity and empathy.</p>
-                    <a href="#" class="mt--10 rts-btn btn-primary">Learn More</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- about area start -->
+                <div class="about-area-start ptb--30">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row align-items-center">
+                                    <div class="col-md-12 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
+                                        <div class="title-area-left-style">
+                                            <div class="pre-title">
+                                                <img src="site-assets/images/banner/bulb.png" alt="icon">
+                                                <span>Gateway to Lifelong Learning</span>
+                                            </div>
+                                            <h2 class="title">What is College For World Connections?</h2>
+                                            <p class="post-title">College for World Connections Center for Innovation &amp;
+                                                Learning is
+                                                a full-service Educator
+                                                Ecosystem for teaching and empowering adults, professionals, and teams in
+                                                Leadership
+                                                Principles. In
+                                                partnership with Joticle, Inc., our academic instructors dedicate their
+                                                knowledge
+                                                and expertise to improving
+                                                the lives of others through leadership instruction, creative and critical
+                                                thinking
+                                                development, and world
+                                                schooling. Leaders RISE and become empowered in a learner friendly, educator
+                                                respected, and educationally
+                                                elevated platform. </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-5">
+                                <div class="row align-items-center">
+                                    @foreach ($connections as $connection)
+                                        <div class="col-md-4 mt-2">
+                                            <a href="{{ route('connection-page', ['slug' => $connection->slug]) }}" class="category-style-home">
+                                                <div class="icon">
+                                                    <img src="{{ $connection->getLogo() }}" alt="brand">
+                                                </div>
+                                                <strong class="d-flex justify-content-center title">{{ $connection->name }}</strong>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-2 col-md-3 d-none d-md-block">
-                    <img src="images/onebig.png" class="img-fluid" alt="Executive Leaders Rise">
+                <!-- about area end -->
+                <div class="about-area-start">
+                    <div class="container">
+                        @foreach ($connections as $key => $connection)
+                            <div class="row mt-5">
+                                @if ($key % 2 == 0)
+                                    <div class="col-lg-2 col-md-3 order-lg-1 d-none d-md-block">
+                                        <img src="{{ $connection->getLogo() }}" class="img-fluid" alt="Entrepreneurs Rise">
+                                    </div>
+                                @endif
+
+                                <div class="col-lg-10 col-md-9 order-lg-2">
+                                    <h3>{{ $connection->name }}</h3>
+                                    <p>{!! $connection->description !!}</p>
+                                    @if ($connection->button)
+                                        <a href="{{ route('connection-page', ['slug' => $connection->slug]) }}"
+                                            @if ($connection->button->target_blank) target="_blank" @endif
+                                            class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
+                                    @endif
+                                </div>
+
+                                @if ($key % 2 == 1)
+                                    <div class="col-lg-2 col-md-3 order-lg-2 d-none d-md-block">
+                                        <img src="{{ $connection->getLogo() }}" class="img-fluid"
+                                            alt="{{ $connection->name }}">
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
-    </div> --}}
-    <div class="about-area-start rts-section-gapBottom">
+    </div>
+
+
+    {{-- Enterprise section --}}
+    {{-- <div class="about-area-start rts-section-gapBottom">
         <div class="container">
             <div class="row">
                 <div class="col-lg-2 col-md-3 order-lg-1 d-none d-md-block">
@@ -157,7 +228,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- trusties area start -->
     <div class="brand-area-one ptb--100">
         <div class="container">

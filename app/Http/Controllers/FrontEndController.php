@@ -50,8 +50,18 @@ class FrontEndController extends Controller
         $page = Cms::where('slug', $slug)->firstOrFail();
 
         $data = [];
-        $data['page']  = $page;
+        $data['row']  = $page;
 
-        return view('cms-page', $data);
+        return view('page', $data);
+    }
+
+    public function connectionPage($slug)
+    {
+        $row = Connection::where('slug', $slug)->firstOrFail();
+
+        $data = [];
+        $data['row']  = $row;
+
+        return view('page', $data);
     }
 }

@@ -30,12 +30,13 @@ class UpdateConnectionRequest extends FormRequest
             'name' => 'required',
             'logo' => 'sometimes|image|max:2048',
             'description' => 'required',
+            'content' => 'nullable',
             'status' => 'required|in:0,1',
             'button.text' => 'required',
-            'button.url' => 'required',
+            // 'button.url' => 'required',
             'button.target_blank' => 'required|in:0,1',
-            'categories.*.name' => 'required',
-            'categories.*.icon' => 'sometimes|image|max:2048'
+            // 'categories.*.name' => 'required',
+            // 'categories.*.icon' => 'sometimes|image|max:2048'
         ];
     }
 }
