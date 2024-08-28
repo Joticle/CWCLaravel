@@ -11,6 +11,7 @@ use App\Http\Controllers\Backoffice\CourseModuleController;
 use App\Http\Controllers\Backoffice\StudentsFeedbackController;
 use App\Http\Controllers\Backoffice\TagController;
 use App\Http\Controllers\Backoffice\ConnectionController;
+use App\Http\Controllers\Backoffice\CourseRequirementController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardCourseController;
 use App\Http\Controllers\FrontEndController;
@@ -128,6 +129,16 @@ Route::group(['middleware' => 'web'], function(){
                     Route::get('/edit/{id}', [ContentTypeController::class, 'edit'])->name('edit');
                     Route::post('/edit/{id}', [ContentTypeController::class, 'update'])->name('edit');
                     Route::get('/delete/{id}', [ContentTypeController::class, 'delete'])->name('delete');
+                });
+
+                /*Course Modules*/
+                Route::group(['prefix' => 'course-requirement','as' => 'course.requirement.'], function(){
+                    Route::get('/{course_id?}', [CourseRequirementController::class, 'index'])->name('list');
+                    Route::post('/{course_id}', [CourseRequirementController::class, 'create'])->name('add');
+                    Route::post('/sort/all', [CourseRequirementController::class, 'sort'])->name('sort');
+                    Route::get('/edit/{id?}', [CourseRequirementController::class, 'edit'])->name('edit');
+                    Route::post('/edit/{id?}', [CourseRequirementController::class, 'update'])->name('edit');
+                    Route::get('/delete/{id}', [CourseRequirementController::class, 'delete'])->name('delete');
                 });
 
                 /*Student Feedback*/

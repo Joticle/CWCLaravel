@@ -4,6 +4,7 @@ namespace App\Models\Traits\Course;
 
 use App\Models\CourseEnroll;
 use App\Models\CourseModule;
+use App\Models\CourseRequirement;
 use App\Models\CourseSyllabus;
 use App\Models\User;
 use App\Models\Wishlist;
@@ -34,5 +35,10 @@ trait Relationships
     public function enrolledUsers()
     {
         return $this->belongsToMany(User::class, 'course_enroll');
+    }
+
+    public function requirements()
+    {
+        return $this->hasMany(CourseRequirement::class, 'course_id', 'id')->orderBy('sort_order', 'asc');
     }
 }

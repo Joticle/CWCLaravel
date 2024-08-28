@@ -73,6 +73,12 @@
                             <li><a href="{{ route('admin.content-type.add') }}">Add New Content Type</a></li>
                         </ul>
                     </li>
+                    <li class="@if (str_contains(request()->route()->getName(), 'admin.course.requirement')) mm-active @endif">
+                        <a class="ai-icon" href="{{ route('admin.course.requirement.list') }}" aria-expanded="false">
+                            <i class="flaticon-381-networking"></i>
+                            <span class="nav-text">Course Requirement</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="@if (str_contains(request()->route()->getName(), 'admin.student-feedback')) mm-active @endif">

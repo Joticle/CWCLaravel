@@ -165,7 +165,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 order-cl-2 order-lg-2 order-md-1 order-sm-1 order-1  {{--rts-sticky-column-item--}}">
+                <div class="col-lg-4 order-cl-2 order-lg-2 order-md-1 order-sm-1 order-1  {{-- rts-sticky-column-item --}}">
                     <!-- right- sticky bar area -->
                     <div class="right-course-details">
                         <!-- single course-sidebar -->
@@ -179,7 +179,8 @@
                                 <span>2 Day left at this price!</span>
                             </div> --}}
                             @if ($course->is_enrolled)
-                                <a href="javascript:void(0)" class="rts-btn btn-success text-white"><i class="fa fa-check"></i>
+                                <a href="javascript:void(0)" class="rts-btn btn-success text-white"><i
+                                        class="fa fa-check"></i>
                                     Enrolled</a>
                             @else
                                 <div class="price-area">
@@ -233,7 +234,7 @@
                                         <span>{{ _date($course->updated_at) }}</span>
                                     </div>
                                 </div>
-                                @if($course->certificate_issued)
+                                @if ($course->certificate_issued)
                                     <div class="single-include">
                                         <div class="left">
                                             <i class="fa-sharp fa-light fa-file-certificate"></i>
@@ -285,26 +286,23 @@
                             </div> --}}
                             <!-- course single sidebar end-->
                             <!-- course single sidebar -->
-                            <div class="course-single-information">
-                                <h5 class="title">Requirements</h5>
-                                <div class="body">
-                                    <!-- ingle check -->
-                                    <div class="single-check">
-                                        <i class="fa-light fa-circle-check"></i>
-                                        Access to Adobe Premiere Pro
+                            @if (Count($course->requirements) > 0)
+                                <div class="course-single-information">
+                                    <h5 class="title">Requirements</h5>
+                                    <div class="body">
+                                        <!-- ingle check -->
+                                        @foreach ($course->requirements as $requirement)
+                                            <div class="single-check">
+                                                <i class="fa-light fa-circle-check"></i>
+                                                {{ $requirement->text }}
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    <!-- ingle check end -->
-                                    <!-- ingle check -->
-                                    <div class="single-check">
-                                        <i class="fa-light fa-circle-check"></i>
-                                        Familiarity with computers and other devices
-                                    </div>
-                                    <!-- ingle check end -->
                                 </div>
-                            </div>
+                            @endif
                             <!-- course single sidebar end-->
                             <!-- course single sidebar -->
-                            @if($course->formatTags)
+                            @if ($course->formatTags)
                                 <div class="course-single-information">
                                     <h5 class="title">Tags</h5>
                                     <div class="body">
@@ -343,7 +341,7 @@
                                     <!-- ingle check -->
                                     <div class="single-check">
                                         <i class="fa-light fa-circle-check"></i>
-                                        {{$course->audience}}
+                                        {{ $course->audience }}
                                     </div>
                                     <!-- ingle check end -->
                                 </div>
