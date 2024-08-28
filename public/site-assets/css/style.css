@@ -31337,3 +31337,7 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
 .opacity-0 {
     opacity: 0;
 }
+.remove-tag {
+    position: static !important;
+    transform: none !important;
+}

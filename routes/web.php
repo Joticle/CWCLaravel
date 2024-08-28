@@ -44,6 +44,7 @@ Route::group(['middleware' => 'web'], function(){
 
         Route::group(['middleware' => 'check.user.status'], function(){
             Route::get('/courses', [FrontEndCourseController::class, 'courses'])->name('courses');
+            Route::get('/courses/search', [FrontEndCourseController::class, 'coursesSearch'])->name('courses.search');
             Route::get('/course/{slug}', [FrontEndCourseController::class, 'courseDetail'])->name('course.detail');
             Route::get('/course/enroll/{slug}', [FrontEndCourseController::class, 'courseEnroll'])->name('course.enroll');
 
