@@ -2,7 +2,7 @@
 @section('title', $title)
 @section('content')
     {{-- bread crumb area --}}
-    <div class="rts-bread-crumbarea-1 rts-section-gap bg_image">
+    <div class="rts-bread-crumbarea-1 rts-section-gap bg_image pt--30 pb--30">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -25,7 +25,7 @@
     </div>
     {{-- bread crumb area end --}}
     <!-- course area start -->
-    <div class="rts-course-default-area rts-section-gap">
+    <div class="rts-course-default-area rts-section-gap pt--30">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-3">
