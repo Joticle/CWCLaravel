@@ -4,7 +4,7 @@
 @section('content')
 
     <!-- course details breadcrumb -->
-    <div class="course-details-breadcrumb-1 bg_image rts-section-gap">
+    <div class="bg_image rts-section-gap">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

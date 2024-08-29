@@ -32,9 +32,7 @@
                         <div class="body">
                             <ul class="menu">
                                 @foreach ($pages as $page)
-                                    <li><a
-                                            href="{{ route('cms-page', ['slug' => $page->slug]) }}">{{ $page->name }}</a>
-                                    </li>
+                                    <li><a href="{{ route('cms-page', ['slug' => $page->slug]) }}">{{ $page->name }}</a></li>
                                 @endforeach
 
                             </ul>
@@ -51,7 +49,7 @@
                                 @foreach ($connections as $connection)
                                     {{-- @if ($connection->button->url) --}}
                                         <li><a
-                                            href="{{ route('connection-page', ['slug' => $connection->slug]) }}" @if ($connection->button->target_blank) target="_blank" @endif>{{ $connection->button->text }}</a>
+                                            href="{{ route('connection-page', ['slug' => $connection->slug]) }}">{{ $connection->name }}</a>
                                         </li>
                                     {{-- @endif --}}
                                 @endforeach
