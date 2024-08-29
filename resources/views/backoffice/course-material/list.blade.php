@@ -314,9 +314,14 @@ $("#select_search_course").select2({
                     cache: true
                 },
                 placeholder: 'Search Course',
-                minimumInputLength: 1,
+                minimumInputLength: 0,
                 templateResult: formatRepo,
                 templateSelection: formatRepoSelection
+            });
+
+            // get default 5 courses
+            $('#select_search_course').data('select2').trigger('query', {
+                term: ''
             });
 
             {{--Fields Sorting--}}
