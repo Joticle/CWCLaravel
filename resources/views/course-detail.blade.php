@@ -81,7 +81,7 @@
                         <div class="tab-pane fade  show active" id="course-details" role="tabpanel"
                              aria-labelledby="course-details-tab">
                             <div class="course-content-wrapper">
-                                <div style="max-height: 1000px; overflow-y: scroll;">
+                                <div style="max-height: 711px; overflow-y: scroll;">
                                     {!! $course->description !!}
                                 </div>
                                 <div class="module-wrapper mb--30">
