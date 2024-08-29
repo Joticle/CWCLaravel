@@ -48,13 +48,16 @@ class FrontEndController extends Controller
     public function cmsPage($slug)
     {
         $page = Cms::where('slug', $slug)->firstOrFail();
+        $data = [];
+
         /*breadcrumb start*/
         $breadcrumb = [];
         $breadcrumb['Home'] = route('index');
         $breadcrumb[$page->name] = '';
         $data['breadcrumb'] = $breadcrumb;
         /*breadcrumb end*/
-        $data = [];
+
+
         $data['row']  = $page;
 
         return view('page', $data);
@@ -63,6 +66,8 @@ class FrontEndController extends Controller
     public function connectionPage($slug)
     {
         $row = Connection::where('slug', $slug)->firstOrFail();
+        $data = [];
+        
         /*breadcrumb start*/
         $breadcrumb = [];
         $breadcrumb['Home'] = route('index');
@@ -70,7 +75,6 @@ class FrontEndController extends Controller
         $data['breadcrumb'] = $breadcrumb;
         /*breadcrumb end*/
 
-        $data = [];
         $data['row']  = $row;
 
         return view('page', $data);
