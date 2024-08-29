@@ -45,7 +45,58 @@
 
     {{-- connection section --}}
     <div class="about-area-start rts-section-gapBottom">
-
+        <div class="col-md-12 mt-5">
+            <div class="row align-items-center">
+                <div class="col-md-4 mt-2">
+                    <a href="#" class="category-style-home">
+                        <div class="icon">
+                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/7/255_file_1722927798.png" alt="brand">
+                        </div>
+                        <strong class="title">Hub Overview</strong>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-2">
+                    <a href="#" class="category-style-home">
+                        <div class="icon">
+                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/1/938_file_1722927798.png" alt="brand">
+                        </div>
+                        <strong class="title">Eduprenuer Corner</strong>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-2">
+                    <a href="#" class="category-style-home">
+                        <div class="icon">
+                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/15/178_file_1722927798.png" alt="brand">
+                        </div>
+                        <strong class="title">Features &amp; Topic Pods</strong>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-2">
+                    <a href="#" class="category-style-home">
+                        <div class="icon">
+                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/2/970_file_1722927798.png" alt="brand">
+                        </div>
+                        <strong class="title">Marketing Support</strong>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-2">
+                    <a href="#" class="category-style-home">
+                        <div class="icon">
+                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/5/876_file_1722927798.png" alt="brand">
+                        </div>
+                        <strong class="title">Monetize</strong>
+                    </a>
+                </div>
+                <div class="col-md-4 mt-2">
+                    <a href="#" class="category-style-home">
+                        <div class="icon">
+                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/12/952_file_1722927798.png" alt="brand">
+                        </div>
+                        <strong class="title">Non Profit Channel</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-xl-6 col-lg-12 pl--60 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
         <div class="title-area-left-style">
@@ -70,16 +121,6 @@
             </div>
         </div>
     </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-lg-10 col-md-9">
-            <h3>TEST</h3>
-            <p>fafa</p>
-
-        </div>
-        <div class="col-lg-2 col-md-3 d-none d-md-block">
-           
-        </div>
     </div>
 
     <div class="container">
