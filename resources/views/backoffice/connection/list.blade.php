@@ -36,6 +36,7 @@
                                 <th>Logo</th>
                                 <th>Status</th>
                                 <th>Created Date</th>
+                                <th>Slug</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -54,10 +55,12 @@
                                             @endif
                                         </td>
                                         <td>{{_date($row->created_at)}}</td>
+                                        <td>{{$row->slug}}</td>
                                         <td>
                                             <div class="d-flex">
                                                 <a href="{{route('admin.connection.edit',$row->id)}}" data-toggle="tooltip" title="Edit {{$singular_name}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
                                                 &nbsp;<a data-toggle="tooltip" title="Delete {{$singular_name}}" href="javascript:void(0)" data-href="{{route('admin.connection.delete',$row->id)}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                &nbsp;<a data-toggle="tooltip" title="View Connection" target="_blank" href="{{route('connection-page',$row->slug)}}" class="btn btn-success shadow btn-xs sharp"><i class="fa fa-eye"></i></a>
                                             </div>
                                         </td>
                                     </tr>
