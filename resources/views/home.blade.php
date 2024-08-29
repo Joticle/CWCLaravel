@@ -73,15 +73,12 @@
     </div>
     <div class="row mt-4">
         <div class="col-lg-10 col-md-9">
-            <h3>{{ Str::upper($connection->name) }}</h3>
-            <p>{{ $connection->description }}</p>
-            @if ($connection->button)
-                <a href="{{ $connection->button->url }}" @if ($connection->button->target_blank) target="_blank" @endif
-                class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
-            @endif
+            <h3>TEST</h3>
+            <p>fafa</p>
+
         </div>
         <div class="col-lg-2 col-md-3 d-none d-md-block">
-            <img src="{{ $connection->getLogo() }}" class="img-fluid" alt="{{ $connection->name }}">
+           
         </div>
     </div>
 
