@@ -187,7 +187,7 @@
                                                 <!-- single-facilities -->
                                                 <div class="single-facilityes">
                                                     <div class="icon">
-                                                        <img src="site-assets/images/about/icon/01.png" alt="icon-image">
+                                                        <img src="site-assets/images/about/icon/02.png" alt="icon-image">
                                                     </div>
                                                     <div class="information">
                                                         <h5 class="title">Expert Instructors</h5>
@@ -198,7 +198,7 @@
                                             </div>
                                             <div class="author-area">
                                                 <div class="single-author-and-info">
-                                                    <img src="{{asset('site-assets/images/about/02.png')}}" alt="about">
+                                                    <img src="{{asset('site-assets/images/about/01.png')}}" alt="about">
                                                     <div class="information">
                                                         <a href="#">
                                                             <h6 class="title">Dr Susan</h6>
