@@ -136,8 +136,18 @@
 
                                                         <div class="play-vedio-wrapper">
                                                             <div class="left">
-                                                                <i class="fa-light {{ $content_icon }}"></i>
-                                                                <span>{{ $course_content->name }}</span>
+                                                                @if ($course->is_enrolled)
+                                                                    <a href="{{ $course_content->preview_link }}"
+                                                                       @if (in_array($course_content->contentType->type, ['link', 'file', 'image'])) target="_blank" @endif
+                                                                       @if (in_array($course_content->contentType->type, ['paragraph', 'embedded-video'])) data-content-id="{{ $course_content->id }}" data-bs-toggle="modal" data-bs-target="#contentModal" @endif>
+
+                                                                        <i class="fa-light {{ $content_icon }}"></i>
+                                                                        <span>{{ $course_content->name }}</span>
+                                                                    </a>
+                                                                @else
+                                                                    <i class="fa-light {{ $content_icon }}"></i>
+                                                                    <span>{{ $course_content->name }}</span>
+                                                                @endif
                                                             </div>
                                                             <div class="right">
                                                                 @if ($course->is_enrolled)
