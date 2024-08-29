@@ -10,6 +10,12 @@
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
+            <li>
+                <a class="ai-icon" href="{{route('admin.header.menus')}}">
+                    <i class="flaticon-381-book"></i>
+                    <span class="nav-text">Header Menu</span>
+                </a>
+            </li>
             <li class="@if (str_contains(request()->route()->getName(), 'admin.cms')) mm-active @endif">
                 <a class="ai-icon" href="{{ route('admin.cms.list') }}" aria-expanded="true">
                     <i class="flaticon-381-file-2"></i>
