@@ -67,7 +67,7 @@ class FrontEndController extends Controller
     {
         $row = Connection::where('slug', $slug)->firstOrFail();
         $data = [];
-        
+
         /*breadcrumb start*/
         $breadcrumb = [];
         $breadcrumb['Home'] = route('index');
