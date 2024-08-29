@@ -32,10 +32,10 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Slug</th>
                                 <th>Name</th>
                                 <th>Status</th>
                                 <th>Created Date</th>
+                                <th>Slug</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -44,7 +44,6 @@
                                 @foreach($data as $index=>$row)
                                     <tr>
                                         <td><strong>{{ $index + $data->firstItem() }}</strong></td>
-                                        <td>{{$row->slug}}</td>
                                         <td>{{$row->name}}</td>
                                         <td>
                                             @if($row->status == '1')
@@ -54,11 +53,12 @@
                                             @endif
                                         </td>
                                         <td>{{_date($row->created_at)}}</td>
+                                        <td>{{$row->slug}}</td>
                                         <td>
                                             <div class="d-flex">
                                                 <a href="{{route('admin.cms.edit',$row->id)}}" data-toggle="tooltip" title="Edit {{$singular_name}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
                                                 &nbsp;<a data-toggle="tooltip" title="Delete {{$singular_name}}" href="javascript:void(0)" data-href="{{route('admin.cms.delete',$row->id)}}" class="btn btn-danger deletedBtn shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                                {{-- &nbsp;<a href="{{route('admin.cms.list',$row->id)}}" data-toggle="tooltip" title="Manage {{$singular_name}} Modules" class="btn btn-success shadow btn-xs sharp me-1"><i class="fa fa-newspaper-o"></i></a> --}}
+                                                &nbsp;<a data-toggle="tooltip" title="View Page" target="_blank" href="{{route('cms-page',$row->slug)}}" class="btn btn-success shadow btn-xs sharp"><i class="fa fa-eye"></i></a>
                                             </div>
                                         </td>
                                     </tr>
