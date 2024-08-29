@@ -32,6 +32,7 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Slug</th>
                                 <th>Name</th>
                                 <th>Status</th>
                                 <th>Created Date</th>
@@ -43,6 +44,7 @@
                                 @foreach($data as $index=>$row)
                                     <tr>
                                         <td><strong>{{ $index + $data->firstItem() }}</strong></td>
+                                        <td>{{$row->slug}}</td>
                                         <td>{{$row->name}}</td>
                                         <td>
                                             @if($row->status == '1')
