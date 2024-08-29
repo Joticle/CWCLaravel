@@ -34,7 +34,7 @@ trait Relationships
 
     public function enrolledUsers()
     {
-        return $this->belongsToMany(User::class, 'course_enroll');
+        return $this->belongsToMany(User::class, 'course_enroll')->wherePivot('status', 'paid');
     }
 
     public function requirements()
