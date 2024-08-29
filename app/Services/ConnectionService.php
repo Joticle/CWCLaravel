@@ -60,7 +60,7 @@ class ConnectionService extends BaseService
             //     }
 
             //     $connection->categories = $categoryData;
-            //     $connection->save();
+                 $connection->save();
             // }
         } catch (Exception $e) {
             DB::rollBack();
