@@ -140,11 +140,112 @@
             </div>
         </div>
     </div>
+
+    {{-- Payment Modal --}}
+    <div class="modal fade" id="paymentModal">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content" id="edit-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment Modal</h5>
+                    <button type="button" class="btn-close bg-transparent border-0" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="spinner-grow" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <div id="checkout"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- course area end -->
 @endsection
 @push('js')
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
+        $('#paymentModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var courseId = button.data('course-id');
+            const stripe = Stripe('{{ env('STRIPE_PUBLIC_KEY') }}');
+            if (courseId) {
+                // showLoader();
+                $.ajax({
+                    url: '{{ route('payment.checkout') }}/' + courseId,
+                    success: function(response) {
+                        if(response.success == true) {
+                            let stripeObj = response.data;
+                            const checkout = stripe.initEmbeddedCheckout(stripeObj).then(function(checkout) {
+                                checkout.mount('#checkout');
+                            });
+                        }
+                        else {
+                            errorMsg(response.message);
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                }).always(function() {
+                    // hideLoader();
+                });
+            } else {
+                errorMsg('Something went wrong with course.');
+            }
+
+        });
         $(document).ready(function() {
+            // payment test
+
+
+            // bookmark course
+            $('.bookmark-course').on('click', function(event) {
+                event.preventDefault();
+                var icon = $(this);
+                var courseId = icon.data('course-id');
+
+                if (icon.hasClass('disabled')) {
+                    return;
+                }
+                icon.addClass('disabled');
+
+                $.ajax({
+                    url: '{{ route('dashboard.wishlist.action') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        course_id: courseId
+                    },
+                    success: function(result) {
+                        try {
+                            result = JSON.parse(result);
+                        } catch (e) {}
+                        if ($.trim(result.success) == 'true') {
+                            icon.toggleClass('solid');
+                            successMsg(result.message);
+                            // if (result.reload == true) {
+                            //     location.reload();
+                            // }
+                        } else {
+                            var errorsShow = '';
+                            $.each(result.message, function(k, v) {
+                                errorsShow += v + '<br>';
+                            });
+                            errorMsg(errorsShow);
+                        }
+                    },
+                    error: function(request, status, error) {
+                        errorMsg('Error: ' + error);
+                    },
+                    complete: function() {
+                        icon.removeClass('disabled');
+                    }
+                });
+            });
+
             // Initial load
             loadTags(); // Load default 10 tags on page load
 
@@ -299,11 +400,12 @@
                 method: 'GET',
                 data: filterValues,
                 success: function(response) {
-                    if(response.success) {
+                    if (response.success) {
                         $('#course-list').html(response.html);
-                    }
-                    else {
-                        $('#course-list').html('<div class="d-flex justify-content-center"><h6 class="mt--100 title">No Course Found</h6></div>');
+                    } else {
+                        $('#course-list').html(
+                            '<div class="d-flex justify-content-center"><h6 class="mt--100 title">No Course Found</h6></div>'
+                        );
                     }
 
                 },

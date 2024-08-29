@@ -16,14 +16,18 @@ class StripeController
     function MakePaymentUrl($line_items, $metadata){
         try{
             $data = [];
+
+            $data['ui_mode']  = 'embedded';
+
             $data['payment_method_types'] = ['card'];
             $data['line_items'] = $line_items;
             $data['mode'] = 'payment'; // 'setup' or 'subscription' can be used here based on your needs
-            $data['success_url'] = route('payment.success').'?sessionId={CHECKOUT_SESSION_ID}';
-            $data['cancel_url'] = route('payment.error').'?sessionId={CHECKOUT_SESSION_ID}';
+            $data['return_url'] = route('payment.success').'?sessionId={CHECKOUT_SESSION_ID}';
+            // $data['cancel_url'] = route('payment.error').'?sessionId={CHECKOUT_SESSION_ID}';
             $data['metadata'] = $metadata;
             $checkout_session = Session::create($data);
-            return ['success'=>'true','url'=> $checkout_session->url];
+
+            return ['success'=>'true','secret'=> $checkout_session->client_secret];
         } catch (\Exception $e){
             return ['success'=>'false', 'message'=>$e->getMessage()];
         }

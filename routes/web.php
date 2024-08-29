@@ -22,6 +22,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController as ControllersTagController;
 use App\Http\Controllers\WishlistController;
+use App\Models\Course;
+use App\Utility\StripeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +38,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('test', function () {
+    $course = Course::find(1);
+    $line_items = [];
+    $unit_price = round($course->price, 2);
+    $line_items[] = [
+        'price_data' => [
+            'currency' => 'USD',
+            'unit_amount' => $unit_price * 100,
+            'product_data' => [
+                'name' => $course->name,
+                'images' => [$course->getLogo()],
+                'description' => 'Course enrollment payment for ' . $course->name,
+            ],
+        ],
+        'quantity' => 1,
+    ];
+    $meta = ['enroll_id' => 1];
+    $stripe = new StripeController;
+    $stripe_response = $stripe->MakePaymentUrl($line_items, $meta);
+    return $stripe_response;
+})->name('test');
 
 Route::group(['middleware' => 'web'], function () {
     Route::get('/', [FrontEndController::class, 'index'])->name('index');
@@ -55,6 +78,7 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('tags/search', [ControllersTagController::class, 'search'])->name('tags.search');
 
             /*Stripe*/
+            Route::get('course/payment/checkout{id?}', [FrontEndPaymentController::class, 'checkout'])->name('payment.checkout');
             Route::get('/course/payment/success', [FrontEndPaymentController::class, 'paymentSuccess'])->name('payment.success');
             Route::get('/course/payment/error', [FrontEndPaymentController::class, 'paymentError'])->name('payment.error');
 
