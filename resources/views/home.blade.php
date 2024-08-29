@@ -133,11 +133,11 @@
                                 <div class="row align-items-center">
                                     @foreach ($connections as $connection)
                                         <div class="col-md-4 mt-2">
-                                            <a href="{{ route('connection-page', ['slug' => $connection->slug]) }}" class="category-style-home">
+                                            <a href="#" class="category-style-home">
                                                 <div class="icon">
-                                                    <img src="{{ $connection->getLogo() }}" alt="brand">
+                                                    <img src="{{$connection->getLogo()}}" alt="{{ $connection->name }}">
                                                 </div>
-                                                <strong class="d-flex justify-content-center title">{{ $connection->name }}</strong>
+                                                <strong class="title">{{ $connection->name }}</strong>
                                             </a>
                                         </div>
                                     @endforeach
