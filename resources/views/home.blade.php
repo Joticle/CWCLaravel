@@ -137,8 +137,8 @@
                                                 <div class="icon">
                                                     <img src="{{$connection->getLogo()}}" alt="{{ $connection->name }}">
                                                 </div>
-                                                <h5 class="title">Development</h5>
-                                                <span>{{ $connection->name }}</span>
+                                                <h5 class="title">{{ $connection->name }}</h5>
+                                                {{--<span>{{ $connection->name }}</span>--}}
                                             </a>
 
                                         </div>
