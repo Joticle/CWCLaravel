@@ -187,7 +187,7 @@
                                                 <!-- single-facilities -->
                                                 <div class="single-facilityes">
                                                     <div class="icon">
-                                                        <img src="site-assets/images/about/icon/02.png" alt="icon-image">
+                                                        <img src="site-assets/images/about/icon/01.png" alt="icon-image">
                                                     </div>
                                                     <div class="information">
                                                         <h5 class="title">Expert Instructors</h5>
