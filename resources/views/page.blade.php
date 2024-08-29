@@ -22,6 +22,9 @@
                             {{ $row->name??'' }}
                         </h1>
                     </div>
+                    <p>
+                        {{ $row->description??'' }}
+                    </p>
                 </div>
             </div>
         </div>
