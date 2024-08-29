@@ -21,8 +21,8 @@
                                             @if (optional($banner->button)->url)
                                                 <div class="banner-btn-author-wrapper">
                                                     <a href="{{ optional($banner->button)->url }}"
-                                                        @if (optional($banner->button)->target_blank) target="_blank" @endif
-                                                        class="rts-btn btn-primary with-arrow">{{ optional($banner->button)->text }}
+                                                       @if (optional($banner->button)->target_blank) target="_blank" @endif
+                                                       class="rts-btn btn-primary with-arrow">{{ optional($banner->button)->text }}
                                                         <i class="fa-regular fa-arrow-right"></i></a>
                                                 </div>
                                             @endif
@@ -44,7 +44,7 @@
     @endif
 
     {{-- connection section --}}
-     <div class="about-area-start rts-section-gapBottom">
+    <div class="about-area-start rts-section-gapBottom">
 
     </div>
     <div class="col-xl-6 col-lg-12 pl--60 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
@@ -77,17 +77,12 @@
             <p>{{ $connection->description }}</p>
             @if ($connection->button)
                 <a href="{{ $connection->button->url }}" @if ($connection->button->target_blank) target="_blank" @endif
-                    class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
+                class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
             @endif
         </div>
         <div class="col-lg-2 col-md-3 d-none d-md-block">
             <img src="{{ $connection->getLogo() }}" class="img-fluid" alt="{{ $connection->name }}">
         </div>
-    </div>
-    </div>
-    @endforeach
-
-    </div>
     </div>
 
     <div class="container">
@@ -109,15 +104,15 @@
                                     <p>{!! $connection->description !!}</p>
                                     @if ($connection->button)
                                         <a href="{{ route('connection-page', ['slug' => $connection->slug]) }}"
-                                            @if ($connection->button->target_blank) target="_blank" @endif
-                                            class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
+                                           @if ($connection->button->target_blank) target="_blank" @endif
+                                           class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
                                     @endif
                                 </div>
 
                                 @if ($key % 2 == 1)
                                     <div class="col-lg-2 col-md-3 order-lg-2 d-none d-md-block">
                                         <img src="{{ $connection->getLogo() }}" class="img-fluid"
-                                            alt="{{ $connection->name }}">
+                                             alt="{{ $connection->name }}">
                                     </div>
                                 @endif
                             </div>
@@ -158,7 +153,7 @@
                             <h6 class="title">Trusted by:</h6>
                         </div>
                         <div class="swiper mySwiper-category-1 swiper-data"
-                            data-swiper='{
+                             data-swiper='{
                             "spaceBetween":30,
                             "slidesPerView":6,
                             "loop": true,
@@ -288,9 +283,9 @@
                         </div>
                         <div class="shape-image">
                             <div class="shape one" data-speed="0.04" data-revert="true"><img
-                                    src="site-assets/images/banner/18.png" alt=""></div>
+                                        src="site-assets/images/banner/18.png" alt=""></div>
                             <div class="shape three" data-speed="0.04"><img src="site-assets/images/banner/17.png"
-                                    alt=""></div>
+                                                                            alt=""></div>
                         </div>
                     </div>
                 </div>
