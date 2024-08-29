@@ -21,8 +21,8 @@
                                             @if (optional($banner->button)->url)
                                                 <div class="banner-btn-author-wrapper">
                                                     <a href="{{ optional($banner->button)->url }}"
-                                                       @if (optional($banner->button)->target_blank) target="_blank" @endif
-                                                       class="rts-btn btn-primary with-arrow">{{ optional($banner->button)->text }}
+                                                        @if (optional($banner->button)->target_blank) target="_blank" @endif
+                                                        class="rts-btn btn-primary with-arrow">{{ optional($banner->button)->text }}
                                                         <i class="fa-regular fa-arrow-right"></i></a>
                                                 </div>
                                             @endif
@@ -44,59 +44,40 @@
     @endif
 
     {{-- connection section --}}
-    <div class="about-area-start rts-section-gapBottom">
-        <div class="col-md-12 mt-5">
-            <div class="row align-items-center">
-                <div class="col-md-4 mt-2">
-                    <a href="#" class="category-style-home">
-                        <div class="icon">
-                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/7/255_file_1722927798.png" alt="brand">
-                        </div>
-                        <strong class="title">Hub Overview</strong>
-                    </a>
-                </div>
-                <div class="col-md-4 mt-2">
-                    <a href="#" class="category-style-home">
-                        <div class="icon">
-                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/1/938_file_1722927798.png" alt="brand">
-                        </div>
-                        <strong class="title">Eduprenuer Corner</strong>
-                    </a>
-                </div>
-                <div class="col-md-4 mt-2">
-                    <a href="#" class="category-style-home">
-                        <div class="icon">
-                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/15/178_file_1722927798.png" alt="brand">
-                        </div>
-                        <strong class="title">Features &amp; Topic Pods</strong>
-                    </a>
-                </div>
-                <div class="col-md-4 mt-2">
-                    <a href="#" class="category-style-home">
-                        <div class="icon">
-                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/2/970_file_1722927798.png" alt="brand">
-                        </div>
-                        <strong class="title">Marketing Support</strong>
-                    </a>
-                </div>
-                <div class="col-md-4 mt-2">
-                    <a href="#" class="category-style-home">
-                        <div class="icon">
-                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/5/876_file_1722927798.png" alt="brand">
-                        </div>
-                        <strong class="title">Monetize</strong>
-                    </a>
-                </div>
-                <div class="col-md-4 mt-2">
-                    <a href="#" class="category-style-home">
-                        <div class="icon">
-                            <img src="http://projects.devandesign.com/joticlehub/public/uploads/icon/12/952_file_1722927798.png" alt="brand">
-                        </div>
-                        <strong class="title">Non Profit Channel</strong>
-                    </a>
-                </div>
-            </div>
+    {{-- <div class="about-area-start rts-section-gapBottom">
+        <div class="container">
+            <h3>What is College For World Connections?</h3>
+            <p class="paragraph">College for World Connections Center for Innovation & Learning is a full-service Educator
+                Ecosystem for teaching and empowering adults, professionals, and teams in Leadership Principles. In
+                partnership with Joticle, Inc., our academic instructors dedicate their knowledge and expertise to improving
+                the lives of others through leadership instruction, creative and critical thinking development, and world
+                schooling. Leaders RISE and become empowered in a learner friendly, educator respected, and educationally
+                elevated platform. </p>
+            @foreach ($connections as $connection)
+                <div class="rts-section-gapBottom">
+                    <div class="row align-items-center">
+                        <div class="col-xl-6 col-lg-12">
+                            <!-- about-one-imagearea -->
+                            <div class="about-one-left-image">
+                                @foreach ($connection->categories as $index => $category)
+                                    @if ($index % 2 == 0)
+                                        <div class="first-order">
+                                    @endif
+
+                                    <a href="#" class="category-style-one">
+                                        <div class="icon">
+                                            <img src="{{ $connection->getCategoryIcon($category->icon) }}" alt="brand">
+                                        </div>
+                                        <h5 class="title">{{ $category->name }}</h5>
+                                    </a>
+
+                                    @if ($index % 2 == 1 || $loop->last)
+                            </div>
+            @endif
+            @endforeach
+
         </div>
+        <!-- about-one-imagearea end -->
     </div>
     <div class="col-xl-6 col-lg-12 pl--60 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
         <div class="title-area-left-style">
@@ -122,11 +103,78 @@
         </div>
     </div>
     </div>
+    <div class="row mt-4">
+        <div class="col-lg-10 col-md-9">
+            <h3>{{ Str::upper($connection->name) }}</h3>
+            <p>{{ $connection->description }}</p>
+            @if ($connection->button)
+                <a href="{{ $connection->button->url }}" @if ($connection->button->target_blank) target="_blank" @endif
+                    class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
+            @endif
+        </div>
+        <div class="col-lg-2 col-md-3 d-none d-md-block">
+            <img src="{{ $connection->getLogo() }}" class="img-fluid" alt="{{ $connection->name }}">
+        </div>
+    </div>
+    </div>
+    @endforeach
+
+    </div>
+    </div> --}}
 
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-
+                <!-- about area start -->
+                <div class="about-area-start ptb--30">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row align-items-center">
+                                    @foreach ($connections as $connection)
+                                        <div class="col-md-4 mt-2">
+                                            <a href="{{ route('connection-page', ['slug' => $connection->slug]) }}" class="category-style-home">
+                                                <div class="icon">
+                                                    <img src="{{ $connection->getLogo() }}" alt="brand">
+                                                </div>
+                                                <strong class="d-flex justify-content-center title">{{ $connection->name }}</strong>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row align-items-center">
+                                    <div class="col-md-12 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
+                                        <div class="title-area-left-style">
+                                            <div class="pre-title">
+                                                <img src="site-assets/images/banner/bulb.png" alt="icon">
+                                                <span>Gateway to Lifelong Learning</span>
+                                            </div>
+                                            <h2 class="title">What is College For World Connections?</h2>
+                                            <p class="post-title">College for World Connections Center for Innovation &amp;
+                                                Learning is
+                                                a full-service Educator
+                                                Ecosystem for teaching and empowering adults, professionals, and teams in
+                                                Leadership
+                                                Principles. In
+                                                partnership with Joticle, Inc., our academic instructors dedicate their
+                                                knowledge
+                                                and expertise to improving
+                                                the lives of others through leadership instruction, creative and critical
+                                                thinking
+                                                development, and world
+                                                schooling. Leaders RISE and become empowered in a learner friendly, educator
+                                                respected, and educationally
+                                                elevated platform. </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- about area end -->
                 <div class="about-area-start">
                     <div class="container">
                         @foreach ($connections as $key => $connection)
@@ -142,15 +190,15 @@
                                     <p>{!! $connection->description !!}</p>
                                     @if ($connection->button)
                                         <a href="{{ route('connection-page', ['slug' => $connection->slug]) }}"
-                                           @if ($connection->button->target_blank) target="_blank" @endif
-                                           class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
+                                            @if ($connection->button->target_blank) target="_blank" @endif
+                                            class="mt--10 rts-btn btn-primary">{{ $connection->button->text }}</a>
                                     @endif
                                 </div>
 
                                 @if ($key % 2 == 1)
                                     <div class="col-lg-2 col-md-3 order-lg-2 d-none d-md-block">
                                         <img src="{{ $connection->getLogo() }}" class="img-fluid"
-                                             alt="{{ $connection->name }}">
+                                            alt="{{ $connection->name }}">
                                     </div>
                                 @endif
                             </div>
@@ -191,7 +239,7 @@
                             <h6 class="title">Trusted by:</h6>
                         </div>
                         <div class="swiper mySwiper-category-1 swiper-data"
-                             data-swiper='{
+                            data-swiper='{
                             "spaceBetween":30,
                             "slidesPerView":6,
                             "loop": true,
@@ -321,9 +369,9 @@
                         </div>
                         <div class="shape-image">
                             <div class="shape one" data-speed="0.04" data-revert="true"><img
-                                        src="site-assets/images/banner/18.png" alt=""></div>
+                                    src="site-assets/images/banner/18.png" alt=""></div>
                             <div class="shape three" data-speed="0.04"><img src="site-assets/images/banner/17.png"
-                                                                            alt=""></div>
+                                    alt=""></div>
                         </div>
                     </div>
                 </div>
