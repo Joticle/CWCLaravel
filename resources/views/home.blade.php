@@ -171,6 +171,44 @@
                                                 respected, and educationally
                                                 elevated platform. </p>
                                         </div>
+                                        <div class="about-inner-right-one">
+                                            <div class="what-you-get">
+                                                <!-- single-facilities -->
+                                                <div class="single-facilityes">
+                                                    <div class="icon">
+                                                        <img src="assets/images/about/icon/01.png" alt="icon-image">
+                                                    </div>
+                                                    <div class="information">
+                                                        <h5 class="title">Learn with Expert </h5>
+                                                        <p>We are passionate education.</p>
+                                                    </div>
+                                                </div>
+                                                <!-- single-facilities end -->
+                                                <!-- single-facilities -->
+                                                <div class="single-facilityes">
+                                                    <div class="icon">
+                                                        <img src="assets/images/about/icon/02.png" alt="icon-image">
+                                                    </div>
+                                                    <div class="information">
+                                                        <h5 class="title">Expert Instructors</h5>
+                                                        <p>We are passionate about education</p>
+                                                    </div>
+                                                </div>
+                                                <!-- single-facilities end -->
+                                            </div>
+                                            <div class="author-area">
+                                                <div class="single-author-and-info">
+                                                    <img src="assets/images/about/02.png" alt="about">
+                                                    <div class="information">
+                                                        <a href="#">
+                                                            <h6 class="title">Dr Susan</h6>
+                                                        </a>
+                                                        <p class="desig">CEO, College For World Connections</p>
+                                                    </div>
+                                                </div>
+                                                <a href="{{route('cms-page','about')}}" class="rts-btn btn-primary">About Us</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
