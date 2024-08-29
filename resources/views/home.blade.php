@@ -133,19 +133,12 @@
                                 <div class="row align-items-center">
                                     @foreach ($connections as $connection)
                                         <div class="col-md-4 mt-2">
-                                            <a href="#" class="category-style-home">
+                                            <a href="{{ route('connection-page', ['slug' => $connection->slug]) }}" class="category-style-one">
                                                 <div class="icon">
                                                     <img src="{{$connection->getLogo()}}" alt="{{ $connection->name }}">
                                                 </div>
-                                                <strong class="title">{{ $connection->name }}</strong>
-                                            </a>
-
-                                            <a href="#" class="category-style-one">
-                                                <div class="icon">
-                                                    <img src="assets/images/category/01.svg" alt="brand">
-                                                </div>
                                                 <h5 class="title">Development</h5>
-                                                <span>130+ Courses</span>
+                                                <span>{{ $connection->name }}</span>
                                             </a>
 
                                         </div>
