@@ -10,7 +10,7 @@
                         <div class="meta-area">
                             @foreach ($breadcrumb as $bTile => $bLink)
                                 <a href="{{ !empty($bLink) ? $bLink : '#' }}"
-                                    class="{{ !empty($bLink) ? '' : 'active' }}">{{ $bTile }}</a>
+                                   class="{{ !empty($bLink) ? '' : 'active' }}">{{ $bTile }}</a>
                                 @if (!empty($bLink))
                                     <i class="fa-regular fa-chevron-right"></i>
                                 @endif
@@ -62,27 +62,29 @@
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-                                    data-bs-target="#course-details" type="button" role="tab"
-                                    aria-controls="course-details" aria-selected="true">Course Information</button>
+                                        data-bs-target="#course-details" type="button" role="tab"
+                                        aria-controls="course-details" aria-selected="true">Course Information</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link " id="course-content-tab" data-bs-toggle="tab"
-                                    data-bs-target="#course-content" type="button" role="tab"
-                                    aria-controls="course-content" aria-selected="false">Course Content</button>
+                                        data-bs-target="#course-content" type="button" role="tab"
+                                        aria-controls="course-content" aria-selected="false">Course Content</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews"
-                                    type="button" role="tab" aria-controls="reviews"
-                                    aria-selected="false">Review</button>
+                                        type="button" role="tab" aria-controls="reviews"
+                                        aria-selected="false">Review</button>
                             </li>
                         </ul>
                     </div>
                     <div class="tab-content mt--50" id="myTabContent">
                         <div class="tab-pane fade  show active" id="course-details" role="tabpanel"
-                            aria-labelledby="course-details-tab">
+                             aria-labelledby="course-details-tab">
                             <div class="course-content-wrapper">
-                                {!! $course->description !!}
-                                <div class="module-wrapper">
+                                <div>
+                                    {!! $course->description !!}
+                                </div>
+                                <div class="module-wrapper mb--30">
                                     <h6 class="title">What Will You Learn?</h6>
 
                                     <div class="row">
@@ -106,17 +108,17 @@
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
                                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseModule-{{ $course_module->id }}"
-                                                    aria-expanded="true"
-                                                    aria-controls="collapseModule-{{ $course_module->id }}">
+                                                        data-bs-target="#collapseModule-{{ $course_module->id }}"
+                                                        aria-expanded="true"
+                                                        aria-controls="collapseModule-{{ $course_module->id }}">
                                                     <span>{{ $course_module->name }}</span>
                                                     <span>{{ $course_module->contents->count() }}
                                                         {{ Str::plural('Lecture', $course_module->contents->count()) }}</span>
                                                 </button>
                                             </h2>
                                             <div id="collapseModule-{{ $course_module->id }}"
-                                                class="accordion-collapse collapse {{ !$key ? 'show' : '' }}"
-                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                 class="accordion-collapse collapse {{ !$key ? 'show' : '' }}"
+                                                 aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <!-- play single area start -->
                                                     <div class="p-3">
@@ -140,8 +142,8 @@
                                                             <div class="right">
                                                                 @if ($course->is_enrolled)
                                                                     <a href="{{ $course_content->preview_link }}"
-                                                                        @if (in_array($course_content->contentType->type, ['link', 'file', 'image'])) target="_blank" @endif
-                                                                        @if (in_array($course_content->contentType->type, ['paragraph', 'embedded-video'])) data-content-id="{{ $course_content->id }}" data-bs-toggle="modal" data-bs-target="#contentModal" @endif>
+                                                                       @if (in_array($course_content->contentType->type, ['link', 'file', 'image'])) target="_blank" @endif
+                                                                       @if (in_array($course_content->contentType->type, ['paragraph', 'embedded-video'])) data-content-id="{{ $course_content->id }}" data-bs-toggle="modal" data-bs-target="#contentModal" @endif>
                                                                         Preview
                                                                     </a>
                                                                 @else
@@ -149,8 +151,8 @@
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                    @endforeach
-                                                    <!-- play single area end -->
+                                                @endforeach
+                                                <!-- play single area end -->
                                                 </div>
                                             </div>
                                         </div>
@@ -185,7 +187,7 @@
                             </div> --}}
                             @if ($course->is_enrolled)
                                 <a href="javascript:void(0)" class="rts-btn btn-success text-white"><i
-                                        class="fa fa-check"></i>
+                                            class="fa fa-check"></i>
                                     Enrolled</a>
                             @else
                                 <div class="price-area">
@@ -260,36 +262,36 @@
                         <!-- single course-sidebar -->
                         <div class="course-side-bar">
                             <!-- course single sidebar -->
-                            {{-- <div class="course-single-information">
-                                <h5 class="title">Material Includes</h5>
-                                <div class="body">
-                                    <!-- ingle check -->
-                                    <div class="single-check">
-                                        <i class="fa-light fa-circle-check"></i>
-                                        Flexible Deadlines
-                                    </div>
-                                    <!-- ingle check end -->
-                                    <!-- ingle check -->
-                                    <div class="single-check">
-                                        <i class="fa-light fa-circle-check"></i>
-                                        Hours of live- demo
-                                    </div>
-                                    <!-- ingle check end -->
-                                    <!-- ingle check -->
-                                    <div class="single-check">
-                                        <i class="fa-light fa-circle-check"></i>
-                                        Hours of live- demo
-                                    </div>
-                                    <!-- ingle check end -->
-                                    <!-- ingle check -->
-                                    <div class="single-check">
-                                        <i class="fa-light fa-circle-check"></i>
-                                        200+ downloadable resoursces
-                                    </div>
-                                    <!-- ingle check end -->
+                        {{-- <div class="course-single-information">
+                            <h5 class="title">Material Includes</h5>
+                            <div class="body">
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    Flexible Deadlines
                                 </div>
-                            </div> --}}
-                            <!-- course single sidebar end-->
+                                <!-- ingle check end -->
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    Hours of live- demo
+                                </div>
+                                <!-- ingle check end -->
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    Hours of live- demo
+                                </div>
+                                <!-- ingle check end -->
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    200+ downloadable resoursces
+                                </div>
+                                <!-- ingle check end -->
+                            </div>
+                        </div> --}}
+                        <!-- course single sidebar end-->
                             <!-- course single sidebar -->
                             @if (Count($course->requirements) > 0)
                                 <div class="course-single-information">
@@ -305,7 +307,7 @@
                                     </div>
                                 </div>
                             @endif
-                            <!-- course single sidebar end-->
+                        <!-- course single sidebar end-->
                             <!-- course single sidebar -->
                             @if ($course->formatTags)
                                 <div class="course-single-information">
@@ -318,8 +320,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endif
-                            <!-- course single sidebar end-->
+                        @endif
+                        <!-- course single sidebar end-->
                             <!-- course single sidebar -->
                             <div class="course-single-information">
                                 <h5 class="title">Share</h5>
@@ -384,19 +386,19 @@
     <!-- course details area end -->
 @endsection
 @push('js')
-    <script>
-        $('#contentModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var contentId = button.data('content-id');
+<script>
+    $('#contentModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var contentId = button.data('content-id');
 
-            $.ajax({
-                url: '{{route('course.content')}}/' + contentId,
-                success: function(data) {
-                    if(data.success == true) {
-                        $('#contentModal .modal-body').html(data.html);
-                    }
+        $.ajax({
+            url: '{{route('course.content')}}/' + contentId,
+            success: function(data) {
+                if(data.success == true) {
+                    $('#contentModal .modal-body').html(data.html);
                 }
-            });
+            }
         });
-    </script>
+    });
+</script>
 @endpush
