@@ -44,7 +44,7 @@
     @endif
 
     {{-- connection section --}}
-    {{-- <div class="about-area-start rts-section-gapBottom">
+     <div class="about-area-start rts-section-gapBottom">
         <div class="container">
             <h3>What is College For World Connections?</h3>
             <p class="paragraph">College for World Connections Center for Innovation & Learning is a full-service Educator
@@ -120,61 +120,12 @@
     @endforeach
 
     </div>
-    </div> --}}
+    </div>
 
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <!-- about area start -->
-                <div class="about-area-start ptb--30">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row align-items-center">
-                                    <div class="col-md-12 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
-                                        <div class="title-area-left-style">
-                                            <div class="pre-title">
-                                                <img src="site-assets/images/banner/bulb.png" alt="icon">
-                                                <span>Gateway to Lifelong Learning</span>
-                                            </div>
-                                            <h2 class="title">What is College For World Connections?</h2>
-                                            <p class="post-title">College for World Connections Center for Innovation &amp;
-                                                Learning is
-                                                a full-service Educator
-                                                Ecosystem for teaching and empowering adults, professionals, and teams in
-                                                Leadership
-                                                Principles. In
-                                                partnership with Joticle, Inc., our academic instructors dedicate their
-                                                knowledge
-                                                and expertise to improving
-                                                the lives of others through leadership instruction, creative and critical
-                                                thinking
-                                                development, and world
-                                                schooling. Leaders RISE and become empowered in a learner friendly, educator
-                                                respected, and educationally
-                                                elevated platform. </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-5">
-                                <div class="row align-items-center">
-                                    @foreach ($connections as $connection)
-                                        <div class="col-md-4 mt-2">
-                                            <a href="{{ route('connection-page', ['slug' => $connection->slug]) }}" class="category-style-home">
-                                                <div class="icon">
-                                                    <img src="{{ $connection->getLogo() }}" alt="brand">
-                                                </div>
-                                                <strong class="d-flex justify-content-center title">{{ $connection->name }}</strong>
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- about area end -->
+               
                 <div class="about-area-start">
                     <div class="container">
                         @foreach ($connections as $key => $connection)
