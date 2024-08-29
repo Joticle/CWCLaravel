@@ -10,12 +10,7 @@
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
-            <li>
-                <a class="ai-icon" href="{{route('admin.header.menus')}}">
-                    <i class="flaticon-381-book"></i>
-                    <span class="nav-text">Header Menu</span>
-                </a>
-            </li>
+
             <li class="@if (str_contains(request()->route()->getName(), 'admin.cms')) mm-active @endif">
                 <a class="ai-icon" href="{{ route('admin.cms.list') }}" aria-expanded="true">
                     <i class="flaticon-381-file-2"></i>
@@ -68,6 +63,12 @@
                             <span class="nav-text">Course Module Content</span>
                         </a>
                     </li>
+                    <li class="@if (str_contains(request()->route()->getName(), 'admin.course.requirement')) mm-active @endif">
+                        <a class="ai-icon" href="{{ route('admin.course.requirement.list') }}" aria-expanded="false">
+                            <i class="flaticon-381-networking"></i>
+                            <span class="nav-text">Course Requirement</span>
+                        </a>
+                    </li>
                     <li class="@if (str_contains(request()->route()->getName(), 'admin.content-type')) mm-active @endif">
                         <a class="ai-icon" href="#" aria-expanded="false">
                             <i class="flaticon-381-file-2"></i>
@@ -79,12 +80,7 @@
                             <li><a href="{{ route('admin.content-type.add') }}">Add New Content Type</a></li>
                         </ul>
                     </li>
-                    <li class="@if (str_contains(request()->route()->getName(), 'admin.course.requirement')) mm-active @endif">
-                        <a class="ai-icon" href="{{ route('admin.course.requirement.list') }}" aria-expanded="false">
-                            <i class="flaticon-381-networking"></i>
-                            <span class="nav-text">Course Requirement</span>
-                        </a>
-                    </li>
+
                 </ul>
             </li>
             <li class="@if (str_contains(request()->route()->getName(), 'admin.student-feedback')) mm-active @endif">
@@ -120,6 +116,14 @@
                     <li><a href="{{ route('admin.banner.add') }}">Add New Banner</a></li>
                 </ul>
             </li>
+
+            <li>
+                <a class="ai-icon" href="{{route('admin.header.menus')}}">
+                    <i class="flaticon-381-book"></i>
+                    <span class="nav-text">Menu Builder</span>
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>
