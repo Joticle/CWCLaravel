@@ -139,7 +139,17 @@
                                                 </div>
                                                 <strong class="title">{{ $connection->name }}</strong>
                                             </a>
+
+                                            <a href="#" class="category-style-one">
+                                                <div class="icon">
+                                                    <img src="assets/images/category/01.svg" alt="brand">
+                                                </div>
+                                                <h5 class="title">Development</h5>
+                                                <span>130+ Courses</span>
+                                            </a>
+
                                         </div>
+
                                     @endforeach
                                 </div>
                             </div>
