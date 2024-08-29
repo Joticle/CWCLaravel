@@ -129,7 +129,7 @@
                 <div class="about-area-start ptb--30">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <div class="row align-items-center">
                                     @foreach ($connections as $connection)
                                         <div class="col-md-4 mt-2">
@@ -146,7 +146,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="row align-items-center">
                                     <div class="col-md-12 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
                                         <div class="title-area-left-style">
