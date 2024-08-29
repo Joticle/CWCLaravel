@@ -129,28 +129,33 @@
                                                                 $content_list[
                                                                     $contentTypes[$course_content->content_type_id]
                                                                 ]['icon'] ?? '';
+                                                            // dd($course_content->contentType);
                                                         @endphp
 
-                                                        <a href="{{ $course->is_enrolled ? '' : '#' }}"
-                                                            class="play-vedio-wrapper">
+                                                        <div class="play-vedio-wrapper">
                                                             <div class="left">
                                                                 <i class="fa-light {{ $content_icon }}"></i>
                                                                 <span>{{ $course_content->name }}</span>
                                                             </div>
                                                             <div class="right">
                                                                 @if ($course->is_enrolled)
-                                                                    <span class="play">Preview</span>
+                                                                    <a href="{{ $course_content->preview_link }}"
+                                                                        @if (in_array($course_content->contentType->type, ['link', 'file', 'image'])) target="_blank" @endif
+                                                                        @if (in_array($course_content->contentType->type, ['paragraph', 'embedded-video'])) data-content-id="{{ $course_content->id }}" data-bs-toggle="modal" data-bs-target="#contentModal" @endif>
+                                                                        Preview
+                                                                    </a>
                                                                 @else
                                                                     <i class="fa-regular fa-lock"></i>
                                                                 @endif
                                                             </div>
-                                                        </a>
+                                                        </div>
                                                     @endforeach
                                                     <!-- play single area end -->
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
+                                    {{-- {{dd($course->modules[1]->contents)}} --}}
                                 </div>
                                 <!-- course content accordion area end -->
                             </div>
@@ -355,5 +360,43 @@
             </div>
         </div>
     </div>
+
+    {{-- Content Preview Modal --}}
+    <div class="modal fade" id="contentModal">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content" id="edit-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Content Preview</h5>
+                    <button type="button" class="btn-close bg-transparent border-0" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="spinner-grow" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- course details area end -->
 @endsection
+@push('js')
+    <script>
+        $('#contentModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var contentId = button.data('content-id');
+
+            $.ajax({
+                url: '{{route('course.content')}}/' + contentId,
+                success: function(data) {
+                    if(data.success == true) {
+                        $('#contentModal .modal-body').html(data.html);
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

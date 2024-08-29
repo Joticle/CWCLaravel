@@ -52,6 +52,20 @@ trait UploadFiles
         }
     }
 
+    public function getFilePath($field = '', $subField = false, $subFieldValue = '')
+    {
+        $value = $this->{$field};
+        if ($value != "") {
+            $uploadPath = $this->getUploadPath() . '/' . $this->id;
+            if($subField) {
+                $uploadPath .= '/' . $field;
+            }
+            return $uploadPath . '/' . ($subFieldValue != '' ? $subFieldValue : $value);
+        } else {
+            return public_path('images/profile.png');
+        }
+    }
+
     protected function getUploadPath()
     {
         return public_path('uploads/' . strtolower(class_basename($this)));

@@ -49,6 +49,7 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('/courses/search', [FrontEndCourseController::class, 'coursesSearch'])->name('courses.search');
             Route::get('/course/{slug}', [FrontEndCourseController::class, 'courseDetail'])->name('course.detail');
             Route::get('/course/enroll/{slug}', [FrontEndCourseController::class, 'courseEnroll'])->name('course.enroll');
+            Route::get('/course-content/{id?}', [FrontEndCourseController::class, 'download'])->name('course.content');
 
             // Tags search
             Route::get('tags/search', [ControllersTagController::class, 'search'])->name('tags.search');
@@ -199,5 +200,5 @@ Route::group(['middleware' => 'web'], function () {
 });
 Auth::routes();
 
-Route::get('page/{slug}', [FrontEndController::class, 'cmsPage'])->name('cms-page');
-Route::get('{slug}', [FrontEndController::class, 'connectionPage'])->name('connection-page');
+Route::get('connection/{slug}', [FrontEndController::class, 'connectionPage'])->name('connection-page');
+Route::get('{slug}', [FrontEndController::class, 'cmsPage'])->name('cms-page');

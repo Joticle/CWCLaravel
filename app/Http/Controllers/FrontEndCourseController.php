@@ -6,6 +6,7 @@ use App\Models\ContentType;
 use App\Models\ContentTypes;
 use App\Models\CourseEnroll;
 use App\Models\Course;
+use App\Models\CourseModuleContent;
 use App\Models\Tag;
 use App\Models\User;
 use App\Utility\StripeController;
@@ -180,5 +181,24 @@ class FrontEndCourseController extends Controller
         }
 
         return response()->json(['success' => $success, 'html' => $html]);
+    }
+
+    public function download($id)
+    {
+        $courseContent = CourseModuleContent::findOrFail($id);
+        $enrolledUser = auth()->user()->courseEnrolled->where('course_id', $courseContent->course_id);
+        if ($enrolledUser->isEmpty())
+            abort(404);
+        // dd($courseContent->contentType->type);
+        $contentType = $courseContent->contentType->type;
+        if (in_array($contentType, ['file', 'image'])) {
+
+            return response()->download($courseContent->getFileContentPath());
+        } elseif (in_array($contentType, ['paragraph', 'embedded-video'])) {
+
+            $html = view('course.content', compact('contentType','courseContent'))->render();
+            return response()->json(['success' => true, 'html' => $html]);
+        }
+        abort(404);
     }
 }
