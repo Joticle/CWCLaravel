@@ -4,7 +4,7 @@
 @section('content')
 
     <!-- course details breadcrumb -->
-    <div class="bg_image rts-section-gap">
+    <div class="bg_image rts-section-gap pb--10">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -23,7 +23,7 @@
                         </h1>
                     </div>
                     <p>
-                        {{ $row->description??'' }}
+                        {!! $row->description !!}
                     </p>
                 </div>
             </div>
