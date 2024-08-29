@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
             $pages = collect(); // Return an empty collection or handle it accordingly
         }
         if (\Schema::hasTable('connections')) {
-            $connections = Connection::active()->get(['slug','name', 'button']);
+            $connections = Connection::active()->get();
         } else {
             $connections = collect(); // Return an empty collection or handle it accordingly
         }
