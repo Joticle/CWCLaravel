@@ -112,5 +112,21 @@ function user()
     return Auth::user();
 }
 
+function isAdmin() {
+    return auth()->user()->role == 'Admin' ?: false;
+}
+
+function dashboardLink() {
+    return isAdmin() ? route('admin.index') : route('dashboard.index');
+}
+
+function profileLink() {
+    return isAdmin() ? route('admin.profile') : route('dashboard.profile');
+}
+
+function logoutLink() {
+    return isAdmin() ? route('admin.logout') : route('logout');
+}
+
 
 ?>

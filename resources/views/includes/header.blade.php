@@ -56,12 +56,12 @@
                                                         src="{{ auth()->user()->getThumbnail() }}">
                                                 </a>
                                                 <ul class="submenu">
-                                                    <li><a href="{{ route('dashboard.index') }}"><i
+                                                    <li><a href="{{ dashboardLink() }}"><i
                                                                 class="fa fa-dashboard text-primary"></i> Dashboard</a>
                                                     </li>
-                                                    <li><a href="#"><i class="fa fa-user text-primary"></i>
+                                                    <li><a href="{{ profileLink() }}"><i class="fa fa-user text-primary"></i>
                                                             Profile</a></li>
-                                                    <li><a href="{{ route('logout') }}"><i
+                                                    <li><a href="{{ logoutLink() }}"><i
                                                                 class="fa fa-sign-out text-primary"></i> Logout</a></li>
                                                 </ul>
                                             </li>
@@ -107,14 +107,14 @@
             <img class="auth-user-avatar" src="{{ auth()->user()->getThumbnail() }}">
             <span>Hello, <strong>{{ Auth::user()->name }}</strong></span>
             <ul class="list-unstyled">
-                <li><a href="{{ route('dashboard.profile') }}"><i class="fa fa-user text-primary"></i> Profile</a></li>
-                <li><a href="#"><i class="fa fa-dashboard text-primary"></i> Dashboard1</a></li>
-                <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out text-primary"></i> Logout</a></li>
+                <li><a href="{{ profileLink() }}"><i class="fa fa-user text-primary"></i> Profile</a></li>
+                <li><a href="{{ dashboardLink() }}"><i class="fa fa-dashboard text-primary"></i> Dashboard</a></li>
+                <li><a href="{{ logoutLink() }}"><i class="fa fa-sign-out text-primary"></i> Logout</a></li>
             </ul>
         @else
             <div class="buttons-area">
-                <a href="#" class="rts-btn btn-border">Log In</a>
-                <a href="#" class="rts-btn btn-primary">Sign Up</a>
+                <a href="{{ route('login') }}" class="rts-btn btn-border">Log In</a>
+                <a href="{{ route('register') }}" class="rts-btn btn-primary">Sign Up</a>
             </div>
         @endif
         @if ($public_menu)
