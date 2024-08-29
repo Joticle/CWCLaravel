@@ -45,39 +45,7 @@
 
     {{-- connection section --}}
      <div class="about-area-start rts-section-gapBottom">
-        <div class="container">
-            <h3>What is College For World Connections?</h3>
-            <p class="paragraph">College for World Connections Center for Innovation & Learning is a full-service Educator
-                Ecosystem for teaching and empowering adults, professionals, and teams in Leadership Principles. In
-                partnership with Joticle, Inc., our academic instructors dedicate their knowledge and expertise to improving
-                the lives of others through leadership instruction, creative and critical thinking development, and world
-                schooling. Leaders RISE and become empowered in a learner friendly, educator respected, and educationally
-                elevated platform. </p>
-            @foreach ($connections as $connection)
-                <div class="rts-section-gapBottom">
-                    <div class="row align-items-center">
-                        <div class="col-xl-6 col-lg-12">
-                            <!-- about-one-imagearea -->
-                            <div class="about-one-left-image">
-                                @foreach ($connection->categories as $index => $category)
-                                    @if ($index % 2 == 0)
-                                        <div class="first-order">
-                                    @endif
 
-                                    <a href="#" class="category-style-one">
-                                        <div class="icon">
-                                            <img src="{{ $connection->getCategoryIcon($category->icon) }}" alt="brand">
-                                        </div>
-                                        <h5 class="title">{{ $category->name }}</h5>
-                                    </a>
-
-                                    @if ($index % 2 == 1 || $loop->last)
-                            </div>
-            @endif
-            @endforeach
-
-        </div>
-        <!-- about-one-imagearea end -->
     </div>
     <div class="col-xl-6 col-lg-12 pl--60 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
         <div class="title-area-left-style">
@@ -125,7 +93,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-               
+
                 <div class="about-area-start">
                     <div class="container">
                         @foreach ($connections as $key => $connection)
