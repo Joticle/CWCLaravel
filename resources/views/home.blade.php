@@ -133,16 +133,16 @@
                                 <div class="row align-items-center">
                                     @foreach ($connections as $connection)
                                         <div class="col-md-4 mt-2">
-                                            <a href="{{ route('connection-page', ['slug' => $connection->slug]) }}" class="category-style-one">
+                                            <a href="{{ route('connection-page', ['slug' => $connection->slug]) }}"
+                                                class="category-style-one">
                                                 <div class="icon">
-                                                    <img src="{{$connection->getLogo()}}" alt="{{ $connection->name }}">
+                                                    <img src="{{ $connection->getLogo() }}" alt="{{ $connection->name }}">
                                                 </div>
                                                 <h5 class="title">{{ $connection->name }}</h5>
-                                                {{--<span>{{ $connection->name }}</span>--}}
+                                                {{-- <span>{{ $connection->name }}</span> --}}
                                             </a>
 
                                         </div>
-
                                     @endforeach
                                 </div>
                             </div>
@@ -198,7 +198,8 @@
                                             </div>
                                             <div class="author-area">
                                                 <div class="single-author-and-info">
-                                                    <img src="{{asset('site-assets/images/about/01.png')}}" alt="about">
+                                                    <img src="{{ asset('site-assets/images/about/01.png') }}"
+                                                        alt="about">
                                                     <div class="information">
                                                         <a href="#">
                                                             <h6 class="title">Dr Susan</h6>
@@ -206,7 +207,9 @@
                                                         <p class="desig">CEO, College For World Connections</p>
                                                     </div>
                                                 </div>
-                                                <a href="{{route('cms-page','about')}}" class="rts-btn btn-primary">About Us</a>
+                                                <a href="{{ route('cms-page', 'about') }}"
+                                                    class="rts-btn btn-primary">About
+                                                    Us</a>
                                             </div>
                                         </div>
                                     </div>
@@ -271,94 +274,68 @@
         </div>
     </div> --}}
     <!-- trusties area start -->
-    <div class="brand-area-one ptb--100">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="brand-style-one ">
-                        <div class="left-title">
-                            <h6 class="title">Trusted by:</h6>
-                        </div>
-                        <div class="swiper mySwiper-category-1 swiper-data"
-                            data-swiper='{
-                            "spaceBetween":30,
+    @if ($trusties->isNotEmpty())
+        <div class="brand-area-one ptb--30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="brand-style-one ">
+                            <div class="left-title">
+                                <h6 class="title">Trusted by:</h6>
+                            </div>
+                            <div class="swiper mySwiper-category-1 swiper-data"
+                                data-swiper='{
+                        "spaceBetween":30,
+                        "slidesPerView":6,
+                        "loop": true,
+                        "speed": 1500,
+                        "autoplay":{
+                            "delay":"4000"
+                        },
+                        "breakpoints":{
+                        "0":{
+                            "slidesPerView":2,
+                            "spaceBetween":30},
+                        "320":{
+                            "slidesPerView":2,
+                            "spaceBetween":30},
+                        "480":{
+                            "slidesPerView":3,
+                            "spaceBetween":30},
+                        "640":{
+                            "slidesPerView":4,
+                            "spaceBetween":30},
+                        "840":{
+                            "slidesPerView":4,
+                            "spaceBetween":30},
+                        "1140":{
                             "slidesPerView":6,
-                            "loop": true,
-                            "speed": 1500,
-                            "autoplay":{
-                                "delay":"4000"
-                            },
-                            "breakpoints":{
-                            "0":{
-                                "slidesPerView":2,
-                                "spaceBetween":30},
-                            "320":{
-                                "slidesPerView":2,
-                                "spaceBetween":30},
-                            "480":{
-                                "slidesPerView":3,
-                                "spaceBetween":30},
-                            "640":{
-                                "slidesPerView":4,
-                                "spaceBetween":30},
-                            "840":{
-                                "slidesPerView":4,
-                                "spaceBetween":30},
-                            "1140":{
-                                "slidesPerView":6,
-                                "spaceBetween":30}
-                            }
-                        }'>
-                            <div class="swiper-wrapper">
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/08.svg" alt="brand">
-                                    </div>
+                            "spaceBetween":30}
+                        }
+                    }'>
+                                <div class="swiper-wrapper">
+                                    <!-- single swiper style -->
+                                    @foreach ($trusties as $trust)
+                                        <div class="swiper-slide">
+                                            <div class="brand-area">
+                                                @if (optional($trust->button)->url)
+                                                    <a href="{{ $trust->button->url }}">
+                                                        <img src="{{ $trust->getImage() }}" alt="brand">
+                                                    </a>
+                                                @else
+                                                    <img src="{{ $trust->getImage() }}" alt="brand">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                                <!-- single swiper style -->
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/09.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/10.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/11.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/12.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
-                                <!-- single swiper style -->
-                                <div class="swiper-slide">
-                                    <div class="brand-area">
-                                        <img src="site-assets/images/brand/13.svg" alt="brand">
-                                    </div>
-                                </div>
-                                <!-- single swiper style -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
     <!-- trusties area end -->
     <div class="rts-feedback-area rts-section-gap bg-light-1 shape-move">
         <div class="container">

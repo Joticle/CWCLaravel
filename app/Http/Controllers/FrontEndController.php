@@ -9,6 +9,7 @@ use App\Models\Connection;
 use App\Models\Course;
 use App\Models\Faqs;
 use App\Models\StudentsFeedback;
+use App\Models\Trust;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -39,6 +40,7 @@ class FrontEndController extends Controller
         $data['studentsFeedback']  = StudentsFeedback::active()->get();
         $data['connections']  = Connection::active()->get();
         $data['banners']  = Banner::active()->get();
+        $data['trusties']  = Trust::active()->get();
         return view('home',$data);
     }
     function logout(){

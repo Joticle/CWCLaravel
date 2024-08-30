@@ -14,6 +14,7 @@ use App\Http\Controllers\Backoffice\ConnectionController;
 use App\Http\Controllers\Backoffice\CourseRequirementController;
 use App\Http\Controllers\Backoffice\CourseSyllabusController;
 use App\Http\Controllers\Backoffice\MenuController;
+use App\Http\Controllers\Backoffice\TrustController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardCourseController;
 use App\Http\Controllers\FrontEndController;
@@ -196,7 +197,7 @@ Route::group(['middleware' => 'web'], function () {
                     Route::get('/search', [ConnectionController::class, 'search'])->name('search');
                 });
 
-                /*Connection*/
+                /*Banner*/
                 Route::group(['prefix' => 'banner', 'as' => 'banner.'], function () {
                     Route::get('/list', [BannerController::class, 'index'])->name('list');
                     Route::get('/create', [BannerController::class, 'add'])->name('add');
@@ -206,6 +207,17 @@ Route::group(['middleware' => 'web'], function () {
                     Route::get('/delete/{id}', [BannerController::class, 'delete'])->name('delete');
                     Route::get('/search', [BannerController::class, 'search'])->name('search');
                 });
+
+                /*Trust*/
+                Route::group(['prefix' => 'trust', 'as' => 'trust.'], function () {
+                    Route::get('/list', [TrustController::class, 'index'])->name('list');
+                    Route::get('/create', [TrustController::class, 'add'])->name('add');
+                    Route::post('/create', [TrustController::class, 'create'])->name('add');
+                    Route::get('/edit/{id}', [TrustController::class, 'edit'])->name('edit');
+                    Route::post('/edit/{id}', [TrustController::class, 'update'])->name('edit');
+                    Route::get('/delete/{id}', [TrustController::class, 'delete'])->name('delete');
+                });
+
             });
         });
     });
