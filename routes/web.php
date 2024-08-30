@@ -12,6 +12,7 @@ use App\Http\Controllers\Backoffice\StudentsFeedbackController;
 use App\Http\Controllers\Backoffice\TagController;
 use App\Http\Controllers\Backoffice\ConnectionController;
 use App\Http\Controllers\Backoffice\CourseRequirementController;
+use App\Http\Controllers\Backoffice\CourseSyllabusController;
 use App\Http\Controllers\Backoffice\MenuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardCourseController;
@@ -146,6 +147,17 @@ Route::group(['middleware' => 'web'], function () {
                     Route::get('/edit/{id?}', [CourseRequirementController::class, 'edit'])->name('edit');
                     Route::post('/edit/{id?}', [CourseRequirementController::class, 'update'])->name('edit');
                     Route::get('/delete/{id}', [CourseRequirementController::class, 'delete'])->name('delete');
+                });
+
+                 /*Course Syllabus*/
+                 Route::group(['prefix' => 'course-syllabus', 'as' => 'course.syllabus.'], function () {
+                    Route::get('/{course_id?}', [CourseSyllabusController::class, 'index'])->name('list');
+                    Route::post('/{course_id}', [CourseSyllabusController::class, 'create'])->name('add');
+                    Route::post('/sort/all', [CourseSyllabusController::class, 'sort'])->name('sort');
+                    Route::get('/edit/{id?}', [CourseSyllabusController::class, 'edit'])->name('edit');
+                    Route::post('/edit/{id?}', [CourseSyllabusController::class, 'update'])->name('edit');
+                    Route::get('/delete/{id}', [CourseSyllabusController::class, 'delete'])->name('delete');
+                    Route::get('/download/{id}', [CourseSyllabusController::class, 'download'])->name('download');
                 });
 
                 /*Student Feedback*/

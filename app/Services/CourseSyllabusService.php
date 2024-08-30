@@ -36,9 +36,9 @@ class CourseSyllabusService extends BaseService
 
         try {
 
-            foreach ($data['syllabuses'] as $syllabus) {
-                $courseSyllabus = CourseSyllabus::create(['course_id' => $data['course_id']]);
-                $courseSyllabus->file = $courseSyllabus->uploadFile($syllabus, 'file');
+            foreach ($data['files'] as $file) {
+                $courseSyllabus = CourseSyllabus::create(['course_id' => $data['course_id'], 'name' => $data['name']]);
+                $courseSyllabus->file = $courseSyllabus->uploadFile($file, 'file');
                 $courseSyllabus->save();
             }
         } catch (Exception $e) {
@@ -72,7 +72,7 @@ class CourseSyllabusService extends BaseService
         } catch (Exception $e) {
 
             DB::rollBack();
-            throw new GeneralException(__('There was a problem updating this CourseSyllabus. Please try again.'));
+            throw new GeneralException(__('There was a problem updating this Course Syllabus. Please try again.'));
         }
 
         DB::commit();
@@ -88,7 +88,7 @@ class CourseSyllabusService extends BaseService
      */
     public function delete(CourseSyllabus $courseSyllabus): CourseSyllabus
     {
-        if($this->hasSoftDelete($courseSyllabus)) {
+        if (!$this->hasSoftDelete($courseSyllabus)) {
             $courseSyllabus->removeSyllabus();
         }
         if ($this->deleteById($courseSyllabus->id)) {

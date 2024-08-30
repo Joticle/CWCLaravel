@@ -69,6 +69,12 @@
                             <span class="nav-text">Course Requirement</span>
                         </a>
                     </li>
+                    <li class="@if (str_contains(request()->route()->getName(), 'admin.course.syllabus')) mm-active @endif">
+                        <a class="ai-icon" href="{{ route('admin.course.syllabus.list') }}" aria-expanded="false">
+                            <i class="flaticon-381-networking"></i>
+                            <span class="nav-text">Course Syllabus</span>
+                        </a>
+                    </li>
                     <li class="@if (str_contains(request()->route()->getName(), 'admin.content-type')) mm-active @endif">
                         <a class="ai-icon" href="#" aria-expanded="false">
                             <i class="flaticon-381-file-2"></i>

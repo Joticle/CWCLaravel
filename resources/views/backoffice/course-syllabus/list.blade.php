@@ -91,7 +91,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">List {{ $pulular_name }}</h4>
-                        <a href="javascript:void(0)" onclick="addCourseRequirement()" data-toggle="tooltip"
+                        <a href="javascript:void(0)" onclick="addCourseSyllabus()" data-toggle="tooltip"
                             title="Add New {{ $singular_name }}" type="button"
                             class="btn btn-primary btn-sm mt-3 mt-sm-0"><i class="fa fa-plus"></i> Add
                             {{ $singular_name }}</a>
@@ -102,7 +102,7 @@
 
                                 <tr>
                                     <th>#</th>
-                                    <th>Text</th>
+                                    <th>Name</th>
                                     <th>Status</th>
                                     <th>Created Date</th>
                                     <th>Action</th>
@@ -113,7 +113,7 @@
                                     @foreach ($data as $index => $row)
                                         <tr data-id="{{ $row->id }}">
                                             <td><strong>{{ $index + 1 }}</strong></td>
-                                            <td>{{ $row->text }}</td>
+                                            <td>{{ $row->name }}</td>
                                             <td>
                                                 @if ($row->status == '1')
                                                     <span class="badge badge-primary">Active</span>
@@ -124,16 +124,20 @@
                                             <td>{{ _date($row->created_at) }}</td>
                                             <td>
                                                 <div class="d-flex">
-                                                    <a onclick="editCourseRequirement('{{ $row->id }}')"
+                                                    <a onclick="editCourseSyllabus('{{ $row->id }}')"
                                                         href="javascript:void(0)" data-toggle="tooltip"
                                                         title="Edit {{ $singular_name }}"
                                                         class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                             class="fa fa-pencil"></i></a>
                                                     &nbsp;<a data-toggle="tooltip" title="Delete {{ $singular_name }}"
                                                         href="javascript:void(0)"
-                                                        data-href="{{ route('admin.course.requirement.delete', $row->id) }}"
+                                                        data-href="{{ route('admin.course.syllabus.delete', $row->id) }}"
                                                         class="btn btn-danger deletedBtn shadow btn-xs sharp"><i
                                                             class="fa fa-trash"></i></a>
+                                                    &nbsp; <a data-toggle="tooltip"
+                                                        title="Download {{ $singular_name }}" href="{{ route('admin.course.syllabus.download', $row->id) }}"
+                                                        class="btn btn-info shadow btn-xs sharp"><i
+                                                            class="fa fa-download"></i></a>
                                                 </div>
                                             </td>
                                             <td class="drag"><i class="fa fa-arrows" style="cursor: pointer"></i></td>
@@ -178,20 +182,24 @@
         </div>
     </div>
     @if ($course)
-        <div class="modal fade" id="addCourseRequirement">
+        <div class="modal fade" id="addCourseSyllabus">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Add Course Requirement</h5>
+                        <h5 class="modal-title">Add Course Syllabus</h5>
                         <button type="button" class="btn-close bg-transparent border-0" data-dismiss="modal">x</button>
                     </div>
-                    {{ Form::open(['url' => route('admin.course.requirement.add', $course->id), 'method' => 'post', 'autocomplete' => 'off']) }}
+                    {{ Form::open(['url' => route('admin.course.syllabus.add', $course->id), 'method' => 'post', 'autocomplete' => 'off', 'files' => true]) }}
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12 mb-2">
                                 <div class="form-group">
-                                    <label class="text-label">Text<span class="text-danger">*</span></label>
-                                    {{ Form::text('text', '', ['class' => 'form-control', 'required' => 'true', 'id' => 'name', 'placeholder' => 'Enter Requirement Text']) }}
+                                    <label class="text-label">Name<span class="text-danger">*</span></label>
+                                    {{ Form::text('name', '', ['class' => 'form-control', 'required' => 'true', 'id' => 'name', 'placeholder' => 'Enter Syllabus Name']) }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-label">Files<span class="text-danger">*</span></label>
+                                    {{ Form::file('files[]', ['class' => 'form-control', 'id' => 'files', 'accept' => '.pdf,.doc,.docx,.txt,.odt,.rtf,.xls,.xlsx,.csv,.ods', 'multiple' => true]) }}
                                 </div>
                             </div>
                         </div>
@@ -205,11 +213,11 @@
             </div>
         </div>
     @endif
-    <div class="modal fade" id="editCourseRequirement">
+    <div class="modal fade" id="editCourseSyllabus">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content" id="edit-modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Course Requirement</h5>
+                    <h5 class="modal-title">Edit Course Syllabus</h5>
                     <button type="button" class="btn-close bg-transparent border-0" data-dismiss="modal">x</button>
                 </div>
                 <div class="modal-body">
@@ -316,17 +324,17 @@
         function formatRepoSelection(repo) {
             if (typeof(repo.id) != 'undefined' && repo.id != '') {
                 showLoader();
-                window.location.href = '{{ route('admin.course.requirement.list') }}/' + repo.id;
+                window.location.href = '{{ route('admin.course.syllabus.list') }}/' + repo.id;
                 return repo.name;
             }
         }
 
-        function editCourseRequirement(_id) {
-            $('#editCourseRequirement').modal('show');
+        function editCourseSyllabus(_id) {
+            $('#editCourseSyllabus').modal('show');
             showLoader();
             $.ajax({
                 type: 'GET',
-                url: '{{ route('admin.course.requirement.edit') }}/' + _id,
+                url: '{{ route('admin.course.syllabus.edit') }}/' + _id,
                 data: {},
                 cache: false,
                 success: function(result) {
@@ -337,7 +345,6 @@
                     if ($.trim(result.success) == 'true') {
                         //successMsg(result.message)
                         $('#edit-modal-content').html(result.html);
-                        tinymceReInit('tiny-' + _id);
                     } else {
                         var errorsShow = '';
                         $.each(result.message, function(k, v) {
@@ -352,15 +359,14 @@
             });
         }
 
-        function addCourseRequirement() {
-            $('#addCourseRequirement').modal('show');
-            tinymceReInit('tiny');
+        function addCourseSyllabus() {
+            $('#addCourseSyllabus').modal('show');
         }
 
         function setSorting(obj_sort) {
             $.ajax({
                 type: 'POST',
-                url: '{{ route('admin.course.requirement.sort') }}',
+                url: '{{ route('admin.course.syllabus.sort') }}',
                 data: {
                     'sorting': obj_sort
                 },

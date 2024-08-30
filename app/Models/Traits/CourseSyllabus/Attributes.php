@@ -13,4 +13,9 @@ trait Attributes
     {
         return $this->unlinkFile('file');
     }
+
+    public function getFileContentPath()
+    {
+        return $this->getFilePath('file') ?:  public_path('images/no-image.jpg');
+    }
 }
