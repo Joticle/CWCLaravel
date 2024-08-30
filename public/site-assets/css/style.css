@@ -31341,3 +31341,8 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
     position: static !important;
     transform: none !important;
 }
+.owner-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+}

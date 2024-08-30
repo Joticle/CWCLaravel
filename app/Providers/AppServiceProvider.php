@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Cms;
 use App\Models\Connection;
+use App\Models\Setting;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
@@ -32,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         if (\Schema::hasTable('cms')) {
-            $pages = Cms::active()->get(['slug','name']);
+            $pages = Cms::active()->get(['slug', 'name']);
         } else {
             $pages = collect(); // Return an empty collection or handle it accordingly
         }
@@ -41,7 +42,15 @@ class AppServiceProvider extends ServiceProvider
         } else {
             $connections = collect(); // Return an empty collection or handle it accordingly
         }
+
+        if (\Schema::hasTable('settings')) {
+            $setting = Setting::first();
+        } else {
+            $setting = null;
+        }
+
         View::share('pages', $pages);
         View::share('connections', $connections);
+        View::share('setting', $setting);
     }
 }

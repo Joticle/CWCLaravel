@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(array(
             UsersTableAdminCreateSeeder::class,
-            HeaderMenuCreatedSeeder::class
+            HeaderMenuCreatedSeeder::class,
+            SettingSeeder::class
         ));
     }
 }

@@ -10,6 +10,13 @@
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
+            <li>
+                <a class="ai-icon @if (str_contains(request()->route()->getName(), 'admin.setting')) mm-active @endif" href="{{ route('admin.setting') }}"
+                    aria-expanded="false">
+                    <i class="flaticon-381-networking"></i>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </li>
 
             <li class="@if (str_contains(request()->route()->getName(), 'admin.cms')) mm-active @endif">
                 <a class="ai-icon" href="{{ route('admin.cms.list') }}" aria-expanded="true">

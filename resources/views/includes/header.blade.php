@@ -11,7 +11,7 @@
                 <div class="header-one-wrapper">
                     <div class="left-side-header">
                         <a href="{{ url('/') }}" class="logo-area">
-                            <img src="{{ asset('images/logo-transparent.png') }}" style="width: 300px;" alt="logo">
+                            <img src="{{ optional($setting)->getLogo() ?: asset('images/logo-transparent.png') }}" style="width: 300px;" alt="logo">
                         </a>
                     </div>
                     @if ($public_menu)

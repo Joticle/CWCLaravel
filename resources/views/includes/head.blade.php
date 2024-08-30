@@ -1,7 +1,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>@yield('title','College For World Connections - CWC')</title>
-<link rel="shortcut icon" type="image/x-icon" href="{{asset('site-assets/images/fav.png?v='.env('APP_VERSION'))}}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ optional($setting)->getFavicon() ?: asset('site-assets/images/fav.png')}}">
 <!-- fontawesome 6.4.2 -->
 <link rel="stylesheet" href="{{asset('site-assets/css/plugins/fontawesome-6.css?v='.env('APP_VERSION'))}}">
 <!-- swiper Css 10.2.0 -->

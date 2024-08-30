@@ -154,22 +154,7 @@
                                                 <img src="site-assets/images/banner/bulb.png" alt="icon">
                                                 <span>Gateway to Lifelong Learning</span>
                                             </div>
-                                            <h2 class="title">What is College For World Connections?</h2>
-                                            <p class="post-title">College for World Connections Center for Innovation &amp;
-                                                Learning is
-                                                a full-service Educator
-                                                Ecosystem for teaching and empowering adults, professionals, and teams in
-                                                Leadership
-                                                Principles. In
-                                                partnership with Joticle, Inc., our academic instructors dedicate their
-                                                knowledge
-                                                and expertise to improving
-                                                the lives of others through leadership instruction, creative and critical
-                                                thinking
-                                                development, and world
-                                                schooling. Leaders RISE and become empowered in a learner friendly, educator
-                                                respected, and educationally
-                                                elevated platform. </p>
+                                            {!! optional($setting)->description ?: '' !!}
                                         </div>
                                         <div class="about-inner-right-one">
                                             <div class="what-you-get">
@@ -198,13 +183,13 @@
                                             </div>
                                             <div class="author-area">
                                                 <div class="single-author-and-info">
-                                                    <img src="{{ asset('site-assets/images/about/01.png') }}"
+                                                    <img class="owner-image" src="{{ optional($setting)->getOwnerImage() ?: asset('site-assets/images/about/01.png') }}"
                                                         alt="about">
                                                     <div class="information">
                                                         <a href="#">
-                                                            <h6 class="title">Dr Susan</h6>
+                                                            <h6 class="title">{{ optional($setting)->owner_name ?: ''}}</h6>
                                                         </a>
-                                                        <p class="desig">CEO, College For World Connections</p>
+                                                        <p class="desig">{{ optional($setting)->owner_designation ?: '' }}</p>
                                                     </div>
                                                 </div>
                                                 <a href="{{ route('cms-page', 'about') }}"

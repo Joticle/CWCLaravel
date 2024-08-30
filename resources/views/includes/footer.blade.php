@@ -9,13 +9,12 @@
                     <div class="footer-singl-wized left-logo">
                         <div class="head">
                             <a href="{{url('/')}}">
-                                <img src="{{asset('images/logo-transparent.png')}}" alt="logo" loading="lazy">
+                                <img src="{{ optional($setting)->getLogo() ?: asset('images/logo-transparent.png')}}" alt="logo" loading="lazy">
                             </a>
                         </div>
                         <div class="body">
                             <p class="dsic">
-                                We are passionate education dedicated to providing high-quality resources learners
-                                all backgrounds.
+                               {{ optional($setting)->short_desc ?: '' }}
                             </p>
                             {{--<ul class="wrapper-list">
                                 <li><i class="fa-regular fa-location-dot"></i>Yarra Park, Melbourne, Australia </li>
@@ -90,11 +89,36 @@
                         <p>Copyright © All Rights Reserved. Powered By Joticle, Inc.</p>
                         <div class="social-copyright">
                             <ul>
-                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-pinterest"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                                @if($setting)
+                                    @if ($setting->facebook)
+                                        <li><a href="https://www.facebook.com/{{ $setting->facebook }}" target="_blank"><i
+                                                    class="fa-brands fa-facebook-f"></i></a></li>
+                                    @endif
+                                    @if ($setting->skype)
+                                        <li><a href="https://www.skype.com/{{ $setting->skype }}" target="_blank"><i
+                                                    class="fa-brands fa-skype"></i></a></li>
+                                    @endif
+                                    @if ($setting->linkedin)
+                                        <li><a href="https://www.linkedin.com/{{ $setting->linkedin }}" target="_blank"><i
+                                                    class="fa-brands fa-linkedin"></i></a></li>
+                                    @endif
+                                    @if ($setting->instagram)
+                                        <li><a href="https://www.instagram.com/{{ $setting->instagram }}" target="_blank"><i
+                                                    class="fa-brands fa-instagram"></i></a></li>
+                                    @endif
+                                    @if ($setting->pinterest)
+                                        <li><a href="https://www.pinterest.com/{{ $setting->pinterest }}" target="_blank"><i
+                                                    class="fa-brands fa-pinterest"></i></a></li>
+                                    @endif
+                                    @if ($setting->github)
+                                        <li><a href="https://www.github.com/{{ $setting->github }}" target="_blank"><i
+                                                    class="fa-brands fa-github"></i></a></li>
+                                    @endif
+                                    @if ($setting->youtube)
+                                        <li><a href="https://www.youtube.com/{{ $setting->youtube }}" target="_blank"><i
+                                                    class="fa-brands fa-youtube"></i></a></li>
+                                    @endif
+                                @endif
                             </ul>
                         </div>
                     </div>
