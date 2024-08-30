@@ -24,12 +24,15 @@ trait UploadFiles
             mkdir($subdirectoryPath, 0777, true);
         }
 
-        if ($field && $this->{$field} && ($subField == true && $subFieldValue != '')) {
-            $previousThumbnailPath = $subdirectoryPath . '/' .  ($subFieldValue != '' ? $subFieldValue : $this->{$field});
-            if (file_exists($previousThumbnailPath)) {
-                unlink($previousThumbnailPath);
-            }
-        }
+        // if ($field && $this->{$field} && ($subField == true && $subFieldValue != '')) {
+        //     $previousThumbnailPath = $subdirectoryPath . '/' .  ($subFieldValue != '' ? $subFieldValue : $this->{$field});
+        //     if (file_exists($previousThumbnailPath)) {
+        //         unlink($previousThumbnailPath);
+        //     }
+        // }
+
+        // Handle direct file column
+        $this->unLinkFile( $field, $subField, $subFieldValue);
 
         $fileExtension = $file->getClientOriginalExtension();
         $fileName = random_int(100, 999) . '_file_' . time() . '.' . $fileExtension;
@@ -43,7 +46,7 @@ trait UploadFiles
         $value = $this->{$field};
         if ($value != "") {
             $uploadPath = $this->getUploadUrl() . '/' . $this->id;
-            if($subField) {
+            if ($subField) {
                 $uploadPath .= '/' . $field;
             }
             return $uploadPath . '/' . ($subFieldValue != '' ? $subFieldValue : $value);
@@ -57,7 +60,7 @@ trait UploadFiles
         $value = $this->{$field};
         if ($value != "") {
             $uploadPath = $this->getUploadPath() . '/' . $this->id;
-            if($subField) {
+            if ($subField) {
                 $uploadPath .= '/' . $field;
             }
             return $uploadPath . '/' . ($subFieldValue != '' ? $subFieldValue : $value);
@@ -74,5 +77,27 @@ trait UploadFiles
     protected function getUploadUrl()
     {
         return asset('uploads/' . strtolower(class_basename($this)));
+    }
+
+    public function unLinkFile($field = '', $subField = false, $subFieldValue = '')
+    {
+        $uploadingPath = $this->getUploadPath();
+
+        $subdirectoryPath = $uploadingPath . '/' . $this->id . '/';
+
+        if ($field && !$subField) {
+            $filePath = $subdirectoryPath . $this->{$field};
+            if ($this->{$field} && file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+
+        // Handle file within a JSON field
+        if ($field && $subField) {
+            $filePath = $subdirectoryPath . '/' . $subFieldValue;
+            if ($subFieldValue && file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Class BaseRepository.
@@ -363,5 +364,11 @@ abstract class BaseService
         $this->take = null;
 
         return $this;
+    }
+
+    protected function hasSoftDelete($model): bool
+    {
+        $tableName = $model->getTable();
+        return Schema::hasColumn($tableName, 'deleted_at');
     }
 }

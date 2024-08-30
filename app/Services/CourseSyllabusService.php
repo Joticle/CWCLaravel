@@ -88,6 +88,9 @@ class CourseSyllabusService extends BaseService
      */
     public function delete(CourseSyllabus $courseSyllabus): CourseSyllabus
     {
+        if($this->hasSoftDelete($courseSyllabus)) {
+            $courseSyllabus->removeSyllabus();
+        }
         if ($this->deleteById($courseSyllabus->id)) {
             return $courseSyllabus;
         }

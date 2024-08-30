@@ -8,4 +8,9 @@ trait Attributes
     {
         return $this->getFile('file') ?:  asset('images/no-image.jpg');
     }
+
+    public function removeSyllabus()
+    {
+        return $this->unlinkFile('file');
+    }
 }
