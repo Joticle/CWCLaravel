@@ -43,6 +43,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', [FrontEndController::class, 'index'])->name('index');
     Route::get('/home', [FrontEndController::class, 'index'])->name('home');
 
+    Route::post('subscribe', [FrontEndController::class, 'subscribe'])->name('subscribe')->middleware('throttle:5,1');
+
     Route::group(['middleware' => 'auth'], function () {
         Route::get('logout', [FrontEndController::class, 'logout'])->name('logout');
 

@@ -64,14 +64,14 @@
                         </div>
                         <div class="body">
                             <p class="disc">Subscribe Our newsletter get update our new course</p>
-                            <form action="#">
+                            <form id="subscribe" action="{{ route('subscribe') }}" method="POST">
                                 <div class="input-area-fill">
-                                    <input type="email" placeholder="Enter Your Email" required>
-                                    <button> Subscribe</button>
+                                    <input type="email" name="email" placeholder="Enter Your Email" required>
+                                    <button type="submit"> Subscribe</button>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <input type="checkbox" id="exampleCheck1">
-                                    <label for="exampleCheck1">I agree to the terms of use and privacy policy.</label>
+                                    <input type="checkbox" id="exampleCheck1" required>
+                                    <label for="exampleCheck1">I agree to the <a class="text-decoration-underline" href="{{termsAndConditionLink()}}">terms of use</a> and <a class="text-decoration-underline" href="{{privacyPolicyLink()}}">privacy policy</a>.</label>
                                 </div>
                             </form>
                         </div>
@@ -112,3 +112,42 @@
     </svg>
 </div>
 <!-- rts backto top end -->
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $("#subscribe").on("submit", function(e) {
+                e.preventDefault();
+
+                let form = $(this);
+                let url = form.attr("action");
+                let method = form.attr("method");
+                let submitButton = form.find('button[type="submit"]');
+                let checkBox = form.find('input[type="checkbox"]');
+                submitButton.prop('disabled', true);
+
+                $.ajax({
+                    type: method,
+                    url: url,
+                    data: form.serialize(),
+                    success: function(result) {
+
+                        if (result.success == true) {
+                            successMsg(result.message);
+                        } else {
+                            errorMsg(result.message);
+                        }
+                    },
+                    error: function(request, status, error) {
+                        errorMsg(error);
+                    },
+                    complete: function() {
+
+                        submitButton.prop('disabled', false);
+                        checkBox.prop('checked', false);
+                        form.find('input[type="email"]').val('');
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

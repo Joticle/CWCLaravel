@@ -15,11 +15,8 @@ return new class extends Migration
     {
         Schema::create('subscribers', function (Blueprint $table) {
             $table->id();
-            $table->integer('hub_id')->default('1');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->timestamps();
-
-            $table->unique(['hub_id', 'email']);
         });
     }
 

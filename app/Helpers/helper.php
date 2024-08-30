@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cms;
 use Illuminate\Support\Facades\Auth;
 
 function debug($array,$exit=0){
@@ -128,5 +129,14 @@ function logoutLink() {
     return isAdmin() ? route('admin.logout') : route('logout');
 }
 
+function privacyPolicyLink() {
+    $page = Cms::active()->where('slug', 'privacy-policy')->first();
+    return $page ? route('cms-page', ['slug' => $page->slug]) : '/';
+}
+
+function termsAndConditionLink() {
+    $page = Cms::active()->where('slug', '	term-and-condition')->first();
+    return $page ? route('cms-page', ['slug' => $page->slug]) : '/';
+}
 
 ?>
