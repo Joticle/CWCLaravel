@@ -35,7 +35,8 @@
                         <div class="col-md-4 mb-2">
                             <div class="form-group">
                                 <label class="text-label">Course Logo</label>
-                                {{ Form::file('logo', ['class' => 'form-control crop-input', 'id' => 'logo', 'accept' => 'image/*']) }}
+                                {{ Form::file('logo', ['class' => 'form-control crop-input', 'id' => 'logo', 'accept' => '.png, .jpeg, .jpg, .gif', 'data-aspect-ratio' => 290 / 210]) }}
+                                <span class="text-danger">Preferred Size 290 X 210</span>
                             </div>
                         </div>
                         <div class="col-md-2">

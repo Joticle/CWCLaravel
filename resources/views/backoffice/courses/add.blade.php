@@ -35,8 +35,8 @@
                         <div class="col-md-6 mb-2">
                             <div class="form-group">
                                 <label class="text-label">Course Logo<span class="text-danger">*</span></label>
-                                {{ Form::file('logo', ['class' => 'form-control crop-input', 'required' => 'true', 'id' => 'logo', 'accept' => '.png, .jpeg, .jpg, .gif', 'data-aspect-ratio' => 200 / 200]) }}
-                                <span class="text-danger">Preferred Size 200 X 200</span>
+                                {{ Form::file('logo', ['class' => 'form-control crop-input', 'required' => 'true', 'id' => 'logo', 'accept' => '.png, .jpeg, .jpg, .gif', 'data-aspect-ratio' => 290 / 210]) }}
+                                <span class="text-danger">Preferred Size 290 X 210</span>
                             </div>
                         </div>
                         <div class="col-md-6 mb-2" style="display: none;">
