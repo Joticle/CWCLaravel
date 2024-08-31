@@ -39,7 +39,7 @@
                                 <span class="text-danger">Preferred Size 200 X 200</span>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-2">
+                        <div class="col-md-6 mb-2" style="display: none;">
                             <div class="form-group">
                                 <label class="text-label">Course Syllabus</label>
                                 {{ Form::file('syllabuses[]', ['class' => 'form-control', 'id' => 'syllabuses', 'accept' => '.pdf,.doc,.docx,.txt,.odt,.rtf,.xls,.xlsx,.csv,.ods', 'multiple' => true]) }}
