@@ -27,6 +27,39 @@
                 <ul aria-expanded="false" class="collapse">
                     <li><a href="{{ route('admin.cms.list') }}">All Pages</a></li>
                     <li><a href="{{ route('admin.cms.add') }}">Add New Page</a></li>
+                    <li class="@if (in_array(request()->route()->getName(), ['admin.tags.index', 'admin.tag.create'])) mm-active @endif">
+                        <a class="ai-icon" href="{{ route('admin.tags.index') }}" aria-expanded="true">
+                            <i class="flaticon-381-file-2"></i>
+                            <span class="nav-text">Tags</span>
+                            <span class="nav-text fa fa-chevron-down float-right"></span> <!-- Collapsible icon -->
+                        </a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{ route('admin.tags.index') }}">All Tags</a></li>
+                            <li><a href="{{ route('admin.tags.create') }}">Add New Tag</a></li>
+                        </ul>
+                    </li>
+                    <li class="@if (str_contains(request()->route()->getName(), 'admin.banner')) mm-active @endif">
+                        <a class="ai-icon" href="{{ route('admin.banner.list') }}" aria-expanded="true">
+                            <i class="flaticon-381-file-2"></i>
+                            <span class="nav-text">Banners</span>
+                            <span class="nav-text fa fa-chevron-down float-right"></span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{ route('admin.banner.list') }}">All Banners</a></li>
+                            <li><a href="{{ route('admin.banner.add') }}">Add New Banner</a></li>
+                        </ul>
+                    </li>
+                    <li class="@if (str_contains(request()->route()->getName(), 'admin.trust')) mm-active @endif">
+                        <a class="ai-icon" href="{{ route('admin.trust.list') }}" aria-expanded="true">
+                            <i class="flaticon-381-file-2"></i>
+                            <span class="nav-text">Trusties</span>
+                            <span class="nav-text fa fa-chevron-down float-right"></span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{ route('admin.trust.list') }}">All Trusties</a></li>
+                            <li><a href="{{ route('admin.trust.add') }}">Add Trustie</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
             <li class="@if (str_contains(request()->route()->getName(), 'admin.connection')) mm-active @endif">
@@ -38,6 +71,17 @@
                 <ul aria-expanded="false" class="collapse">
                     <li><a href="{{ route('admin.connection.list') }}">All Connections</a></li>
                     <li><a href="{{ route('admin.connection.add') }}">Add New Connection</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="ai-icon" href="{{ route('admin.revenue') }}" aria-expanded="true">
+                    <i class="flaticon-381-file-2"></i>
+                    <span class="nav-text">Revenue Builder</span>
+                    <span class="nav-text fa fa-chevron-down float-right"></span>
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                    <li><a href="{{ route('admin.revenue') }}">Revenue</a></li>
+{{--                    <li><a href="{{ route('admin.connection.add') }}">Add New Connection</a></li>--}}
                 </ul>
             </li>
             <li>
@@ -107,40 +151,40 @@
                     <li><a href="{{ route('admin.student-feedback.add') }}">Add Student Feedback</a></li>
                 </ul>
             </li>
-            <li class="@if (in_array(request()->route()->getName(), ['admin.tags.index', 'admin.tag.create'])) mm-active @endif">
-                <a class="ai-icon" href="{{ route('admin.tags.index') }}" aria-expanded="true">
-                    <i class="flaticon-381-file-2"></i>
-                    <span class="nav-text">Tags</span>
-                    <span class="nav-text fa fa-chevron-down float-right"></span> <!-- Collapsible icon -->
-                </a>
-                <ul aria-expanded="false" class="collapse">
-                    <li><a href="{{ route('admin.tags.index') }}">All Tags</a></li>
-                    <li><a href="{{ route('admin.tags.create') }}">Add New Tag</a></li>
-                </ul>
-            </li>
-            <li class="@if (str_contains(request()->route()->getName(), 'admin.banner')) mm-active @endif">
-                <a class="ai-icon" href="{{ route('admin.banner.list') }}" aria-expanded="true">
-                    <i class="flaticon-381-file-2"></i>
-                    <span class="nav-text">Banners</span>
-                    <span class="nav-text fa fa-chevron-down float-right"></span>
-                </a>
-                <ul aria-expanded="false" class="collapse">
-                    <li><a href="{{ route('admin.banner.list') }}">All Banners</a></li>
-                    <li><a href="{{ route('admin.banner.add') }}">Add New Banner</a></li>
-                </ul>
-            </li>
+{{--            <li class="@if (in_array(request()->route()->getName(), ['admin.tags.index', 'admin.tag.create'])) mm-active @endif">--}}
+{{--                <a class="ai-icon" href="{{ route('admin.tags.index') }}" aria-expanded="true">--}}
+{{--                    <i class="flaticon-381-file-2"></i>--}}
+{{--                    <span class="nav-text">Tags</span>--}}
+{{--                    <span class="nav-text fa fa-chevron-down float-right"></span> <!-- Collapsible icon -->--}}
+{{--                </a>--}}
+{{--                <ul aria-expanded="false" class="collapse">--}}
+{{--                    <li><a href="{{ route('admin.tags.index') }}">All Tags</a></li>--}}
+{{--                    <li><a href="{{ route('admin.tags.create') }}">Add New Tag</a></li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
+{{--            <li class="@if (str_contains(request()->route()->getName(), 'admin.banner')) mm-active @endif">--}}
+{{--                <a class="ai-icon" href="{{ route('admin.banner.list') }}" aria-expanded="true">--}}
+{{--                    <i class="flaticon-381-file-2"></i>--}}
+{{--                    <span class="nav-text">Banners</span>--}}
+{{--                    <span class="nav-text fa fa-chevron-down float-right"></span>--}}
+{{--                </a>--}}
+{{--                <ul aria-expanded="false" class="collapse">--}}
+{{--                    <li><a href="{{ route('admin.banner.list') }}">All Banners</a></li>--}}
+{{--                    <li><a href="{{ route('admin.banner.add') }}">Add New Banner</a></li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
 
-            <li class="@if (str_contains(request()->route()->getName(), 'admin.trust')) mm-active @endif">
-                <a class="ai-icon" href="{{ route('admin.trust.list') }}" aria-expanded="true">
-                    <i class="flaticon-381-file-2"></i>
-                    <span class="nav-text">Trusties</span>
-                    <span class="nav-text fa fa-chevron-down float-right"></span>
-                </a>
-                <ul aria-expanded="false" class="collapse">
-                    <li><a href="{{ route('admin.trust.list') }}">All Trusties</a></li>
-                    <li><a href="{{ route('admin.trust.add') }}">Add Trustie</a></li>
-                </ul>
-            </li>
+{{--            <li class="@if (str_contains(request()->route()->getName(), 'admin.trust')) mm-active @endif">--}}
+{{--                <a class="ai-icon" href="{{ route('admin.trust.list') }}" aria-expanded="true">--}}
+{{--                    <i class="flaticon-381-file-2"></i>--}}
+{{--                    <span class="nav-text">Trusties</span>--}}
+{{--                    <span class="nav-text fa fa-chevron-down float-right"></span>--}}
+{{--                </a>--}}
+{{--                <ul aria-expanded="false" class="collapse">--}}
+{{--                    <li><a href="{{ route('admin.trust.list') }}">All Trusties</a></li>--}}
+{{--                    <li><a href="{{ route('admin.trust.add') }}">Add Trustie</a></li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
 
             <li>
                 <a class="ai-icon" href="{{route('admin.header.menus')}}">

@@ -8,6 +8,7 @@ use App\Http\Controllers\Backoffice\ContentTypeController;
 use App\Http\Controllers\Backoffice\CourseController;
 use App\Http\Controllers\Backoffice\CourseMaterialController;
 use App\Http\Controllers\Backoffice\CourseModuleController;
+use App\Http\Controllers\Backoffice\RevenueController;
 use App\Http\Controllers\Backoffice\StudentsFeedbackController;
 use App\Http\Controllers\Backoffice\TagController;
 use App\Http\Controllers\Backoffice\ConnectionController;
@@ -226,7 +227,8 @@ Route::group(['middleware' => 'web'], function () {
                 Route::post('setting', [SettingController::class, 'storeSetting'])->name('store-setting');
                 Route::post('store-social-profiles', [SettingController::class, 'storeSocialProfiles'])->name('store-social-profiles');
 
-            });
+                Route::get('/revenue',[RevenueController::class,'index'])->name('revenue');
+             });
         });
     });
 });
