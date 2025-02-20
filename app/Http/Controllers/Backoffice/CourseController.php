@@ -151,4 +151,11 @@ class CourseController extends Controller
         }
         return ['items' => $data];
     }
+
+    public function show($id)
+    {
+        $course = Course::with('enrollments.user')->findOrFail($id);
+
+        return view('backoffice.courses.show', compact('course'));
+    }
 }

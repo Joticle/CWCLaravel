@@ -21,13 +21,19 @@ class RevenueController extends Controller
         ];
 
         $data['total_revenue'] = CourseEnroll::where('status', 'Paid')->sum('amount');
+        $data['total_users'] = User::all()->count();
+        $data['total_courses'] = Course::all()->count();
 
         $search = $request->input('search');
+        $course_id = $request->input('course_id');
+        $user_id = $request->input('user_id');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
 
         $query = CourseEnroll::where('status', 'Paid')
             ->where('payment_id', '!=', null)
-            ->whereHas('course', function ($query) {
-                $query->whereNull('deleted_at');
+            ->whereHas('course', function ($q) {
+                $q->whereNull('deleted_at');
             })
             ->with(['course', 'user']);
 
@@ -35,20 +41,28 @@ class RevenueController extends Controller
             $query->where(function ($q) use ($search) {
                 $q->whereHas('course', function ($q) use ($search) {
                     $q->where('name', 'LIKE', "%$search%");
-                })
-                    ->orWhereHas('user', function ($q) use ($search) {
-                        $q->where('name', 'LIKE', "%$search%");
-                    });
+                })->orWhereHas('user', function ($q) use ($search) {
+                    $q->where('name', 'LIKE', "%$search%");
+                });
             });
+        }
+
+        if (!empty($course_id)) {
+            $query->where('course_id', $course_id);
+        }
+
+        if (!empty($user_id)) {
+            $query->where('user_id', $user_id);
+        }
+
+        if (!empty($start_date) && !empty($end_date)) {
+            $query->whereBetween('created_at', [$start_date, $end_date]);
         }
 
         $data['courses'] = $query->paginate(env('RECORD_PER_PAGE', 10));
 
-        return view('backoffice.revenue.list', compact('data', 'search'));
+        return view('backoffice.revenue.list', compact('data', 'search', 'course_id', 'user_id', 'start_date', 'end_date'));
     }
-
-
-
 
 
 
