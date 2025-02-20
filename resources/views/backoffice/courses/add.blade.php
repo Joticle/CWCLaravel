@@ -48,7 +48,7 @@
                         <div class="col-md-12 mb-2">
                             <div class="form-group">
                                 <label class="text-label">Course Description</label>
-                                {{ Form::textarea('description', '',['class' => 'form-control', 'id' => 'description']) }}
+                                {{ Form::textarea('description', '',['class' => 'form-control tiny', 'id' => 'description']) }}
                             </div>
                         </div>
                         <div class="col-md-6 mb-2">
