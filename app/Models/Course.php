@@ -38,4 +38,10 @@ class Course extends Model
         'certificate_issued'
     ];
 
+    public function enrollments()
+    {
+        return $this->hasMany(CourseEnroll::class, 'course_id', 'id');
+    }
+
+
 }

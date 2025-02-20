@@ -125,4 +125,15 @@ class UsersController extends Controller
         Permisions::updateOrCreate(['role'=>$data['role']],$data);
         return redirect()->back()->with('success','Permissions Set Successfully.');
     }
+
+    public function show($id)
+    {
+        $user = User::with(['courseEnrolls.course' => function ($query) {
+            $query->whereNull('deleted_at'); // Exclude soft-deleted courses
+        }])->findOrFail($id);
+
+        return view('backoffice.users.show', compact('user'));
+    }
+
+
 }

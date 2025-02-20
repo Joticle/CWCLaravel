@@ -17,6 +17,7 @@ use App\Http\Controllers\Backoffice\CourseSyllabusController;
 use App\Http\Controllers\Backoffice\MenuController;
 use App\Http\Controllers\Backoffice\SettingController;
 use App\Http\Controllers\Backoffice\TrustController;
+use App\Http\Controllers\Backoffice\UsersController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardCourseController;
 use App\Http\Controllers\FrontEndController;
@@ -228,6 +229,8 @@ Route::group(['middleware' => 'web'], function () {
                 Route::post('store-social-profiles', [SettingController::class, 'storeSocialProfiles'])->name('store-social-profiles');
 
                 Route::get('/revenue',[RevenueController::class,'index'])->name('revenue');
+                Route::get('/course/{id}', [CourseController::class, 'show'])->name('course.show');
+                Route::get('/user/{id}', [UsersController::class, 'show'])->name('user.show');
              });
         });
     });
