@@ -23,8 +23,9 @@ class RevenueController extends Controller
         $data['total_revenue'] = CourseEnroll::where('status', 'Paid')->whereNotNull('payment_id')->whereHas('course')->sum('amount');
         $data['total_users'] = User::count();
         $data['total_courses'] = Course::count();
+        $data['total_paid_courses'] = Course::where('price', ">",0)->count();
 
-        $data['all_courses'] = Course::all();
+        $data['all_courses'] = Course::all()->where('price', ">",0);
         $data['all_users'] = User::all();
 
         // Get filter values
