@@ -73,9 +73,9 @@
                             <div class="col-md-3">
                                 <select name="course_id" class="form-control select2">
                                     <option value="">Search by Course</option>
-                                    @foreach ($data['courses'] as $row)
-                                        <option value="{{ $row->course->id }}" {{ request('course_id') == $row->course->id ? 'selected' : '' }}>
-                                            {{ $row->course->name ?? 'N/A' }}
+                                    @foreach ($data['all_courses'] as $course)
+                                        <option value="{{ $course->id }}" {{ request('course_id') == $course->id ? 'selected' : '' }}>
+                                            {{ $course->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -84,9 +84,9 @@
                             <div class="col-md-3">
                                 <select name="user_id" class="form-control select2">
                                     <option value="">Search by User</option>
-                                    @foreach ($data['courses'] as $row)
-                                        <option value="{{ $row->user->id }}" {{ request('user_id') == $row->user->id ? 'selected' : '' }}>
-                                            {{ $row->user->name ?? 'N/A' }}
+                                    @foreach ($data['all_users'] as $user)
+                                        <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
+                                            {{ $user->name }}
                                         </option>
                                     @endforeach
                                 </select>

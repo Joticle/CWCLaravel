@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backoffice;
 
 use App\Models\Cases;
+use App\Models\Course;
 use App\Models\Faqs;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class AdminController extends Controller
     public function index()
     {
         $data = [];
-
+        $data['total_courses'] = Course::count();
         return view('backoffice.dashboard',$data);
     }
     function logout(){
