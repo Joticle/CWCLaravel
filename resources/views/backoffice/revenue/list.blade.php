@@ -54,7 +54,7 @@
                             <i class="flaticon-381-user-2"></i>
                         </span>
                         <div class="media-body text-white text-right">
-                            <p class="mb-1">Total Paid Courses</p>
+                            <p class="mb-1">Paid Courses</p>
                             <h3 class="text-white">{{ $data['total_paid_courses'] }}</h3>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                             <i class="flaticon-381-user-2"></i>
                         </span>
                         <div class="media-body text-white text-right">
-                            <p class="mb-1">Total Courses</p>
-                            <h3 class="text-white">{{ $data['total_courses'] }}</h3>
+                            <p class="mb-1">Free Courses</p>
+                            <h3 class="text-white">{{ $data['total_free_courses'] }}</h3>
                         </div>
                     </div>
                 </div>

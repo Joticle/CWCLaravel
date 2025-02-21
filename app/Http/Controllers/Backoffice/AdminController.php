@@ -33,8 +33,8 @@ class AdminController extends Controller
     public function index()
     {
         $data = [];
-        $data['total_paid_courses'] = Course::where('price', ">",0)->count();
-        $data['total_courses'] = Course::count();
+        $data['total_paid_courses'] = Course::where('price', '>', 0)->count();
+        $data['total_free_courses'] = Course::where('price', '=', 0)->count();
         return view('backoffice.dashboard',$data);
     }
     function logout(){
