@@ -84,11 +84,11 @@
             <div class="card">
                 <div class="card-header">
                     <form action="{{ route('admin.revenue') }}" method="GET" class="w-100">
-                        <div class="row">
+                        <div class="d-flex flex-wrap align-items-center gap-2">
                             <div class="col-md-3">
                                 <select name="course_id" class="form-control select2">
                                     <option value="">Search by Course</option>
-                                    @foreach ($data['all_courses'] as $course)
+                                    @foreach ($data['filtered_courses'] as $course)
                                         <option value="{{ $course->id }}" {{ request('course_id') == $course->id ? 'selected' : '' }}>
                                             {{ $course->name }}
                                         </option>
@@ -99,7 +99,7 @@
                             <div class="col-md-3">
                                 <select name="user_id" class="form-control select2">
                                     <option value="">Search by User</option>
-                                    @foreach ($data['all_users'] as $user)
+                                    @foreach ($data['filtered_users'] as $user)
                                         <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
                                             {{ $user->name }}
                                         </option>
@@ -114,8 +114,9 @@
                                 <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
                             </div>
 
-                            <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary w-100">Apply</button>
+                            <div class="col-md-2 d-flex gap-2">
+                                <button type="submit" class="btn btn-primary mr-2">Apply</button>
+                                <a href="{{ route('admin.revenue') }}" class="btn btn-secondary">Reset</a>
                             </div>
                         </div>
                     </form>

@@ -20,32 +20,22 @@ class RevenueController extends Controller
             'Paid Courses' => ''
         ];
 
-        $data['total_revenue'] = CourseEnroll::where('status', 'Paid')->whereNotNull('payment_id')->whereHas('course')->sum('amount');
+        $data['total_revenue'] = CourseEnroll::where('status', 'Paid')
+            ->whereNotNull('payment_id')
+            ->whereHas('course')
+            ->sum('amount');
+
         $data['total_users'] = User::count();
         $data['total_paid_courses'] = Course::where('price', '>', 0)->count();
         $data['total_free_courses'] = Course::where('price', '=', 0)->count();
 
-        $data['all_courses'] = Course::where('price', '>', 0)->get();
-        $data['all_users'] = User::all();
-
         // Get filter values
-        $search = $request->input('search');
         $course_id = $request->input('course_id');
         $user_id = $request->input('user_id');
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
 
         $query = CourseEnroll::where('status', 'Paid')->whereNotNull('payment_id')->whereHas('course');
-
-        if (!empty($search)) {
-            $query->where(function ($q) use ($search) {
-                $q->whereHas('course', function ($q) use ($search) {
-                    $q->where('name', 'LIKE', "%$search%");
-                })->orWhereHas('user', function ($q) use ($search) {
-                    $q->where('name', 'LIKE', "%$search%");
-                });
-            });
-        }
 
         if (!empty($course_id)) {
             $query->where('course_id', $course_id);
@@ -61,7 +51,15 @@ class RevenueController extends Controller
 
         $data['courses'] = $query->paginate(env('RECORD_PER_PAGE', 10));
 
-        return view('backoffice.revenue.list', compact('data', 'search', 'course_id', 'user_id', 'start_date', 'end_date'));
+        // Get filtered course and user lists based on enrolled records
+        $filteredCourseIds = $query->pluck('course_id')->unique();
+        $filteredUserIds = $query->pluck('user_id')->unique();
+
+        $data['filtered_courses'] = Course::whereIn('id', $filteredCourseIds)->get();
+        $data['filtered_users'] = User::whereIn('id', $filteredUserIds)->get();
+
+        return view('backoffice.revenue.list', compact('data', 'course_id', 'user_id', 'start_date', 'end_date'));
     }
+
 }
 
